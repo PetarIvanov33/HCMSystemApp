@@ -4,6 +4,7 @@ using HCMSystemApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HCMSystemApp.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250729121942_SeedFinalData")]
+    partial class SeedFinalData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,20 +79,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DepartmentId = 1,
-                            UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DepartmentId = 1,
-                            UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1"
-                        });
                 });
 
             modelBuilder.Entity("HCMSystemApp.Infrastructure.Data.Entities.Manager", b =>
@@ -375,7 +364,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "8d04dce2-969a-435d-bba4-df3f325983dc",
                             AccessFailedCount = 0,
                             Age = 40,
-                            ConcurrencyStamp = "9e4c69c6-c744-4822-99b3-4ecbbff39117",
+                            ConcurrencyStamp = "3dd4d1fd-4782-48dd-a702-9b8a5fab91ba",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -383,9 +372,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBWu15qCgxRBl3Ml+PFPCwSp96q/+Jt4aOQyu/mAu9CHfXDIxRGOa49ZSKRyBUJ2Yw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH7a1BuhkpyMGvwZNMCkX4HK+0lzQmVevj243Gz46XI8ar5XD2r6KxXweIVXSm3+pg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2a063be2-d9f2-4fce-ba49-a2a17a94b4d4",
+                            SecurityStamp = "3ceb8bee-079b-4766-bacd-e69aa6148ca6",
                             TwoFactorEnabled = false,
                             UserName = "admin@example.com"
                         },
@@ -394,7 +383,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6",
                             AccessFailedCount = 0,
                             Age = 35,
-                            ConcurrencyStamp = "d720a968-e21d-4277-9e65-66118932de02",
+                            ConcurrencyStamp = "ab1d0437-3698-4110-b40d-ffd68d87f1fa",
                             Email = "manager@example.com",
                             EmailConfirmed = true,
                             FirstName = "Manager",
@@ -402,9 +391,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@EXAMPLE.COM",
                             NormalizedUserName = "MANAGER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEElEt+M+WFU0jpQQdCDp7u9xSz7WJsrCLAWirRqOjg4WCf9Injiqz3i8fwELkDP6Qg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENSVXS8EzrNPNAseJfIbgwSLQav95b3RTRCMyqqIIk6s6eSKLCdczRFPVtObyB8FZw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "318352cd-fb0b-42ca-9a5e-5d4cac94914b",
+                            SecurityStamp = "d7e3ecc5-90ad-4cf7-8c57-20c0bb442e83",
                             TwoFactorEnabled = false,
                             UserName = "manager@example.com"
                         },
@@ -413,7 +402,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9",
                             AccessFailedCount = 0,
                             Age = 28,
-                            ConcurrencyStamp = "c6a794d4-2e3c-4534-bd10-ee3d532e3087",
+                            ConcurrencyStamp = "6a7a8a5e-1d48-4d4c-bafc-2de2a6cfb616",
                             Email = "employee1@example.com",
                             EmailConfirmed = true,
                             FirstName = "Ivan",
@@ -421,9 +410,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE1@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENfPgQ1VEqklhtpupp6d7Sgto8ZkvFN31Z58zP3cESzJqeh6guddtrlOmTMXEERIbQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHG4FReGRiUWYK5rqD32mi4GE6TCFDvH9Zjyyh2wv/4VPYLk18tAHYvk4GYwhy4raQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a8f6b209-fe9f-411b-8e86-606738c802c9",
+                            SecurityStamp = "b7839534-e496-4b51-9042-508ca7f1a80d",
                             TwoFactorEnabled = false,
                             UserName = "employee1@example.com"
                         },
@@ -432,7 +421,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1",
                             AccessFailedCount = 0,
                             Age = 30,
-                            ConcurrencyStamp = "88f9c0e2-4a3e-4cea-a32e-ec33164a0f26",
+                            ConcurrencyStamp = "c6f4cb3e-c122-4348-a660-08edf67c0aff",
                             Email = "employee2@example.com",
                             EmailConfirmed = true,
                             FirstName = "Georgi",
@@ -440,9 +429,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE2@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKAUi9rMHcJsJ9bRRQxvKHqnyyZRX1wUbcM5/fZxwike/qTGZ9ltBgK9GiWyST26ww==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEABwwsdELH95kweURbBYaZHwIsRwyb4qpsrpFLMuHJxByjnAfflTXGOeRqDp9GqLRg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2a35bad3-c747-419e-9270-e5bd0dfb8ba3",
+                            SecurityStamp = "a5fdc2e8-07a4-4f9b-ba95-bf4a464a2e08",
                             TwoFactorEnabled = false,
                             UserName = "employee2@example.com"
                         });

@@ -4,6 +4,7 @@ using HCMSystemApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HCMSystemApp.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250729112653_SeedUserRoles")]
+    partial class SeedUserRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,14 +47,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Departments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ManagerId = 1,
-                            Name = "Software Development"
-                        });
                 });
 
             modelBuilder.Entity("HCMSystemApp.Infrastructure.Data.Entities.Employee", b =>
@@ -76,20 +71,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DepartmentId = 1,
-                            UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DepartmentId = 1,
-                            UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1"
-                        });
                 });
 
             modelBuilder.Entity("HCMSystemApp.Infrastructure.Data.Entities.Manager", b =>
@@ -109,13 +90,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Managers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            UserId = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6"
-                        });
                 });
 
             modelBuilder.Entity("HCMSystemApp.Infrastructure.Data.Entities.Payroll", b =>
@@ -157,41 +131,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Payrolls");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Bonus = 500.00m,
-                            IssuedOn = new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NetAmount = 4750.00m,
-                            Period = "01-2025",
-                            SalaryId = 1,
-                            TaxAmount = 750.00m,
-                            UserId = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Bonus = 200.00m,
-                            IssuedOn = new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NetAmount = 2920.00m,
-                            Period = "01-2025",
-                            SalaryId = 2,
-                            TaxAmount = 480.00m,
-                            UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Bonus = 250.00m,
-                            IssuedOn = new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NetAmount = 3140.00m,
-                            Period = "01-2025",
-                            SalaryId = 3,
-                            TaxAmount = 510.00m,
-                            UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1"
-                        });
                 });
 
             modelBuilder.Entity("HCMSystemApp.Infrastructure.Data.Entities.Role", b =>
@@ -270,26 +209,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Salary");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Amount = 5500.00m,
-                            UserId = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Amount = 3200.00m,
-                            UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Amount = 3400.00m,
-                            UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1"
-                        });
                 });
 
             modelBuilder.Entity("HCMSystemApp.Infrastructure.Data.Entities.User", b =>
@@ -375,7 +294,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "8d04dce2-969a-435d-bba4-df3f325983dc",
                             AccessFailedCount = 0,
                             Age = 40,
-                            ConcurrencyStamp = "9e4c69c6-c744-4822-99b3-4ecbbff39117",
+                            ConcurrencyStamp = "7a4fbda7-9962-48f6-89e6-ec3dab94a5e2",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -383,9 +302,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBWu15qCgxRBl3Ml+PFPCwSp96q/+Jt4aOQyu/mAu9CHfXDIxRGOa49ZSKRyBUJ2Yw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDV5eH5e7XbQuhdVgA1GgJmIY6dNZfpYGFph6ZcwahhnhdB2cDSS7suPDCZs7xvkrQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2a063be2-d9f2-4fce-ba49-a2a17a94b4d4",
+                            SecurityStamp = "ad042688-4a54-4990-90d4-efa58c450e1a",
                             TwoFactorEnabled = false,
                             UserName = "admin@example.com"
                         },
@@ -394,7 +313,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6",
                             AccessFailedCount = 0,
                             Age = 35,
-                            ConcurrencyStamp = "d720a968-e21d-4277-9e65-66118932de02",
+                            ConcurrencyStamp = "bcf6f879-f36e-45f6-aa0a-729ffcec28f6",
                             Email = "manager@example.com",
                             EmailConfirmed = true,
                             FirstName = "Manager",
@@ -402,9 +321,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@EXAMPLE.COM",
                             NormalizedUserName = "MANAGER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEElEt+M+WFU0jpQQdCDp7u9xSz7WJsrCLAWirRqOjg4WCf9Injiqz3i8fwELkDP6Qg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDP50x+Hf9JPJsiBD6NIxlPJeppzoAvnu3zfIZHeLbSVDkZPCIuCkgH/k7DrSW8Zbw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "318352cd-fb0b-42ca-9a5e-5d4cac94914b",
+                            SecurityStamp = "9152701b-4977-4829-95fd-113c7481fb3c",
                             TwoFactorEnabled = false,
                             UserName = "manager@example.com"
                         },
@@ -413,7 +332,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9",
                             AccessFailedCount = 0,
                             Age = 28,
-                            ConcurrencyStamp = "c6a794d4-2e3c-4534-bd10-ee3d532e3087",
+                            ConcurrencyStamp = "dee4cb20-2708-4157-81d4-3b16e91f6037",
                             Email = "employee1@example.com",
                             EmailConfirmed = true,
                             FirstName = "Ivan",
@@ -421,9 +340,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE1@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENfPgQ1VEqklhtpupp6d7Sgto8ZkvFN31Z58zP3cESzJqeh6guddtrlOmTMXEERIbQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDka60i8EkzCwptsksnq3pNjakru8gImgQ/dFb8XueckDkDyfKmrNBENLPyU94HhWw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a8f6b209-fe9f-411b-8e86-606738c802c9",
+                            SecurityStamp = "0a8efbfe-862d-4b00-b5f7-aa976dcca757",
                             TwoFactorEnabled = false,
                             UserName = "employee1@example.com"
                         },
@@ -432,7 +351,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1",
                             AccessFailedCount = 0,
                             Age = 30,
-                            ConcurrencyStamp = "88f9c0e2-4a3e-4cea-a32e-ec33164a0f26",
+                            ConcurrencyStamp = "70dce1b8-0ccf-441e-a42d-ee0027ca9c47",
                             Email = "employee2@example.com",
                             EmailConfirmed = true,
                             FirstName = "Georgi",
@@ -440,9 +359,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE2@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKAUi9rMHcJsJ9bRRQxvKHqnyyZRX1wUbcM5/fZxwike/qTGZ9ltBgK9GiWyST26ww==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENmSGl9igIBrAPyM7x26XpSmh60mW1IxBiRslm68Z7tM6TsTbYA2IJNIiEmfYGVdVQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2a35bad3-c747-419e-9270-e5bd0dfb8ba3",
+                            SecurityStamp = "0302156a-9954-4bea-ac2e-b63287507a15",
                             TwoFactorEnabled = false,
                             UserName = "employee2@example.com"
                         });
@@ -515,35 +434,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Vacations");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndDate = new DateTime(2025, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsApproved = true,
-                            Reason = "Почивка в Гърция",
-                            StartDate = new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EndDate = new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsApproved = true,
-                            Reason = "Семейна почивка",
-                            StartDate = new DateTime(2025, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EndDate = new DateTime(2025, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsApproved = true,
-                            Reason = "Лични ангажименти",
-                            StartDate = new DateTime(2025, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

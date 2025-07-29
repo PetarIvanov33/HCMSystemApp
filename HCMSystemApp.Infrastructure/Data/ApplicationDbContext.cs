@@ -47,8 +47,19 @@ namespace HCMSystemApp.Infrastructure.Data
             .OnDelete(DeleteBehavior.Restrict);
 
             // Пример: Apply Fluent API конфигурации (ще добавим после)
-            // builder.ApplyConfiguration(new EmployeeConfiguration());
-            // builder.ApplyConfiguration(new DepartmentConfiguration());
+
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new DepartmentConfiguration()); 
+            builder.ApplyConfiguration(new ManagerConfiguration());
+            builder.ApplyConfiguration(new EmployeeConfiguration());
+            builder.ApplyConfiguration(new SalaryConfiguration()); 
+            builder.ApplyConfiguration(new PayrollConfiguration());
+            builder.ApplyConfiguration(new VacationConfiguration());
+
+
+
+
         }
 
 
