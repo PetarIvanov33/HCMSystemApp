@@ -1,3 +1,5 @@
+using HCMSystemApp.Core.Contracts;
+using HCMSystemApp.Core.Services;
 using HCMSystemApp.Infrastructure.Data;
 using HCMSystemApp.Infrastructure.Data.Common;
 using HCMSystemApp.Infrastructure.Data.Entities;
@@ -12,7 +14,7 @@ namespace HCMSystemApp.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // ?? Свързване с база данни
+            // Conecting with database
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -20,11 +22,13 @@ namespace HCMSystemApp.Web
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddScoped<IRepository, Repository>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IRoleService,  RoleService>();
 
-            // ?? Debug помощ при грешки
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            // ?? Регистрация на Identity с custom User и Role
+            // Identity with custom User & Role
             builder.Services.AddIdentity<User, Role>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
@@ -32,13 +36,13 @@ namespace HCMSystemApp.Web
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-            // ??? MVC + Razor
+            // MVC + Razor
             builder.Services.AddControllersWithViews();
-            //builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages(); //!!!
 
             var app = builder.Build();
 
-            // ?? Middleware конфигурация
+            // Middleware configuration
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
@@ -46,8 +50,10 @@ namespace HCMSystemApp.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                
                 app.UseHsts();
             }
+            app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -14,7 +14,7 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
         [StringLength(100)]
         public string Description { get; set; } = string.Empty;
 
-        // Навигационна връзка към UserRoles (ако използваш собствена таблица)
+       
         public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
 }

@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Page Not Found";
+}
+
+<style>
+    body {
+        background-image: url('https://previews.123rf.com/images/funtap/funtap2002/funtap200200232/140540541-social-network-people-icons-hr-human-resources-on-blurred-office-background-universal-wallpaper.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .error-container {
+        background-color: rgba(255, 255, 255, 0.93);
+        border-radius: 16px;
+        padding: 50px;
+        max-width: 700px;
+        margin: 100px auto;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .error-code {
+        font-size: 96px;
+        font-weight: 900;
+        color: #dc3545;
+    }
+
+    .error-message {
+        font-size: 28px;
+        font-weight: 600;
+        color: #222;
+        margin-top: 10px;
+    }
+
+    .error-description {
+        font-size: 18px;
+        color: #555;
+        margin: 20px 0;
+    }
+
+    .btn-home {
+        padding: 12px 28px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="error-container">
+    <div class="error-code">404</div>
+    <div class="error-message">Page Not Found</div>
+    <div class="error-description">
+        The page you're looking for doesn't exist or has been moved.<br />
+        If you believe this is a mistake, please contact your HR administrator.
+    </div>
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary btn-home">Go to Home</a>
+</div>

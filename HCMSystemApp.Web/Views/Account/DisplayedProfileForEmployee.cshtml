@@ -1,0 +1,74 @@
+﻿@using HCMSystemApp.Core.Models
+@model DisplayedUserModel
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<style>
+    body {
+        background-image: url('https://previews.123rf.com/images/funtap/funtap2002/funtap200200232/140540541-social-network-people-icons-hr-human-resources-on-blurred-office-background-universal-wallpaper.jpg');
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+
+    .profile-card {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        max-width: 800px;
+        margin: 60px auto;
+    }
+
+    .profile-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-avatar {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .profile-row {
+        margin-bottom: 15px;
+    }
+
+    .profile-label {
+        font-weight: bold;
+    }
+
+    .profile-value {
+        font-size: 1.1rem;
+    }
+</style>
+
+<div class="profile-card">
+    <div class="profile-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile Picture" class="profile-avatar" />
+        <h2 class="mt-3">@Model.FirstName @Model.LastName</h2>
+        <p class="text-muted">(@Model.UserName)</p>
+    </div>
+
+    <div class="row profile-row">
+        <div class="col-md-6 profile-label">Email:</div>
+        <div class="col-md-6 profile-value">@Model.Email</div>
+    </div>
+    <div class="row profile-row">
+        <div class="col-md-6 profile-label">Phone Number:</div>
+        <div class="col-md-6 profile-value">@Model.PhoneNumber</div>
+    </div>
+    <div class="row profile-row">
+        <div class="col-md-6 profile-label">Age:</div>
+        <div class="col-md-6 profile-value">@Model.Age</div>
+    </div>
+    <div class="row profile-row">
+        <div class="col-md-6 profile-label">Role:</div>
+        <div class="col-md-6 profile-value">@Model.Role</div>
+    </div>
+</div>

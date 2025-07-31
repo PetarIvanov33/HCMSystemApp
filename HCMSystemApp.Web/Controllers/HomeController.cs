@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using HCMSystemApp.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HCMSystemApp.Web.Controllers
@@ -15,18 +16,63 @@ namespace HCMSystemApp.Web.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity?.IsAuthenticated == false)
+            {
+                return RedirectToAction("Start");
+            }
+            if (User.IsInRole("Employee"))
+            {
+                return RedirectToAction("HomeForEmployee");
+            }
+            if (User.IsInRole("Manager"))
+            {
+                return RedirectToAction("HomeForManager");
+            }
+
             return View();
         }
 
+
+        public IActionResult Start()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Employee")]
+        public IActionResult HomeForEmployee()
+        {
+            return View();
+        }
+
+
+        [Authorize(Roles = "Manager")]
+        public IActionResult HomeForManager()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
+
+        public IActionResult Error(int? statusCode = null)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (statusCode.HasValue)
+            {
+                if (statusCode == 404)
+                {
+                    var viewName = statusCode.ToString();
+                    return View(viewName);
+                }
+            }
+
+            return View();
         }
     }
 }

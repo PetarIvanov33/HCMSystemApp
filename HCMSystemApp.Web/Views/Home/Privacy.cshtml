@@ -1,6 +1,67 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<style>
+    body {
+        background-image: url('https://previews.123rf.com/images/funtap/funtap2002/funtap200200232/140540541-social-network-people-icons-hr-human-resources-on-blurred-office-background-universal-wallpaper.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .privacy-wrapper {
+        background-color: rgba(255, 255, 255, 0.92);
+        margin: 60px auto;
+        padding: 40px;
+        border-radius: 16px;
+        max-width: 900px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+        .privacy-wrapper h1 {
+            font-size: 36px;
+            font-weight: 800;
+            text-align: center;
+            color: #222;
+            margin-bottom: 25px;
+        }
+
+        .privacy-wrapper p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .privacy-wrapper ul {
+            font-size: 17px;
+            margin-top: 20px;
+            color: #444;
+        }
+
+        .privacy-wrapper li {
+            margin-bottom: 10px;
+        }
+</style>
+
+<div class="privacy-wrapper">
+    <h1>@ViewData["Title"]</h1>
+
+    <p>
+        At HCMSystemApp, we value your privacy. This policy outlines how we handle, store, and protect your data as part of your use of our human resource management platform.
+    </p>
+
+    <ul>
+        <li><strong>Data Collection:</strong> We collect only essential personal and employment-related data needed to provide you with HR services.</li>
+        <li><strong>Data Use:</strong> Your information is used solely for internal HR processes like payroll, vacation tracking, and performance evaluation.</li>
+        <li><strong>Access & Security:</strong> Only authorized roles (HR Admins, Managers) can view certain data based on predefined access levels.</li>
+        <li><strong>Third-party Sharing:</strong> We do not share your data with third parties unless required by law.</li>
+        <li><strong>Consent:</strong> By using this application, you consent to this privacy policy.</li>
+    </ul>
+
+    <p class="mt-4">
+        If you have questions or requests regarding your personal data, please contact your HR department.
+    </p>
+</div>

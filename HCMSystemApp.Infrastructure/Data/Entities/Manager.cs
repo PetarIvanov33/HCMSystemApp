@@ -19,7 +19,7 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
         [ForeignKey(nameof(UserId))]
         public User User { get; set; } = null!;
 
-        // Обратна връзка: един мениджър управлява един отдел (по избор)
+        
         public Department? Department { get; set; }
     }
 }

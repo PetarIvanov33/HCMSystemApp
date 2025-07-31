@@ -25,7 +25,10 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
         [Required]
         public bool IsApproved { get; set; } = false;
 
-        // 🔗 Връзка към потребителя, който е подал заявката
+        [Required]
+        public bool IsReviewed { get; set; } = false;
+
+
         [Required]
         public string UserId { get; set; } = null!;
 

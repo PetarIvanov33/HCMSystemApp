@@ -14,6 +14,9 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
         public int Id { get; set; }
 
         [Required]
+        public string Position { get; set; } = string.Empty;
+
+        [Required]
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]

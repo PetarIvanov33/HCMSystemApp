@@ -20,7 +20,7 @@ namespace HCMSystemApp.Infrastructure.Data.Configuration
                    .HasForeignKey(ur => ur.RoleId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            // ➕ Seed data за ролевите връзки:
+           
             builder.HasData(
                 new UserRole
                 {

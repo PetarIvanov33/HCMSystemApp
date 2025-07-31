@@ -1,0 +1,59 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    body {
+        background-image: url('https://previews.123rf.com/images/funtap/funtap2002/funtap200200232/140540541-social-network-people-icons-hr-human-resources-on-blurred-office-background-universal-wallpaper.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .login-container {
+        background-color: rgba(255, 255, 255, 0.92);
+        padding: 40px 30px;
+        border-radius: 12px;
+        margin-top: 100px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-title {
+        color: #000;
+        font-weight: 700;
+        font-size: 32px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="login-container">
+            <h1 class="login-title">@ViewData["Title"]</h1>
+
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.UserName" class="form-label fw-bold">Username</label>
+                    <input asp-for="@Model.UserName" class="form-control" autocomplete="username" aria-required="true" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.Password" class="form-label fw-bold">Password</label>
+                    <input asp-for="@Model.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <button id="login-submit" type="submit" class="btn btn-primary fw-bold w-100">Log In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

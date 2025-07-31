@@ -27,7 +27,7 @@ namespace HCMSystemApp.Infrastructure.Data
         {
         }
 
-        // Ако ползваш конфигурационни класове (Fluent API)
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -46,7 +46,7 @@ namespace HCMSystemApp.Infrastructure.Data
             .HasForeignKey(e => e.DepartmentId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            // Пример: Apply Fluent API конфигурации (ще добавим после)
+            //Apply Fluent API
 
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());

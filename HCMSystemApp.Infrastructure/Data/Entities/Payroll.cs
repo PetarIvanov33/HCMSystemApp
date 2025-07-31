@@ -15,7 +15,7 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
 
         [Required]
         [MaxLength(20)]
-        public string Period { get; set; } = null!; // Пример: "Юли 2025"
+        public string Period { get; set; } = null!; 
 
         [Required]
         public DateTime IssuedOn { get; set; } = DateTime.UtcNow;
@@ -29,14 +29,14 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal NetAmount { get; set; }
 
-        // 🔗 Към потребителя (служител или мениджър)
+       
         [Required]
         public string UserId { get; set; } = null!;
 
         [ForeignKey(nameof(UserId))]
         public User User { get; set; } = null!;
 
-        // 🔗 Към използваната заплата
+       
         [Required]
         public int SalaryId { get; set; }
 
