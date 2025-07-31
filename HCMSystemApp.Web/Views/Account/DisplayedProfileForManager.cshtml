@@ -1,5 +1,5 @@
 ﻿@using HCMSystemApp.Core.Models
-@model DisplayedEmployeeModel
+@model DisplayedManagerModel
 
 @{
     ViewData["Title"] = "My Profile";
@@ -58,8 +58,8 @@
 
 
     <div class="row profile-row">
-        <div class="col-md-6 profile-label">Position:</div>
-        <div class="col-md-6 profile-value">@Model.Position</div>
+        <div class="col-md-6 profile-label">Department:</div>
+        <div class="col-md-6 profile-value">@Model.DepartmentName</div>
     </div>
     <div class="row profile-row">
         <div class="col-md-6 profile-label">Email:</div>

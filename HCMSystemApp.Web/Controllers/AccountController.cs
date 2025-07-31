@@ -82,12 +82,26 @@ namespace HCMSystemApp.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Employee, Manager")]
+        [Authorize(Roles = "Employee")]
         public async Task<IActionResult> DisplayedProfileForEmployee()
         {
             try
             {
-                return View(await accountService.GetCurrentUserProfile(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+                return View(await accountService.GetCurrentEmployeeProfile(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> DisplayedProfileForManager()
+        {
+            try
+            {
+                return View(await accountService.GetCurrentManagerProfile(User.FindFirstValue(ClaimTypes.NameIdentifier)));
             }
             catch (Exception)
             {

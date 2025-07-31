@@ -1,0 +1,109 @@
+﻿@using HCMSystemApp.Core.Models.Vacation
+@model IEnumerable<VacationViewModel>
+
+@{
+    ViewData["Title"] = "My Vacations";
+}
+
+<style>
+    body {
+        background-image: url('https://static.wixstatic.com/media/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.jpg/v1/fill/w_1440,h_886,al_c,q_85,usm_0.66_1.00_0.01/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+
+    .vacation-card {
+        background-color: rgba(255, 255, 255, 0.92);
+        border-radius: 12px;
+        padding: 20px 30px;
+        margin-bottom: 25px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .vacation-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .vacation-label {
+        font-weight: bold;
+        color: #555;
+    }
+
+    .badge-status {
+        font-size: 0.95rem;
+        padding: 6px 12px;
+        border-radius: 12px;
+    }
+
+    .approved {
+        background-color: #198754;
+        color: white;
+    }
+
+    .not-approved {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .pending {
+        background-color: #ffc107;
+        color: black;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <h2 class="text-center text-dark fw-bold mb-4">My Vacation Requests</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center">
+            <p class="text-dark fs-5">You have no vacation requests yet.</p>
+        </div>
+    }
+    else
+    {
+        foreach (var vacation in Model)
+        {
+            <div class="vacation-card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><span class="vacation-label">Period:</span> @vacation.StartDate – @vacation.EndDate</p>
+                        <p><span class="vacation-label">Reason:</span> @vacation.Reason</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <span class="vacation-label">Reviewed:</span>
+                            @if (vacation.IsReviewed)
+                            {
+                                <span class="badge-status pending">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="badge-status not-approved">No</span>
+                            }
+                        </p>
+                        <p>
+                            <span class="vacation-label">Approved:</span>
+                            @if (vacation.IsApproved)
+                            {
+                                <span class="badge-status approved">Approved</span>
+                            }
+                            else if (vacation.IsReviewed)
+                            {
+                                <span class="badge-status not-approved">Rejected</span>
+                            }
+                            else
+                            {
+                                <span class="badge-status pending">Pending</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

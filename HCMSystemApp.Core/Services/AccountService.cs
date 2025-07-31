@@ -30,23 +30,88 @@ namespace HCMSystemApp.Core.Services
                 select new DisplayedUserModel
                 {
                     UserId = user.Id,
-                    //ProfileImageUrl = user.ProfileImageURL,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Age = user.Age,
                     UserName = user.UserName,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
-                    Role = role.Name
                 }).ToListAsync();
 
             return users;
         }
 
-        public async Task<DisplayedUserModel> GetCurrentUserProfile(string userId)
+        //public async Task<DisplayedEmployeeModel> GetCurrentUserProfile(string userId)
+        //{
+        //    var users = await GetAllUsersAsync();
+        //    return users.First(u => u.UserId == userId);
+        //}
+
+
+        public async Task<DisplayedEmployeeModel?> GetCurrentEmployeeProfile(string userId)
         {
-            var users = await GetAllUsersAsync();
-            return users.First(u => u.UserId == userId);
+            
+            var allUsers = await GetAllUsersAsync();
+            var currentUser = allUsers.FirstOrDefault(u => u.UserId == userId);
+
+            if (currentUser == null)
+            {
+                return null;
+            }
+
+            var employee = await repo.All<Employee>()
+                                     .FirstOrDefaultAsync(e => e.UserId == userId);
+
+            var salary = await repo.All<Salary>()
+                                   .FirstOrDefaultAsync(s => s.UserId == userId);
+
+            return new DisplayedEmployeeModel
+            {
+                UserId = currentUser.UserId,
+                UserName = currentUser.UserName,
+                FirstName = currentUser.FirstName,
+                LastName = currentUser.LastName,
+                Age = currentUser.Age,
+                Email = currentUser.Email,
+                PhoneNumber = currentUser.PhoneNumber,
+                Position = employee?.Position ?? "N/A",
+                SalaryAmount = salary?.Amount ?? 0
+            };
         }
+
+        public async Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId)
+        {
+            var allUsers = await GetAllUsersAsync();
+            var currentUser = allUsers.FirstOrDefault(u => u.UserId == userId);
+
+            if (currentUser == null)
+            {
+                return null;
+            }
+
+            var manager = await repo.All<Manager>()
+                                     .FirstOrDefaultAsync(e => e.UserId == userId);
+
+            var salary = await repo.All<Salary>()
+                                   .FirstOrDefaultAsync(s => s.UserId == userId);
+
+            var department = await repo.All<Department>()
+                                       .FirstOrDefaultAsync(d => d.ManagerId == manager.Id);
+
+            return new DisplayedManagerModel
+            {
+                UserId = currentUser.UserId,
+                UserName = currentUser.UserName,
+                FirstName = currentUser.FirstName,
+                LastName = currentUser.LastName,
+                Age = currentUser.Age,
+                Email = currentUser.Email,
+                PhoneNumber = currentUser.PhoneNumber,
+                DepartmentName = department?.Name ?? "N/A",
+                SalaryAmount = salary?.Amount ?? 0
+            };
+        }
+
+
     }
 }

@@ -318,10 +318,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9", 0, 28, "7236241f-9c4c-4d8d-8b26-a2a7ec6778d8", "employee1@example.com", true, "Ivan", "Ivanov", false, null, "EMPLOYEE1@EXAMPLE.COM", "EMPLOYEE1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEHCFmqg5jtBbVIat6+mHKU77rcJnKRbtSWirulVshiqgZmS2GMeZT/hbThRhBNQWmw==", "0881111111", false, "41fc5ac2-5742-447f-85cf-5d2c8740fa42", false, "employee1@example.com" },
-                    { "8d04dce2-969a-435d-bba4-df3f325983dc", 0, 40, "14a986db-7aaa-4bea-8281-8ed983a91716", "admin@example.com", true, "Admin", "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEE+RpsQ9ytKSs0WQ8ICGRFoNk9nDoPU4uq9b7C6EQ/mPQXuY72DvFsXOdN9hDX74nQ==", "0123456789", false, "8f1dff50-04db-40c2-b453-046d42fc9d8d", false, "admin@example.com" },
-                    { "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", 0, 30, "e2bd504a-d1ac-43b9-8696-bef608b0727b", "employee2@example.com", true, "Georgi", "Georgiev", false, null, "EMPLOYEE2@EXAMPLE.COM", "EMPLOYEE2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEGhp7EWgWIw/r2RAXLNya0cHwbB7EyL5AiZ4v303Nr8ewVR+RmAgW4ueM6GC7bhVxQ==", "0882222222", false, "72fa0f83-ae62-4d13-9e9f-9fc0aa65af2f", false, "employee2@example.com" },
-                    { "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6", 0, 35, "b10763cd-d4b5-4332-ba0a-9f6523a976c1", "manager@example.com", true, "Manager", "User", false, null, "MANAGER@EXAMPLE.COM", "MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEMKlnpO0Q+xmBLolERzrghKk23JvSYU4Cab6gXhnvA2XrQB2hRDyrSApN2xuER669A==", "0881234567", false, "eb5172c2-15c0-4def-98ee-62e4bce6c962", false, "manager@example.com" }
+                    { "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9", 0, 28, "c91ffca7-f5d9-4efa-b20b-53022cfd9245", "employee1@example.com", true, "Ivan", "Ivanov", false, null, "EMPLOYEE1@EXAMPLE.COM", "EMPLOYEE1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEBwdjyKvaELpinjZi2wrBiqFDNayJyB0ukGOOEl8ENGo0tR4hRLmo55/FXm+BEV5iw==", "0881111111", false, "12899890-d98e-471b-bc6e-265e883d26d8", false, "employee1@example.com" },
+                    { "8d04dce2-969a-435d-bba4-df3f325983dc", 0, 40, "2bbda20e-bec9-4bd7-898f-f1177e0405fe", "admin@example.com", true, "Admin", "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEHKpNLgQ0WG7S+kvPyyWdBAIBhtHijP76kS6xYi+3FkgYJadbaHkqzPVZPjdgoT13g==", "0123456789", false, "fcf37dfb-d3fc-4b19-a7cf-84ae63824bd9", false, "admin@example.com" },
+                    { "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", 0, 30, "5364e10b-3140-4cf2-af50-3e00f87e8844", "employee2@example.com", true, "Georgi", "Georgiev", false, null, "EMPLOYEE2@EXAMPLE.COM", "EMPLOYEE2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEKOVwW9QXyMl7JLZU4FLmwUxCGb6g+wK2tRT+EIxpzvVSX8c8yDcq0IF2LOytennRQ==", "0882222222", false, "f86f2c3b-a3c5-4ec5-a4ed-250d02b4d70b", false, "employee2@example.com" },
+                    { "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6", 0, 35, "b849d164-daf9-43c1-b34d-2a1e756a2e87", "manager@example.com", true, "Manager", "User", false, null, "MANAGER@EXAMPLE.COM", "MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEDmxN9CSOtrfsGAUw+D2BWW0oxI6euJim0NiBbFm3C5xIV/d3aFz3SSnndikHL7kZw==", "0881234567", false, "b3b8f6ab-070b-4bd1-925d-1e174736b798", false, "manager@example.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -355,9 +355,12 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 columns: new[] { "Id", "EndDate", "IsApproved", "IsReviewed", "Reason", "StartDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, "Почивка в Гърция", new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9" },
-                    { 2, new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, "Семейна почивка", new DateTime(2025, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" },
-                    { 3, new DateTime(2025, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, "Лични ангажименти", new DateTime(2025, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" }
+                    { 1, new DateTime(2025, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, "Почивка в Гърция", new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9" },
+                    { 2, new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, "Семейна почивка", new DateTime(2025, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" },
+                    { 3, new DateTime(2025, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, "Лични ангажименти", new DateTime(2025, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" },
+                    { 4, new DateTime(2025, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, "Екскурзия до Италия", new DateTime(2025, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9" },
+                    { 5, new DateTime(2025, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, "Почивка в планината", new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" },
+                    { 6, new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, "Конференция и кратка отпуска", new DateTime(2025, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" }
                 });
 
             migrationBuilder.InsertData(

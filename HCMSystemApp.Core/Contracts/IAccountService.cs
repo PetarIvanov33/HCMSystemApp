@@ -11,6 +11,12 @@ namespace HCMSystemApp.Core.Contracts
     public interface IAccountService
     {
         Task<IEnumerable<DisplayedUserModel>> GetAllUsersAsync();
-        Task<DisplayedUserModel> GetCurrentUserProfile(string userId);
+
+        //Task<DisplayedEmployeeModel> GetCurrentUserProfile(string userId);
+        Task<DisplayedEmployeeModel> GetCurrentEmployeeProfile(string userId);
+
+        Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId);
+
+
     }
 }

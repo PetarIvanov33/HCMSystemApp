@@ -381,7 +381,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "8d04dce2-969a-435d-bba4-df3f325983dc",
                             AccessFailedCount = 0,
                             Age = 40,
-                            ConcurrencyStamp = "14a986db-7aaa-4bea-8281-8ed983a91716",
+                            ConcurrencyStamp = "2bbda20e-bec9-4bd7-898f-f1177e0405fe",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -389,10 +389,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE+RpsQ9ytKSs0WQ8ICGRFoNk9nDoPU4uq9b7C6EQ/mPQXuY72DvFsXOdN9hDX74nQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHKpNLgQ0WG7S+kvPyyWdBAIBhtHijP76kS6xYi+3FkgYJadbaHkqzPVZPjdgoT13g==",
                             PhoneNumber = "0123456789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8f1dff50-04db-40c2-b453-046d42fc9d8d",
+                            SecurityStamp = "fcf37dfb-d3fc-4b19-a7cf-84ae63824bd9",
                             TwoFactorEnabled = false,
                             UserName = "admin@example.com"
                         },
@@ -401,7 +401,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6",
                             AccessFailedCount = 0,
                             Age = 35,
-                            ConcurrencyStamp = "b10763cd-d4b5-4332-ba0a-9f6523a976c1",
+                            ConcurrencyStamp = "b849d164-daf9-43c1-b34d-2a1e756a2e87",
                             Email = "manager@example.com",
                             EmailConfirmed = true,
                             FirstName = "Manager",
@@ -409,10 +409,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@EXAMPLE.COM",
                             NormalizedUserName = "MANAGER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMKlnpO0Q+xmBLolERzrghKk23JvSYU4Cab6gXhnvA2XrQB2hRDyrSApN2xuER669A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDmxN9CSOtrfsGAUw+D2BWW0oxI6euJim0NiBbFm3C5xIV/d3aFz3SSnndikHL7kZw==",
                             PhoneNumber = "0881234567",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "eb5172c2-15c0-4def-98ee-62e4bce6c962",
+                            SecurityStamp = "b3b8f6ab-070b-4bd1-925d-1e174736b798",
                             TwoFactorEnabled = false,
                             UserName = "manager@example.com"
                         },
@@ -421,7 +421,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9",
                             AccessFailedCount = 0,
                             Age = 28,
-                            ConcurrencyStamp = "7236241f-9c4c-4d8d-8b26-a2a7ec6778d8",
+                            ConcurrencyStamp = "c91ffca7-f5d9-4efa-b20b-53022cfd9245",
                             Email = "employee1@example.com",
                             EmailConfirmed = true,
                             FirstName = "Ivan",
@@ -429,10 +429,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE1@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHCFmqg5jtBbVIat6+mHKU77rcJnKRbtSWirulVshiqgZmS2GMeZT/hbThRhBNQWmw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBwdjyKvaELpinjZi2wrBiqFDNayJyB0ukGOOEl8ENGo0tR4hRLmo55/FXm+BEV5iw==",
                             PhoneNumber = "0881111111",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "41fc5ac2-5742-447f-85cf-5d2c8740fa42",
+                            SecurityStamp = "12899890-d98e-471b-bc6e-265e883d26d8",
                             TwoFactorEnabled = false,
                             UserName = "employee1@example.com"
                         },
@@ -441,7 +441,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1",
                             AccessFailedCount = 0,
                             Age = 30,
-                            ConcurrencyStamp = "e2bd504a-d1ac-43b9-8696-bef608b0727b",
+                            ConcurrencyStamp = "5364e10b-3140-4cf2-af50-3e00f87e8844",
                             Email = "employee2@example.com",
                             EmailConfirmed = true,
                             FirstName = "Georgi",
@@ -449,10 +449,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE2@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGhp7EWgWIw/r2RAXLNya0cHwbB7EyL5AiZ4v303Nr8ewVR+RmAgW4ueM6GC7bhVxQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKOVwW9QXyMl7JLZU4FLmwUxCGb6g+wK2tRT+EIxpzvVSX8c8yDcq0IF2LOytennRQ==",
                             PhoneNumber = "0882222222",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "72fa0f83-ae62-4d13-9e9f-9fc0aa65af2f",
+                            SecurityStamp = "f86f2c3b-a3c5-4ec5-a4ed-250d02b4d70b",
                             TwoFactorEnabled = false,
                             UserName = "employee2@example.com"
                         });
@@ -535,7 +535,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = 1,
                             EndDate = new DateTime(2025, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsApproved = true,
-                            IsReviewed = false,
+                            IsReviewed = true,
                             Reason = "Почивка в Гърция",
                             StartDate = new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9"
@@ -545,7 +545,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = 2,
                             EndDate = new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsApproved = true,
-                            IsReviewed = false,
+                            IsReviewed = true,
                             Reason = "Семейна почивка",
                             StartDate = new DateTime(2025, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1"
@@ -555,9 +555,39 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = 3,
                             EndDate = new DateTime(2025, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsApproved = true,
-                            IsReviewed = false,
+                            IsReviewed = true,
                             Reason = "Лични ангажименти",
                             StartDate = new DateTime(2025, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            EndDate = new DateTime(2025, 8, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsApproved = true,
+                            IsReviewed = true,
+                            Reason = "Екскурзия до Италия",
+                            StartDate = new DateTime(2025, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            EndDate = new DateTime(2025, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsApproved = true,
+                            IsReviewed = true,
+                            Reason = "Почивка в планината",
+                            StartDate = new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            EndDate = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsApproved = true,
+                            IsReviewed = true,
+                            Reason = "Конференция и кратка отпуска",
+                            StartDate = new DateTime(2025, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6"
                         });
                 });
