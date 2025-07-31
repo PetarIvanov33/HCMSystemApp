@@ -31,9 +31,6 @@ namespace HCMSystemApp.Web.Controllers
             return View("MyVacations", model);
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+       
     }
 }

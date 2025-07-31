@@ -318,10 +318,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9", 0, 28, "c91ffca7-f5d9-4efa-b20b-53022cfd9245", "employee1@example.com", true, "Ivan", "Ivanov", false, null, "EMPLOYEE1@EXAMPLE.COM", "EMPLOYEE1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEBwdjyKvaELpinjZi2wrBiqFDNayJyB0ukGOOEl8ENGo0tR4hRLmo55/FXm+BEV5iw==", "0881111111", false, "12899890-d98e-471b-bc6e-265e883d26d8", false, "employee1@example.com" },
-                    { "8d04dce2-969a-435d-bba4-df3f325983dc", 0, 40, "2bbda20e-bec9-4bd7-898f-f1177e0405fe", "admin@example.com", true, "Admin", "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEHKpNLgQ0WG7S+kvPyyWdBAIBhtHijP76kS6xYi+3FkgYJadbaHkqzPVZPjdgoT13g==", "0123456789", false, "fcf37dfb-d3fc-4b19-a7cf-84ae63824bd9", false, "admin@example.com" },
-                    { "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", 0, 30, "5364e10b-3140-4cf2-af50-3e00f87e8844", "employee2@example.com", true, "Georgi", "Georgiev", false, null, "EMPLOYEE2@EXAMPLE.COM", "EMPLOYEE2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEKOVwW9QXyMl7JLZU4FLmwUxCGb6g+wK2tRT+EIxpzvVSX8c8yDcq0IF2LOytennRQ==", "0882222222", false, "f86f2c3b-a3c5-4ec5-a4ed-250d02b4d70b", false, "employee2@example.com" },
-                    { "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6", 0, 35, "b849d164-daf9-43c1-b34d-2a1e756a2e87", "manager@example.com", true, "Manager", "User", false, null, "MANAGER@EXAMPLE.COM", "MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEDmxN9CSOtrfsGAUw+D2BWW0oxI6euJim0NiBbFm3C5xIV/d3aFz3SSnndikHL7kZw==", "0881234567", false, "b3b8f6ab-070b-4bd1-925d-1e174736b798", false, "manager@example.com" }
+                    { "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9", 0, 28, "b84f1c57-d33c-4510-a4fc-b4b9d1daec37", "employee1@example.com", true, "Ivan", "Ivanov", false, null, "EMPLOYEE1@EXAMPLE.COM", "EMPLOYEE1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEEDVwrZ4vuXk/875NwcVqUCzxNlnhB1kTHLumyodl9A+ykG0nhCt2MKoAvBRhouFHA==", "0881111111", false, "43d2fb24-c6dd-436b-ba14-dd1d253e8b84", false, "employee1@example.com" },
+                    { "8d04dce2-969a-435d-bba4-df3f325983dc", 0, 40, "d53e2cf3-c92f-4e6d-acdf-0c0c660b6815", "admin@example.com", true, "Admin", "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEH2buGG2le7ivov1uisFmOzhsXMC1Shsq0DrVZNzztSmXZi71qBpuXnOxQgzFpLRLg==", "0123456789", false, "58dd5119-54f5-4899-bdb9-bcb2cfb75c95", false, "admin@example.com" },
+                    { "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", 0, 30, "b4623e7c-077a-4d7b-a3fe-a3e52068e016", "employee2@example.com", true, "Georgi", "Georgiev", false, null, "EMPLOYEE2@EXAMPLE.COM", "EMPLOYEE2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEPxFI1Cb7002kBJHvfz4L86mSuIKEJyJ5+zXoI3Qd78a11A0NYTDK4ygwwEQGfFuAA==", "0882222222", false, "bc40d2d2-4c10-407b-912c-4fea6259bc64", false, "employee2@example.com" },
+                    { "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6", 0, 35, "569e873b-e2ae-474b-b22a-d05f2a3b0426", "manager@example.com", true, "Manager", "User", false, null, "MANAGER@EXAMPLE.COM", "MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAECv75UZ35MMCBq7yxZ+VoUG0aX3qgPUwD4Oh2/5nw+Thz3bYTTPkW9lwBQ9fmzpsmA==", "0881234567", false, "2488e8a9-070b-431d-8c6e-89f8dfdb984b", false, "manager@example.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -375,7 +375,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 {
                     { 1, 500.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 4750.00m, "01-2025", 1, 750.00m, "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" },
                     { 2, 200.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 2920.00m, "01-2025", 2, 480.00m, "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9" },
-                    { 3, 250.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 3140.00m, "01-2025", 3, 510.00m, "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" }
+                    { 3, 250.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 3140.00m, "01-2025", 3, 510.00m, "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" },
+                    { 4, 300.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 4720.00m, "02-2025", 1, 780.00m, "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" },
+                    { 5, 150.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 2890.00m, "02-2025", 2, 460.00m, "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9" },
+                    { 6, 300.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 3170.00m, "02-2025", 3, 530.00m, "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" }
                 });
 
             migrationBuilder.InsertData(

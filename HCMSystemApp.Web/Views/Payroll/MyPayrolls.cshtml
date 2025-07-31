@@ -1,0 +1,85 @@
+﻿@using HCMSystemApp.Core.Models.Payroll
+@model IEnumerable<PayrollViewModel>
+
+@{
+    ViewData["Title"] = "My Payrolls";
+}
+
+<style>
+    body {
+        background-image: url('https://static.wixstatic.com/media/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.jpg/v1/fill/w_1440,h_886,al_c,q_85,usm_0.66_1.00_0.01/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .payroll-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 1000px;
+        margin: 100px auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .payroll-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .payroll-item {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+    }
+
+        .payroll-item:hover {
+            transform: scale(1.02);
+            background-color: #e9f7ff;
+        }
+
+    .payroll-details strong {
+        color: #0056b3;
+    }
+
+    .no-payrolls {
+        text-align: center;
+        font-size: 1.3rem;
+        color: #666;
+        margin-top: 50px;
+    }
+</style>
+
+<div class="payroll-container">
+    <h2 class="payroll-title">My Payrolls</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="no-payrolls">
+            <p>You have no payroll records yet.</p>
+        </div>
+    }
+    else
+    {
+        foreach (var payroll in Model)
+        {
+            <div class="payroll-item">
+                <div class="payroll-details">
+                    <p><strong>Period:</strong> @payroll.Period</p>
+                    <p><strong>Issued On:</strong> @payroll.IssuedOn.ToShortDateString()</p>
+                    <p><strong>Salary Amount:</strong> @payroll.BaseSalary.ToString("C")</p>
+                    <p><strong>Bonus:</strong> @payroll.Bonus.ToString("C")</p>
+                    <p><strong>Tax:</strong> @payroll.TaxAmount.ToString("C")</p>
+                    <p><strong>Net Amount:</strong> @payroll.NetAmount.ToString("C")</p>
+                </div>
+            </div>
+        }
+    }
+</div>

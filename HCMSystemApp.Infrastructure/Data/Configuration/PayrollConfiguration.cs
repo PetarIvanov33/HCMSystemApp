@@ -42,7 +42,41 @@ namespace HCMSystemApp.Infrastructure.Data.Configuration
                     NetAmount = 3140.00m,
                     UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", // employee 2
                     SalaryId = 3
-                }
+                },
+                new Payroll
+{
+    Id = 4,
+    Period = "02-2025",
+    IssuedOn = new DateTime(2025, 2, 28),
+    Bonus = 300.00m,
+    TaxAmount = 780.00m,
+    NetAmount = 4720.00m,
+    UserId = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6", // manager
+    SalaryId = 1
+},
+new Payroll
+{
+    Id = 5,
+    Period = "02-2025",
+    IssuedOn = new DateTime(2025, 2, 28),
+    Bonus = 150.00m,
+    TaxAmount = 460.00m,
+    NetAmount = 2890.00m,
+    UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9", // employee 1
+    SalaryId = 2
+},
+new Payroll
+{
+    Id = 6,
+    Period = "02-2025",
+    IssuedOn = new DateTime(2025, 2, 28),
+    Bonus = 300.00m,
+    TaxAmount = 530.00m,
+    NetAmount = 3170.00m,
+    UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", // employee 2
+    SalaryId = 3
+}
+
             };
 
             builder.HasData(payrolls);
