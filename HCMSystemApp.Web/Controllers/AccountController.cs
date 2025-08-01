@@ -33,6 +33,49 @@ namespace HCMSystemApp.Web.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = new RegisterViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = new User
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                PhoneNumber = model.PhoneNumber,
+                Age = model.Age,
+                EmailConfirmed = true
+            };
+
+            var result = await userManager.CreateAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+
+            return View(model);
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -70,7 +113,6 @@ namespace HCMSystemApp.Web.Controllers
             }
 
             ModelState.AddModelError("", "Invalid login");
-
             return View(model);
         }
 

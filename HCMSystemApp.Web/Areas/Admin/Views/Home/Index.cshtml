@@ -1,0 +1,86 @@
+﻿@{
+   
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<style>
+    body {
+        background-image: url('https://static.wixstatic.com/media/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.jpg/v1/fill/w_1440,h_886,al_c,q_85,usm_0.66_1.00_0.01/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .dashboard-container {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 1000px;
+        margin: 100px auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .dashboard-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .dashboard-buttons .btn {
+        padding: 20px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .dashboard-buttons .btn:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+
+    .icon {
+        margin-right: 10px;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="p-4 bg-white rounded shadow text-center">
+        <h2 class="mb-4 fw-bold">Welcome to your Admin Dashboard</h2>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-5">
+                <a asp-area="Admin" asp-controller="Department" asp-action="Index"
+                   class="btn btn-primary w-100 py-3 fs-5 rounded-3">
+                    <i class="bi bi-building me-2"></i> All Departments
+                </a>
+            </div>
+
+            <div class="col-md-5">
+                <a asp-area="Admin" asp-controller="Manager" asp-action="Index"
+                   class="btn btn-success w-100 py-3 fs-5 rounded-3">
+                    <i class="bi bi-person-badge-fill me-2"></i> All Managers
+                </a>
+            </div>
+
+            <div class="col-md-5">
+                <a asp-area="Admin" asp-controller="Leave" asp-action="PendingManagerRequests"
+                   class="btn btn-danger w-100 py-3 fs-5 rounded-3">
+                    <i class="bi bi-hourglass-split me-2"></i> Pending Manager Leave Requests
+                </a>
+            </div>
+
+            <div class="col-md-5">
+                <a asp-area="Admin" asp-controller="UserVerification" asp-action="Pending"
+                   class="btn btn-warning text-dark w-100 py-3 fs-5 rounded-3">
+                    <i class="bi bi-person-check-fill me-2"></i> Pending User Verifications
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

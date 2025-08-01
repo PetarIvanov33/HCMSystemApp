@@ -28,6 +28,10 @@ namespace HCMSystemApp.Web.Controllers
             {
                 return RedirectToAction("HomeForManager");
             }
+            if (User.IsInRole("HRAdmin"))
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
 
             return View();
         }

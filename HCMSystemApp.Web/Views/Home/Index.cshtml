@@ -2,7 +2,45 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    body {
+        background-image: url('https://previews.123rf.com/images/funtap/funtap2002/funtap200200232/140540541-social-network-people-icons-hr-human-resources-on-blurred-office-background-universal-wallpaper.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .welcome-box {
+        background-color: rgba(255, 255, 255, 0.92);
+        padding: 40px 30px;
+        border-radius: 12px;
+        margin-top: 100px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .welcome-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #000;
+    }
+
+    .welcome-text {
+        font-size: 18px;
+        font-weight: 500;
+        color: #333;
+    }
+</style>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="welcome-box text-center">
+            <h1 class="welcome-title">Welcome to HCMSystemApp</h1>
+            <p class="welcome-text mt-4">
+                ✅ You have successfully registered.<br />
+                👀 An administrator is currently reviewing your profile.<br />
+                🕒 Once verified, you will gain access to the platform based on your assigned role.
+            </p>
+        </div>
+    </div>
 </div>
