@@ -22,6 +22,8 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
         [Range(0, 100)]
         public int Age { get; set; }
 
+        public bool IsVerified { get; set; } = false;
+
         public Salary? Salary { get; set; }
 
         public ICollection<Payroll> Payrolls { get; set; } = new List<Payroll>();

@@ -49,38 +49,30 @@
     }
 </style>
 
-<div class="container mt-5">
-    <div class="p-4 bg-white rounded shadow text-center">
-        <h2 class="mb-4 fw-bold">Welcome to your Admin Dashboard</h2>
 
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-5">
-                <a asp-area="Admin" asp-controller="Department" asp-action="Index"
-                   class="btn btn-primary w-100 py-3 fs-5 rounded-3">
-                    <i class="bi bi-building me-2"></i> All Departments
-                </a>
-            </div>
+<div class="dashboard-container">
+    <h2 class="dashboard-title">Welcome to your Admin Dashboard</h2>
 
-            <div class="col-md-5">
-                <a asp-area="Admin" asp-controller="Manager" asp-action="Index"
-                   class="btn btn-success w-100 py-3 fs-5 rounded-3">
-                    <i class="bi bi-person-badge-fill me-2"></i> All Managers
-                </a>
-            </div>
-
-            <div class="col-md-5">
-                <a asp-area="Admin" asp-controller="Leave" asp-action="PendingManagerRequests"
-                   class="btn btn-danger w-100 py-3 fs-5 rounded-3">
-                    <i class="bi bi-hourglass-split me-2"></i> Pending Manager Leave Requests
-                </a>
-            </div>
-
-            <div class="col-md-5">
-                <a asp-area="Admin" asp-controller="UserVerification" asp-action="Pending"
-                   class="btn btn-warning text-dark w-100 py-3 fs-5 rounded-3">
-                    <i class="bi bi-person-check-fill me-2"></i> Pending User Verifications
-                </a>
-            </div>
+    <div class="row dashboard-buttons">
+        <div class="col-md-6">
+            <a class="btn btn-primary" asp-area="Admin" asp-controller="Department" asp-action="Index">
+                <i class="bi bi-person icon"></i> All Departments
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-success" asp-area="Admin" asp-controller="Manager" asp-action="Index">
+                <i class="bi bi-calendar-check icon"></i> All Managers
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-warning text-white" asp-area="Admin" asp-controller="Leave" asp-action="PendingManagerRequests">
+                <i class="bi bi-calendar-plus icon"></i> Pending Manager Leave Requests
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-info text-white" asp-area="Admin" asp-controller="AccountAdmin" asp-action="PendingUsers">
+                <i class="bi bi-cash-stack icon"></i> Pending User Verifications
+            </a>
         </div>
     </div>
 </div>

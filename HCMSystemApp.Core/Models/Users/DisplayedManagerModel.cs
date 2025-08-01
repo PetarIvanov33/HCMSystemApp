@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCMSystemApp.Core.Models
+namespace HCMSystemApp.Core.Models.Users
 {
     public class DisplayedManagerModel
     {

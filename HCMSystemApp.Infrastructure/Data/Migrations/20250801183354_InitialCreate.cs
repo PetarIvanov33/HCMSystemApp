@@ -36,6 +36,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
+                    IsVerified = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -315,13 +316,13 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "IsVerified", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9", 0, 28, "b84f1c57-d33c-4510-a4fc-b4b9d1daec37", "employee1@example.com", true, "Ivan", "Ivanov", false, null, "EMPLOYEE1@EXAMPLE.COM", "EMPLOYEE1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEEDVwrZ4vuXk/875NwcVqUCzxNlnhB1kTHLumyodl9A+ykG0nhCt2MKoAvBRhouFHA==", "0881111111", false, "43d2fb24-c6dd-436b-ba14-dd1d253e8b84", false, "employee1@example.com" },
-                    { "8d04dce2-969a-435d-bba4-df3f325983dc", 0, 40, "d53e2cf3-c92f-4e6d-acdf-0c0c660b6815", "admin@example.com", true, "Admin", "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEH2buGG2le7ivov1uisFmOzhsXMC1Shsq0DrVZNzztSmXZi71qBpuXnOxQgzFpLRLg==", "0123456789", false, "58dd5119-54f5-4899-bdb9-bcb2cfb75c95", false, "admin@example.com" },
-                    { "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", 0, 30, "b4623e7c-077a-4d7b-a3fe-a3e52068e016", "employee2@example.com", true, "Georgi", "Georgiev", false, null, "EMPLOYEE2@EXAMPLE.COM", "EMPLOYEE2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEPxFI1Cb7002kBJHvfz4L86mSuIKEJyJ5+zXoI3Qd78a11A0NYTDK4ygwwEQGfFuAA==", "0882222222", false, "bc40d2d2-4c10-407b-912c-4fea6259bc64", false, "employee2@example.com" },
-                    { "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6", 0, 35, "569e873b-e2ae-474b-b22a-d05f2a3b0426", "manager@example.com", true, "Manager", "User", false, null, "MANAGER@EXAMPLE.COM", "MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAECv75UZ35MMCBq7yxZ+VoUG0aX3qgPUwD4Oh2/5nw+Thz3bYTTPkW9lwBQ9fmzpsmA==", "0881234567", false, "2488e8a9-070b-431d-8c6e-89f8dfdb984b", false, "manager@example.com" }
+                    { "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9", 0, 28, "68c27a49-6ce5-4935-a287-60e10f8b8244", "employee1@example.com", true, "Ivan", true, "Ivanov", false, null, "EMPLOYEE1@EXAMPLE.COM", "EMPLOYEE1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEFDNAg3QRAdpf+kVZH7tEW4buYAenAlrNIdPqcF+AJecUgYmWp8PClLvfbFkJdmsmQ==", "0881111111", false, "9af27f8f-92dc-4eca-8da8-b7d6583e6a98", false, "employee1@example.com" },
+                    { "8d04dce2-969a-435d-bba4-df3f325983dc", 0, 40, "883f1549-5212-4639-9909-9d2166e00315", "admin@example.com", true, "Admin", true, "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEF3QcwhixZXQBUgRXYH7Dq6HT7Xy/qPLKcelakQMGV1mORFBP9vKNixYH0DlivsdwQ==", "0123456789", false, "ce522f70-f80a-4670-9df4-a6aadb1aa6db", false, "admin@example.com" },
+                    { "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", 0, 30, "558467cd-e66d-4064-bfae-24a89efa35bc", "employee2@example.com", true, "Georgi", true, "Georgiev", false, null, "EMPLOYEE2@EXAMPLE.COM", "EMPLOYEE2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEPKi7vbR0Hr5hcepqv4XmhA/DeWWN6hC2OoDcJVn5FiidozCaKiZtooEIr+nw1n2Sg==", "0882222222", false, "461934d3-963c-4061-943d-3f931a67f544", false, "employee2@example.com" },
+                    { "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6", 0, 35, "ddd32c13-ef4a-44ae-bc13-891d2776e4ea", "manager@example.com", true, "Manager", true, "User", false, null, "MANAGER@EXAMPLE.COM", "MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEMtDCr0/wwoLlz1ucH1qhM+figZtHQ3ezi0217qpXSqA6QLFJ7kHUf5myl354KM9KQ==", "0881234567", false, "f021eeb0-584c-4943-aff5-72b4342222f4", false, "manager@example.com" }
                 });
 
             migrationBuilder.InsertData(

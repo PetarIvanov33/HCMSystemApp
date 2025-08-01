@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HCMSystemApp.Core.Contracts;
-using HCMSystemApp.Core.Models;
+using HCMSystemApp.Core.Models.Users;
 using HCMSystemApp.Infrastructure.Data.Common;
 using HCMSystemApp.Infrastructure.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCMSystemApp.Core.Services
@@ -36,6 +37,7 @@ namespace HCMSystemApp.Core.Services
                     UserName = user.UserName,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
+                    IsVerified = user.IsVerified
                 }).ToListAsync();
 
             return users;
@@ -110,6 +112,28 @@ namespace HCMSystemApp.Core.Services
                 DepartmentName = department?.Name ?? "N/A",
                 SalaryAmount = salary?.Amount ?? 0
             };
+        }
+
+        public async Task<IEnumerable<DisplayedUserModel>> GetAllNotVerifiedUsersAsync()
+        {
+            var users = repo.All<User>();
+            var result = users
+                .Where(u => !u.IsVerified)
+                .Select(u => new DisplayedUserModel
+                {
+                    UserId = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Age = u.Age,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    PhoneNumber = u.PhoneNumber,
+                    IsVerified = u.IsVerified,
+                    Role = ""
+                })
+                .ToList();
+
+            return result;
         }
 
 

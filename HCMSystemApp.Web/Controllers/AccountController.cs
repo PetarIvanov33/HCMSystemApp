@@ -29,8 +29,6 @@ namespace HCMSystemApp.Web.Controllers
             signInManager = _signInManager;
             accountService = _accountService;
             roleService = _roleService;
-
-
         }
 
         [HttpGet]

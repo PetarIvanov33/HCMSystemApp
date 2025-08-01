@@ -29,6 +29,7 @@ namespace HCMSystemApp.Infrastructure.Data.Configuration
                 FirstName = "Admin",
                 LastName = "User",
                 Age = 40,
+                IsVerified = true,
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
@@ -45,6 +46,7 @@ namespace HCMSystemApp.Infrastructure.Data.Configuration
                 FirstName = "Manager",
                 LastName = "User",
                 Age = 35,
+                IsVerified = true,
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
@@ -61,6 +63,7 @@ namespace HCMSystemApp.Infrastructure.Data.Configuration
                 FirstName = "Ivan",
                 LastName = "Ivanov",
                 Age = 28,
+                IsVerified = true,
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
@@ -77,6 +80,7 @@ namespace HCMSystemApp.Infrastructure.Data.Configuration
                 FirstName = "Georgi",
                 LastName = "Georgiev",
                 Age = 30,
+                IsVerified = true,
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };

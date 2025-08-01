@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HCMSystemApp.Core.Models;
+using HCMSystemApp.Core.Models.Users;
+using HCMSystemApp.Infrastructure.Data.Entities;
 
 
 namespace HCMSystemApp.Core.Contracts
@@ -16,6 +17,8 @@ namespace HCMSystemApp.Core.Contracts
         Task<DisplayedEmployeeModel> GetCurrentEmployeeProfile(string userId);
 
         Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId);
+
+        Task<IEnumerable<DisplayedUserModel>> GetAllNotVerifiedUsersAsync();
 
 
     }

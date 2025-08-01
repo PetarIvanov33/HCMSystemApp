@@ -1,0 +1,109 @@
+﻿@using HCMSystemApp.Core.Models.Users
+@model IEnumerable<DisplayedUserModel>
+
+@{
+    ViewData["Title"] = "Pending Approvals";
+}
+
+<style>
+    body {
+        background-image: url('https://static.wixstatic.com/media/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.jpg/v1/fill/w_1440,h_886,al_c,q_85,usm_0.66_1.00_0.01/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .approval-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 1100px;
+        margin: 100px auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .approval-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .user-card {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: transform 0.2s ease;
+    }
+
+        .user-card:hover {
+            transform: scale(1.02);
+            background-color: #e9f7ff;
+        }
+
+    .user-details p {
+        margin: 5px 0;
+        color: #444;
+    }
+
+    .user-details strong {
+        color: #0056b3;
+    }
+
+    .approve-btn {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .approve-btn:hover {
+            background-color: #218838;
+        }
+
+    .no-users {
+        text-align: center;
+        font-size: 1.3rem;
+        color: #666;
+        margin-top: 50px;
+    }
+</style>
+
+<div class="approval-container">
+    <h2 class="approval-title">Pending User Approvals</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="no-users">
+            <p>No pending users at the moment.</p>
+        </div>
+    }
+    else
+    {
+        foreach (var user in Model)
+        {
+            <div class="user-card">
+                <div class="user-details">
+                    <p><strong>Full Name:</strong> @user.FirstName @user.LastName</p>
+                    <p><strong>Email:</strong> @user.Email</p>
+                    <p><strong>Username:</strong> @user.UserName</p>
+                    <p><strong>Age:</strong> @user.Age</p>
+                    <p><strong>Phone:</strong> @user.PhoneNumber</p>
+                </div>
+                <div>
+                    <a asp-action="ApproveUser" asp-route-id="@user.UserId" class="approve-btn">Approve</a>
+                </div>
+            </div>
+        }
+    }
+</div>
