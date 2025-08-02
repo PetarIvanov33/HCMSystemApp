@@ -15,12 +15,81 @@
         background-position: center;
         background-attachment: fixed;
     }
+
+    .approve-form-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 800px;
+        margin: 100px auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .form-title {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .user-info p {
+        color: #333;
+        margin-bottom: 6px;
+        font-size: 1rem;
+    }
+
+    .user-info strong {
+        font-weight: 600;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        display: block;
+        color: #333;
+    }
+
+    .form-group select,
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 16px;
+    }
+
+    .form-group span {
+        color: red;
+        font-size: 0.9rem;
+    }
+
+    .btn-submit {
+        background-color: #2563eb;
+        color: white;
+        font-weight: 600;
+        padding: 10px 24px;
+        border-radius: 10px;
+        border: none;
+        transition: background-color 0.2s ease;
+    }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+    .btn-cancel {
+        margin-left: 20px;
+        color: #555;
+        text-decoration: underline;
+    }
 </style>
 
-<div class="max-w-3xl mx-auto mt-24 bg-white bg-opacity-95 rounded-2xl shadow-lg p-8">
-    <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Approve User</h2>
+<div class="approve-form-container">
+    <h2 class="form-title">Approve User</h2>
 
-    <div class="mb-6 space-y-1 text-gray-700">
+    <div class="user-info mb-6">
         <p><strong>Full Name:</strong> @user.FirstName @user.LastName</p>
         <p><strong>Email:</strong> @user.Email</p>
         <p><strong>Username:</strong> @user.UserName</p>
@@ -28,56 +97,47 @@
         <p><strong>Phone:</strong> @user.PhoneNumber</p>
     </div>
 
-    <form asp-area="Admin" asp-controller="AccountAdmin" asp-action="ApproveUser" method="post" class="space-y-6" id="approveUserForm">
+    <form asp-area="Admin" asp-controller="AccountAdmin" asp-action="ApproveUser" method="post">
         @Html.AntiForgeryToken()
-
-        <!-- ✅ Коригиран hidden field -->
         <input type="hidden" asp-for="UserId" />
 
-        <div>
-            <label asp-for="Role" class="block font-medium text-gray-700">Role</label>
-            <select asp-for="Role" class="w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:ring-2 focus:ring-blue-500" required>
+        <div class="form-group">
+            <label asp-for="Role"></label>
+            <select asp-for="Role">
                 <option value="">-- Select Role --</option>
                 <option value="Employee">Employee</option>
                 <option value="Manager">Manager</option>
             </select>
-            <span asp-validation-for="Role" class="text-red-500 text-sm"></span>
+            <span asp-validation-for="Role"></span>
         </div>
 
-        <div>
-            <label asp-for="DepartmentId" class="block font-medium text-gray-700">Department</label>
-            <select asp-for="DepartmentId" class="w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:ring-2 focus:ring-blue-500" required>
+        <div class="form-group">
+            <label asp-for="DepartmentId"></label>
+            <select asp-for="DepartmentId">
                 <option value="">-- Select Department --</option>
                 @foreach (var dept in departments)
                 {
                     <option value="@dept.Value">@dept.Text</option>
                 }
             </select>
-            <span asp-validation-for="DepartmentId" class="text-red-500 text-sm"></span>
+            <span asp-validation-for="DepartmentId"></span>
         </div>
 
-        <div>
-            <label asp-for="Position" class="block font-medium text-gray-700">Position</label>
-            <input asp-for="Position"
-                   class="w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:ring-2 focus:ring-blue-500"
-                   required />
-            <span asp-validation-for="Position" class="text-red-500 text-sm"></span>
+        <div class="form-group">
+            <label asp-for="Position"></label>
+            <input asp-for="Position" />
+            <span asp-validation-for="Position"></span>
         </div>
 
-        <div>
-            <label asp-for="Salary" class="block font-medium text-gray-700">Salary</label>
-            <input asp-for="Salary" type="number" step="0.01" min="0"
-                   class="w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:ring-2 focus:ring-blue-500"
-                   required />
-            <span asp-validation-for="Salary" class="text-red-500 text-sm"></span>
+        <div class="form-group">
+            <label asp-for="Salary"></label>
+            <input asp-for="Salary" type="number" step="0.01" min="0" />
+            <span asp-validation-for="Salary"></span>
         </div>
 
-        <div class="mt-8 flex justify-center gap-4">
-            <button type="submit" >
-                Approve
-            </button>
-            <a asp-action="PendingUsers"
-               class="text-gray-600 hover:text-gray-800 font-medium underline">Cancel</a>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn-submit">Approve</button>
+            <a asp-action="PendingUsers" class="btn-cancel">Cancel</a>
         </div>
     </form>
 </div>
