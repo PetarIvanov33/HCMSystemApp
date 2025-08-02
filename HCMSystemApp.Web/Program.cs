@@ -25,7 +25,8 @@ namespace HCMSystemApp.Web
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IRoleService,  RoleService>();
             builder.Services.AddScoped<IVacationService, VacationService>(); 
-            builder.Services.AddScoped<IPayrollService, PayrollService>();
+            builder.Services.AddScoped<IPayrollService, PayrollService>(); 
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();

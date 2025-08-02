@@ -13,12 +13,14 @@ namespace HCMSystemApp.Core.Contracts
     {
         Task<IEnumerable<DisplayedUserModel>> GetAllUsersAsync();
 
-        //Task<DisplayedEmployeeModel> GetCurrentUserProfile(string userId);
+        Task<DisplayedUserModel> GetCurrentUserProfile(string userId);
         Task<DisplayedEmployeeModel> GetCurrentEmployeeProfile(string userId);
 
         Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId);
 
         Task<IEnumerable<DisplayedUserModel>> GetAllNotVerifiedUsersAsync();
+
+        Task ApproveUserAsync(ApproveUserInputModel model);
 
 
     }

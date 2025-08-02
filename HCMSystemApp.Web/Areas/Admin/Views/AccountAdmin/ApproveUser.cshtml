@@ -1,0 +1,79 @@
+﻿@using HCMSystemApp.Core.Models.Users
+@model ApproveUserInputModel
+
+@{
+    ViewData["Title"] = "Approve User";
+    var user = ViewBag.UserDetails as DisplayedUserModel;
+    var departments = ViewBag.Departments as SelectList;
+}
+
+<style>
+    body {
+        background-image: url('https://static.wixstatic.com/media/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.jpg/v1/fill/w_1440,h_886,al_c,q_85,usm_0.66_1.00_0.01/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+</style>
+
+<div class="max-w-3xl mx-auto mt-24 bg-white bg-opacity-95 rounded-2xl shadow-lg p-8">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Approve User</h2>
+
+    <div class="mb-6 space-y-1 text-gray-700">
+        <p><strong>Full Name:</strong> @user.FirstName @user.LastName</p>
+        <p><strong>Email:</strong> @user.Email</p>
+        <p><strong>Username:</strong> @user.UserName</p>
+        <p><strong>Age:</strong> @user.Age</p>
+        <p><strong>Phone:</strong> @user.PhoneNumber</p>
+    </div>
+
+    <form asp-area="Admin" asp-controller="AccountAdmin" asp-action="ApproveUser" method="post" class="space-y-6" id="approveUserForm">
+        @Html.AntiForgeryToken()
+
+        <!-- ✅ Коригиран hidden field -->
+        <input type="hidden" asp-for="UserId" />
+
+        <div>
+            <label asp-for="Role" class="block font-medium text-gray-700">Role</label>
+            <select asp-for="Role" class="w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:ring-2 focus:ring-blue-500" required>
+                <option value="">-- Select Role --</option>
+                <option value="Employee">Employee</option>
+                <option value="Manager">Manager</option>
+            </select>
+            <span asp-validation-for="Role" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="DepartmentId" class="block font-medium text-gray-700">Department</label>
+            <select asp-for="DepartmentId" class="w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:ring-2 focus:ring-blue-500" required>
+                <option value="">-- Select Department --</option>
+                @foreach (var dept in departments)
+                {
+                    <option value="@dept.Value">@dept.Text</option>
+                }
+            </select>
+            <span asp-validation-for="DepartmentId" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="Salary" class="block font-medium text-gray-700">Salary</label>
+            <input asp-for="Salary" type="number" step="0.01" min="0"
+                   class="w-full rounded-xl border border-gray-300 px-4 py-2 shadow-sm focus:ring-2 focus:ring-blue-500"
+                   required />
+            <span asp-validation-for="Salary" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div class="mt-8 flex justify-center gap-4">
+            <button type="submit" >
+                Approve
+            </button>
+            <a asp-action="PendingUsers"
+               class="text-gray-600 hover:text-gray-800 font-medium underline">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

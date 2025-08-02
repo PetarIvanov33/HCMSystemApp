@@ -69,6 +69,8 @@ namespace HCMSystemApp.Infrastructure.Data
         public DbSet<Department> Departments => Set<Department>();
         public DbSet<Payroll> Payrolls => Set<Payroll>();
         public DbSet<Vacation> Vacations => Set<Vacation>();
+        public DbSet<UserRole> UserRoles { get; set; }
+
 
     }
 }

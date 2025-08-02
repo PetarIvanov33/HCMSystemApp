@@ -9,6 +9,7 @@ using HCMSystemApp.Infrastructure.Data.Common;
 using HCMSystemApp.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace HCMSystemApp.Core.Services
 {
@@ -43,11 +44,27 @@ namespace HCMSystemApp.Core.Services
             return users;
         }
 
-        //public async Task<DisplayedEmployeeModel> GetCurrentUserProfile(string userId)
-        //{
-        //    var users = await GetAllUsersAsync();
-        //    return users.First(u => u.UserId == userId);
-        //}
+        public async Task<DisplayedUserModel> GetCurrentUserProfile(string userId)
+        {
+            var user = await repo.GetByIdAsync<User>(userId);
+            var model = new DisplayedUserModel
+            {
+                UserId = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Age = user.Age,
+                UserName = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                IsVerified = user.IsVerified,
+                Role = "" // може да го попълниш, ако имаш информация за ролята
+            };
+            if (user == null)
+            {
+                throw new ArgumentException("User not found.");
+            }
+            return model;
+        }
 
 
         public async Task<DisplayedEmployeeModel?> GetCurrentEmployeeProfile(string userId)
@@ -135,6 +152,59 @@ namespace HCMSystemApp.Core.Services
 
             return result;
         }
+
+        public async Task ApproveUserAsync(ApproveUserInputModel model)
+        {
+            var user = await repo.GetByIdAsync<User>(model.UserId);
+            if (user == null)
+            {
+                throw new ArgumentException("User not found");
+            }
+
+            user.IsVerified = true;
+
+            // Add to role
+            var role = await repo.All<Role>().FirstOrDefaultAsync(r => r.Name == model.Role);
+            if (role == null)
+            {
+                throw new ArgumentException("Invalid role name");
+            }
+
+            var userRole = new UserRole
+            {
+                UserId = user.Id,
+                RoleId = role.Id
+            };
+            await repo.AddAsync(userRole);
+
+            // Add to department and create Employee/Manager
+            var department = await repo.GetByIdAsync<Department>(model.DepartmentId);
+            if (department == null)
+            {
+                throw new ArgumentException("Invalid department");
+            }
+
+            if (model.Role == "Employee")
+            {
+                var employee = new Employee
+                {
+                    UserId = user.Id,
+                    DepartmentId = department.Id
+                };
+                await repo.AddAsync(employee);
+            }
+
+            // Add salary
+            var salary = new Salary
+            {
+                UserId = user.Id,
+                Amount = model.Salary
+            };
+            await repo.AddAsync(salary);
+
+            await repo.SaveChangesAsync();
+        }
+
 
 
     }
