@@ -1,4 +1,5 @@
 ﻿using HCMSystemApp.Core.Contracts;
+using HCMSystemApp.Core.Models.Users;
 using HCMSystemApp.Infrastructure.Data.Entities;
 using HCMSystemApp.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -127,13 +128,51 @@ namespace HCMSystemApp.Web.Controllers
         {
             try
             {
-                return View(await accountService.GetCurrentEmployeeProfile(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+                var employee = await accountService.GetCurrentEmployeeProfile(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                return View("DisplayedProfileForEmployee", employee);
             }
             catch (Exception)
             {
                 return NotFound();
             }
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> EditEmployeeProfile(string id)
+        {
+            var employee = await accountService.GetCurrentEmployeeProfile(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Manager")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditEmployeeProfile(DisplayedEmployeeModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await accountService.UpdateEmployeeAsync(model);
+                TempData["Success"] = "Employee profile updated successfully!";
+                return RedirectToAction("MyDepartment", "Department");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Error: {ex.Message}");
+                return View(model);
+            }
+        }
+
 
         [HttpGet]
         [Authorize(Roles = "Manager")]

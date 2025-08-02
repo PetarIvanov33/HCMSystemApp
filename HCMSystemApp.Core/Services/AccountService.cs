@@ -79,6 +79,7 @@ namespace HCMSystemApp.Core.Services
             }
 
             var employee = await repo.All<Employee>()
+                                     .Include(e => e.Department)
                                      .FirstOrDefaultAsync(e => e.UserId == userId);
 
             var salary = await repo.All<Salary>()
@@ -93,9 +94,35 @@ namespace HCMSystemApp.Core.Services
                 Age = currentUser.Age,
                 Email = currentUser.Email,
                 PhoneNumber = currentUser.PhoneNumber,
+                Department = employee.Department.Name,
                 Position = employee?.Position ?? "N/A",
                 SalaryAmount = salary?.Amount ?? 0
             };
+        }
+
+        public async Task UpdateEmployeeAsync(DisplayedEmployeeModel model)
+        {
+            var employee = await repo.All<Employee>()
+                                     .Include(e => e.User)
+                                     .FirstOrDefaultAsync(e => e.UserId == model.UserId);
+
+            if (employee == null) throw new ArgumentException("User not found");
+
+            employee.User.FirstName = model.FirstName;
+            employee.User.LastName = model.LastName;
+            employee.User.UserName = model.UserName;
+            employee.User.Email = model.Email;
+            employee.User.PhoneNumber = model.PhoneNumber;
+            employee.User.Age = model.Age;
+            employee.Position = model.Position;
+
+            var salary = await repo.All<Salary>().FirstOrDefaultAsync(s => s.UserId == model.UserId);
+            if (salary != null)
+            {
+                salary.Amount = model.SalaryAmount;
+            }
+
+            await repo.SaveChangesAsync();
         }
 
         public async Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId)

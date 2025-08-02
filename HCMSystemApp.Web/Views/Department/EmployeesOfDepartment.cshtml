@@ -52,18 +52,40 @@
         margin: 4px 0;
     }
 
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
     .view-profile-btn {
         background-color: #2563eb;
         color: white;
         padding: 8px 16px;
         border-radius: 8px;
         font-weight: 600;
-        transition: background-color 0.2s ease;
+        text-align: center;
         text-decoration: none;
+        transition: background-color 0.2s ease;
     }
 
         .view-profile-btn:hover {
             background-color: #1d4ed8;
+        }
+
+    .delete-btn {
+        background-color: #dc2626;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+    }
+
+        .delete-btn:hover {
+            background-color: #b91c1c;
         }
 
     .no-employees {
@@ -96,7 +118,14 @@
                     <p><strong>Position:</strong> @employee.Position</p>
                     <p><strong>Salary:</strong> @employee.SalaryAmount.ToString("C")</p>
                 </div>
-                <a asp-action="EmployeeProfile" asp-route-id="@employee.UserId" class="view-profile-btn">View Profile</a>
+                <div class="action-buttons">
+                    <a asp-controller="Account" asp-action="EditEmployeeProfile" asp-route-id="@employee.UserId" class="view-profile-btn">
+                        Edit employee profile
+                    </a>
+                    <a asp-action="DeleteEmployee" asp-route-id="@employee.UserId" class="delete-btn" onclick="return confirm('Are you sure you want to delete this employee? This action cannot be undone.')">
+                        Delete employee
+                    </a>
+                </div>
             </div>
         }
     }

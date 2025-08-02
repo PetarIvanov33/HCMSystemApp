@@ -14,7 +14,10 @@ namespace HCMSystemApp.Core.Contracts
         Task<IEnumerable<DisplayedUserModel>> GetAllUsersAsync();
 
         Task<DisplayedUserModel> GetCurrentUserProfile(string userId);
+
         Task<DisplayedEmployeeModel> GetCurrentEmployeeProfile(string userId);
+
+        Task UpdateEmployeeAsync(DisplayedEmployeeModel model);
 
         Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId);
 
