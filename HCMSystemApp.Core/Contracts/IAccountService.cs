@@ -19,6 +19,8 @@ namespace HCMSystemApp.Core.Contracts
 
         Task UpdateEmployeeAsync(DisplayedEmployeeModel model);
 
+        Task<bool> DeleteEmployeeAsync(string userIdToDelete, string managerUserId);
+
         Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId);
 
         Task<IEnumerable<DisplayedUserModel>> GetAllNotVerifiedUsersAsync();

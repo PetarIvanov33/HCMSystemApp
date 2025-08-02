@@ -173,6 +173,21 @@ namespace HCMSystemApp.Web.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteEmployee(string id)
+        {
+            var managerId = User.FindFirstValue(ClaimTypes.NameIdentifier); // или от Claims
+
+            bool success = await accountService.DeleteEmployeeAsync(id, managerId);
+
+            if (!success)
+                return Forbid();
+
+            return RedirectToAction("MyDepartment", "Department");
+        }
+
+
 
         [HttpGet]
         [Authorize(Roles = "Manager")]

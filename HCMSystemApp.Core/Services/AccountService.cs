@@ -125,6 +125,51 @@ namespace HCMSystemApp.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task<bool> DeleteEmployeeAsync(string userIdToDelete, string managerUserId)
+        {
+            var manager = await repo.All<Manager>()
+                .Include(m => m.Department)
+                .FirstOrDefaultAsync(m => m.UserId == managerUserId);
+
+            if (manager == null)
+                throw new ArgumentException("Manager not found");
+
+            var employee = await repo.All<Employee>()
+                .Include(e => e.User)
+                .FirstOrDefaultAsync(e => e.UserId == userIdToDelete);
+
+            if (employee == null || employee.DepartmentId != manager.Department.Id)
+                return false; // Няма право да трие
+
+            // Изтриваме заплата
+            var salary = await repo.All<Salary>()
+                .FirstOrDefaultAsync(s => s.UserId == userIdToDelete);
+            if (salary != null) repo.Delete(salary);
+
+            // Изтриваме пейроли
+            var payrolls = await repo.All<Payroll>()
+                .Where(p => p.UserId == userIdToDelete)
+                .ToListAsync();
+            repo.DeleteRange(payrolls);
+
+            // Изтриваме ролята
+            var userRoles = await repo.All<UserRole>()
+                .Where(ur => ur.UserId == userIdToDelete)
+                .ToListAsync();
+            repo.DeleteRange(userRoles);
+
+            // Изтриваме employee
+            repo.Delete(employee);
+
+            // Изтриваме самия потребител
+            var user = await repo.GetByIdAsync<User>(userIdToDelete);
+            repo.Delete(user);
+
+            await repo.SaveChangesAsync();
+            return true;
+        }
+
+
         public async Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId)
         {
             var allUsers = await GetAllUsersAsync();
