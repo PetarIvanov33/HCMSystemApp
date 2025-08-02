@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HCMSystemApp.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250802093657_InitialCreate")]
+    [Migration("20250802114132_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -420,7 +420,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "8d04dce2-969a-435d-bba4-df3f325983dc",
                             AccessFailedCount = 0,
                             Age = 40,
-                            ConcurrencyStamp = "4672be99-b788-4b3d-af85-da76abb76970",
+                            ConcurrencyStamp = "e069debc-ad27-4077-ab5e-b8e1a3dd36c6",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -429,10 +429,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDlK3dDRbv7xO4xQPwoOz4+2WhvLqNEOUarVkVx1LSiYyfuabZAeIUFCdOye+7UgOw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPhWUxY05RpA2T1k1uE0ie7hFlclccOD1smlF63i7vrtCIGcgLMaTu+7Q/mFQUTQOw==",
                             PhoneNumber = "0123456789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6e3e897c-cd68-453b-a55b-e4b0dc179c12",
+                            SecurityStamp = "a63fd1c2-c9e7-45cf-971f-b218e32fb53b",
                             TwoFactorEnabled = false,
                             UserName = "admin@example.com"
                         },
@@ -441,7 +441,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6",
                             AccessFailedCount = 0,
                             Age = 35,
-                            ConcurrencyStamp = "fd060878-fbe1-4300-b05f-894e8e98605d",
+                            ConcurrencyStamp = "b9ed0633-3877-42b2-a8db-b895906c5867",
                             Email = "manager@example.com",
                             EmailConfirmed = true,
                             FirstName = "Manager",
@@ -450,10 +450,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@EXAMPLE.COM",
                             NormalizedUserName = "MANAGER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHuUTpSO5u+OdyamykUxQi3XIphuW/tzH3qutxumYqNZQtoLyjbqAhfGHo/m9XloLw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFH0SpAr9NOd+zqZIjFRw2cOys7kOLF6WMbFaP00cVqNX+XPUSWv2JcBFkZ0B5J3+w==",
                             PhoneNumber = "0881234567",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dd129abc-773f-4c06-a42b-9e4a04c17ab6",
+                            SecurityStamp = "53f65450-86d4-4302-89f7-d50375787b10",
                             TwoFactorEnabled = false,
                             UserName = "manager@example.com"
                         },
@@ -462,7 +462,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9",
                             AccessFailedCount = 0,
                             Age = 28,
-                            ConcurrencyStamp = "92912a84-09c9-4432-a061-939d9333a722",
+                            ConcurrencyStamp = "53480f0d-75c2-4d31-8659-cdc5f23153cd",
                             Email = "employee1@example.com",
                             EmailConfirmed = true,
                             FirstName = "Ivan",
@@ -471,10 +471,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE1@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEARRFOizX7D/10R3LdR2dMSOrxuDAZgVDjutDDtxquv/pSYLiN9WNW27aSb/aPF3PA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEJx7kLEBKT9yiIxD6qEhyz24+K7UNqg/7WQ6ncbCFN7d85+f7d4NI+d8rox1+/y/A==",
                             PhoneNumber = "0881111111",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b127ffba-17bb-47c2-a056-ff3682fa8611",
+                            SecurityStamp = "ca719f17-6b2b-41ea-a0b1-01371c4fd8fb",
                             TwoFactorEnabled = false,
                             UserName = "employee1@example.com"
                         },
@@ -483,7 +483,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1",
                             AccessFailedCount = 0,
                             Age = 30,
-                            ConcurrencyStamp = "7815f3e7-ac1f-4900-bac4-42528ed2b5c9",
+                            ConcurrencyStamp = "61428029-2a32-4925-af31-ec667768d9ee",
                             Email = "employee2@example.com",
                             EmailConfirmed = true,
                             FirstName = "Georgi",
@@ -492,10 +492,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE2@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPmODi0eZenjyUxu15+R8GItzIcTwooyWpTig879KK3/HKU7XPUzsRSAhmAhaEuTWQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENbP6vcrZHh+gl3y0vo2aFcv1yi5RRgeT++p9wuuHeqx/FnzaNAjktt37OEzMBX+7A==",
                             PhoneNumber = "0882222222",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d5c025a3-cf8d-497a-ae0d-9bc877561d83",
+                            SecurityStamp = "50a15b0d-230c-4469-9877-fdf8f683f59a",
                             TwoFactorEnabled = false,
                             UserName = "employee2@example.com"
                         });

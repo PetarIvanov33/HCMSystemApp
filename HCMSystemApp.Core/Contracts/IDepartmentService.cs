@@ -11,5 +11,9 @@ namespace HCMSystemApp.Core.Contracts
     public interface IDepartmentService
     {
         Task<IEnumerable<DepartmentViewModel>> GetAllDepartments();
+
+        Task<DepartmentViewModel?> GetDepartmentByManagerUserIdAsync(string managerUserId);
+
+        Task<IEnumerable<DisplayedEmployeeModel>> GetEmployeesByDepartmentIdAsync(int departmentId);
     }
 }

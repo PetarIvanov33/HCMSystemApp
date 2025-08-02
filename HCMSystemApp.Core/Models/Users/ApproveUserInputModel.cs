@@ -19,6 +19,11 @@ namespace HCMSystemApp.Core.Models.Users
         public int DepartmentId { get; set; }
 
         [Required]
+        [MaxLength(50)]
+        public string Position { get; set; } = null!;
+
+        [Required]
+        [Range(1033.00, double.MaxValue, ErrorMessage = "Salary must be greater than 1033.00")]
         public decimal Salary { get; set; }
     }
 }

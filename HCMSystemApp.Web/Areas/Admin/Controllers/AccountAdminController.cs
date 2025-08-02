@@ -90,13 +90,7 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                foreach (var state in ModelState)
-                {
-                    Console.WriteLine($"Key: {state.Key}, IsValid: {state.Value?.Errors.Count == 0}, Errors: {string.Join(", ", state.Value?.Errors.Select(e => e.ErrorMessage))}");
-                }
-                // DEBUG: logни грешките за да ги видиш
                 var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                Console.WriteLine("Validation errors: " + string.Join(", ", errors));
 
                 ViewBag.Departments = new SelectList(await departmentService.GetAllDepartments(), "Id", "Name");
                 ViewBag.UserDetails = await accountService.GetCurrentUserProfile(model.UserId);
@@ -109,9 +103,7 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.Message); // за дебъг
-
-                ModelState.AddModelError(string.Empty, "Възникна грешка при одобряване на потребителя.");
+                ModelState.AddModelError(string.Empty, "An error occurred while approving the user..");
                 ViewBag.Departments = new SelectList(await departmentService.GetAllDepartments(), "Id", "Name");
                 ViewBag.UserDetails = await accountService.GetCurrentUserProfile(model.UserId);
                 return View(model);

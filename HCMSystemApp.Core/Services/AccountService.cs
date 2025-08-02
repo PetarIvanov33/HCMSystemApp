@@ -120,6 +120,7 @@ namespace HCMSystemApp.Core.Services
             return new DisplayedManagerModel
             {
                 UserId = currentUser.UserId,
+                Id = manager.Id,
                 UserName = currentUser.UserName,
                 FirstName = currentUser.FirstName,
                 LastName = currentUser.LastName,
@@ -189,7 +190,8 @@ namespace HCMSystemApp.Core.Services
                 var employee = new Employee
                 {
                     UserId = user.Id,
-                    DepartmentId = department.Id
+                    DepartmentId = department.Id,
+                     Position = model.Position
                 };
                 await repo.AddAsync(employee);
             }
