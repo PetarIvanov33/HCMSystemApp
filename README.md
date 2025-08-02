@@ -64,7 +64,7 @@ HCMSystemApp/
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/your-username/HCMSystemApp.git
+git clone [https://github.com/your-username/HCMSystemApp.git](https://github.com/PetarIvanov33/HCMSystemApp)
 ```
 
 2. **Apply migrations and initialize the database:**
@@ -136,21 +136,9 @@ modelBuilder.ApplyConfiguration(new VacationConfiguration());
 
 ---
 
-## 📌 TODO / Enhancements
-
-- ✅ CRUD operations for salaries, vacations, payrolls
-- ✅ Database seeding with required data
-- ⬜ API layer (for mobile clients or SPA support)
-- ⬜ Export payrolls as PDF
-- ⬜ Email notifications for vacation requests/approvals
-- ⬜ Dashboard with KPIs for HR Admin
-
----
-
 ## 🤝 Contributors
 
-- [Your Name] – Architecture, Backend, Identity, UI
-- [Others, if applicable]
+- Petar Ivanov – Architecture, Backend, Identity, UI
 
 ---
 
