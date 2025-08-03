@@ -1,0 +1,123 @@
+﻿@using HCMSystemApp.Core.Models.Department
+@model List<DepartmentViewModel>
+
+@{
+    ViewData["Title"] = "All Departments";
+}
+
+<style>
+    body {
+        background-image: url('https://static.wixstatic.com/media/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .department-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 1100px;
+        margin: 100px auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .department-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .department-row {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+    }
+
+        .department-row:hover {
+            transform: scale(1.01);
+            background-color: #e6f4ff;
+        }
+
+    .department-info p {
+        margin: 4px 0;
+    }
+
+    .btn-wrapper {
+        margin-top: 15px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .view-btn {
+        background-color: #17a2b8;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+    }
+
+        .view-btn:hover {
+            background-color: #138496;
+        }
+
+    .edit-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+    }
+
+        .edit-btn:hover {
+            background-color: #218838;
+        }
+
+    .no-departments {
+        text-align: center;
+        font-size: 1.3rem;
+        color: #666;
+        margin-top: 50px;
+    }
+</style>
+
+<div class="department-container">
+    <h2 class="department-title">All Departments</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="no-departments">
+            <p>No departments found.</p>
+        </div>
+    }
+    else
+    {
+        foreach (var dept in Model)
+        {
+            <div class="department-row">
+                <div class="department-info">
+                    <p><strong>Department:</strong> @dept.Name</p>
+                    <p><strong>Manager:</strong> @dept.ManagerName</p>
+                    <p><strong>Employees:</strong> @dept.EmployeeCount</p>
+                </div>
+                <div class="btn-wrapper">
+                    <a asp-action="ViewDepartmentDetails" asp-route-id="@dept.Id" class="view-btn">
+                        Прегледай Отдела
+                    </a>
+                    <a asp-action="EditDepartment" asp-route-id="@dept.Id" class="edit-btn">
+                        Редактирай Отдела
+                    </a>
+                </div>
+            </div>
+        }
+    }
+</div>

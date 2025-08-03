@@ -15,5 +15,6 @@ namespace HCMSystemApp.Core.Contracts
         Task<DepartmentViewModel?> GetDepartmentByManagerUserIdAsync(string managerUserId);
 
         Task<IEnumerable<DisplayedEmployeeModel>> GetEmployeesByDepartmentIdAsync(int departmentId);
+
     }
 }

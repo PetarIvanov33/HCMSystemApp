@@ -1,13 +1,13 @@
-﻿using System.Security.Claims;
-using HCMSystemApp.Core.Contracts;
-using HCMSystemApp.Core.Services;
+﻿using HCMSystemApp.Core.Contracts;
 using HCMSystemApp.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HCMSystemApp.Web.Controllers
+namespace HCMSystemApp.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize(Roles = "HRAdmin")]
     public class DepartmentController : Controller
     {
         private readonly IAccountService accountService;
@@ -36,23 +36,13 @@ namespace HCMSystemApp.Web.Controllers
             departmentService = _departmentService;
         }
 
-        [Authorize(Roles = "Manager")]
-        public async Task<IActionResult> MyDepartment()
+        [HttpGet]
+        public async Task<IActionResult> AllDepartments()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            var department = await departmentService.GetDepartmentByManagerUserIdAsync(userId);
-
-            if (department == null)
-            {
-                return NotFound("Department not found.");
-            }
-
-            var employees = await departmentService.GetEmployeesByDepartmentIdAsync(department.Id);
-
-            return View("EmployeesOfDepartment", employees);
+            var departments = await departmentService.GetAllDepartments();
+            return View(departments);
         }
 
-
     }
+
 }

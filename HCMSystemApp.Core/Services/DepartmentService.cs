@@ -23,11 +23,17 @@ namespace HCMSystemApp.Core.Services
         }
         public async Task<IEnumerable<DepartmentViewModel>> GetAllDepartments()
         {
-            return await repo.AllReadonly<Department>().
-                Select(d => new DepartmentViewModel
+            return await repo.AllReadonly<Department>()
+                .Include(d => d.Manager)
+                .ThenInclude(d => d.User)
+                .Include(d => d.Employees)
+                .Select(d => new DepartmentViewModel
                 {
                     Id = d.Id,
                     Name = d.Name,
+                    ManagerId = d.Manager.Id,
+                    ManagerName = d.Manager.User.FirstName + " " + d.Manager.User.LastName,
+                    EmployeeCount = d.Employees.Count()
                 }).ToListAsync();
 
         }
@@ -35,11 +41,17 @@ namespace HCMSystemApp.Core.Services
         public async Task<DepartmentViewModel?> GetDepartmentByManagerUserIdAsync(string managerUserId)
         {
             return await repo.All<Department>()
+                .Include(d => d.Manager)
+                .ThenInclude(d => d.User)
+                .Include(d => d.Employees)
                 .Where(d => d.Manager.UserId == managerUserId)
                 .Select(d => new DepartmentViewModel
                 {
                     Id = d.Id,
                     Name = d.Name,
+                    ManagerId = d.Manager.Id,
+                    ManagerName = d.Manager.User.FirstName + " " + d.Manager.User.LastName,
+                    EmployeeCount = d.Employees.Count()
                 })
                 .FirstOrDefaultAsync();
         }
