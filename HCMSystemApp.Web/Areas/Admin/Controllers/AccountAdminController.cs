@@ -112,6 +112,15 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return RedirectToAction("PendingUsers");
         }
 
+        [HttpGet]
+        [Area("Admin")]
+        public async Task<IActionResult> AllManagers()
+        {
+            var model = await accountService.GetAllManagersAsync();
+            return View("AllManagers", model);
+        }
+
+
 
         public IActionResult Index()
         {

@@ -200,9 +200,36 @@ namespace HCMSystemApp.Core.Services
                 Email = currentUser.Email,
                 PhoneNumber = currentUser.PhoneNumber,
                 DepartmentName = department?.Name ?? "N/A",
+                DepartmentId = department.Id,
                 SalaryAmount = salary?.Amount ?? 0
             };
         }
+
+        public async Task<IEnumerable<DisplayedManagerModel>> GetAllManagersAsync()
+        {
+            var managers = await repo.All<Manager>()
+                .Include(m => m.User)
+                .Include(m => m.Department)
+                .ToListAsync();
+
+            var salaries = await repo.All<Salary>().ToListAsync();
+
+            return managers.Select(m => new DisplayedManagerModel
+            {
+                Id = m.Id,
+                UserId = m.User.Id,
+                FirstName = m.User.FirstName,
+                LastName = m.User.LastName,
+                UserName = m.User.UserName,
+                Age = m.User.Age,
+                Email = m.User.Email,
+                PhoneNumber = m.User.PhoneNumber,
+                DepartmentName = m.Department.Name,
+                DepartmentId = m.Department.Id,
+                SalaryAmount = salaries.FirstOrDefault(s => s.UserId == m.User.Id)?.Amount ?? 0
+            }).ToList();
+        }
+
 
         public async Task<IEnumerable<DisplayedUserModel>> GetAllNotVerifiedUsersAsync()
         {

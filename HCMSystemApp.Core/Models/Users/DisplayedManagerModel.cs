@@ -19,6 +19,8 @@ namespace HCMSystemApp.Core.Models.Users
         public string Email { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
         public string DepartmentName { get; set; } = null!;
+
+        public int DepartmentId { get; set; }
         public decimal SalaryAmount { get; set; }
     }
 }
