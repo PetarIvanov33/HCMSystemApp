@@ -113,10 +113,10 @@
                     <p><strong>Salary:</strong> @manager.SalaryAmount.ToString("C")</p>
                 </div>
                 <div class="btn-wrapper">
-                    <a asp-controller="AdminAccount" asp-action="EditManagerProfile" asp-route-id="@manager.UserId" class="edit-btn">
+                    <a asp-area="Admin" asp-controller="AccountAdmin" asp-action="EditManagerProfile" asp-route-id="@manager.UserId" class="edit-btn">
                         Edit Manager Profile
                     </a>
-                    <form asp-controller="AdminAccount"
+                    <form asp-controller="AccountAdmin"
                           asp-action="DeleteManagerAndDepartment"
                           asp-route-id="@manager.UserId"
                           method="post"

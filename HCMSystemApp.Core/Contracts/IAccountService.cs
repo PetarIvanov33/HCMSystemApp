@@ -25,6 +25,8 @@ namespace HCMSystemApp.Core.Contracts
 
         Task<IEnumerable<DisplayedManagerModel>> GetAllManagersAsync();
 
+        Task EditManagerAsync(DisplayedManagerModel model);
+
         Task<IEnumerable<DisplayedUserModel>> GetAllNotVerifiedUsersAsync();
 
         Task ApproveUserAsync(ApproveUserInputModel model);

@@ -120,7 +120,27 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return View("AllManagers", model);
         }
 
+        [HttpGet]
+        [Area("Admin")]
+        public async Task<IActionResult> EditManagerProfile(string id)
+        {
+            var model = await accountService.GetCurrentManagerProfile(id);
+            return View("EditManagerProfile", model);
+        }
 
+        [HttpPost]
+        [Area("Admin")]
+        public async Task<IActionResult> EditManagerProfile(DisplayedManagerModel model)
+        {
+            var mod = model;
+            if (!ModelState.IsValid)
+            {
+                return View(mod);
+            }
+
+            await accountService.EditManagerAsync(mod);
+            return RedirectToAction("AllManagers");
+        }
 
         public IActionResult Index()
         {

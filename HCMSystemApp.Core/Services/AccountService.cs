@@ -191,7 +191,7 @@ namespace HCMSystemApp.Core.Services
 
             return new DisplayedManagerModel
             {
-                UserId = currentUser.UserId,
+                UserId = manager.UserId,
                 Id = manager.Id,
                 UserName = currentUser.UserName,
                 FirstName = currentUser.FirstName,
@@ -228,6 +228,28 @@ namespace HCMSystemApp.Core.Services
                 DepartmentId = m.Department.Id,
                 SalaryAmount = salaries.FirstOrDefault(s => s.UserId == m.User.Id)?.Amount ?? 0
             }).ToList();
+        }
+
+        public async Task EditManagerAsync(DisplayedManagerModel model)
+        {
+            var user = await repo.GetByIdAsync<User>(model.UserId);
+            var salary = await repo.All<Salary>().FirstOrDefaultAsync(s => s.UserId == model.UserId);
+
+            if (user == null || salary == null)
+            {
+                throw new ArgumentException("Invalid manager");
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.Age = model.Age;
+
+            salary.Amount = model.SalaryAmount;
+
+            await repo.SaveChangesAsync();
         }
 
 
