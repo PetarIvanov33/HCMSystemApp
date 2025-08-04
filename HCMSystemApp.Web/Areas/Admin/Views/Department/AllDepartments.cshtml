@@ -113,7 +113,7 @@
                     <a asp-area="" asp-controller="Department" asp-action="MyDepartment" asp-route-id="@dept.UserIdOfManager" class="view-btn">
                         Browse the Department
                     </a>
-                    <a asp-action="EditDepartment" asp-route-id="@dept.Id" class="edit-btn">
+                    <a asp-area="Admin" asp-controller="Department" asp-action="EditDepartment" asp-route-id="@dept.UserIdOfManager" class="edit-btn">
                         Edit Department
                     </a>
                 </div>

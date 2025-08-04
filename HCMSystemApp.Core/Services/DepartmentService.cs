@@ -81,5 +81,19 @@ namespace HCMSystemApp.Core.Services
                 .ToListAsync();
         }
 
+        public async Task<bool> UpdateDepartmentNameAsync(int departmentId, string newName)
+        {
+            var department = await repo.GetByIdAsync<Department>(departmentId);
+            if (department == null)
+            {
+                return false;
+            }
+
+            department.Name = newName;
+            await repo.SaveChangesAsync();
+            return true;
+        }
+
+
     }
 }

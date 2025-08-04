@@ -1,0 +1,99 @@
+﻿@using HCMSystemApp.Core.Models.Department
+@model DepartmentViewModel
+
+@{
+    ViewData["Title"] = "Edit Department";
+}
+
+<style>
+    body {
+        background-image: url('https://static.wixstatic.com/media/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.jpg/v1/fill/w_1440,h_886,al_c,q_85,usm_0.66_1.00_0.01/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .edit-form-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 600px;
+        margin: 100px auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .form-title {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        display: block;
+        color: #333;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 16px;
+    }
+
+    .form-group span {
+        color: red;
+        font-size: 0.9rem;
+    }
+
+    .btn-submit {
+        background-color: #16a34a;
+        color: white;
+        font-weight: 600;
+        padding: 10px 24px;
+        border-radius: 10px;
+        border: none;
+        transition: background-color 0.2s ease;
+    }
+
+        .btn-submit:hover {
+            background-color: #15803d;
+        }
+
+    .btn-cancel {
+        margin-left: 20px;
+        color: #555;
+        text-decoration: underline;
+    }
+</style>
+
+<div class="edit-form-container">
+    <h2 class="form-title">Edit Department</h2>
+
+    <form asp-controller="Department" asp-action="EditDepartment" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="UserIdOfManager" value="@Model.UserIdOfManager" />
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn-submit">Save Changes</button>
+            <a asp-action="AllDepartments" class="btn-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

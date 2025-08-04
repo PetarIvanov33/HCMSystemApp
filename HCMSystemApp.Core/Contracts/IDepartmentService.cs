@@ -16,5 +16,7 @@ namespace HCMSystemApp.Core.Contracts
 
         Task<IEnumerable<DisplayedEmployeeModel>> GetEmployeesByDepartmentIdAsync(int departmentId);
 
+        Task<bool> UpdateDepartmentNameAsync(int departmentId, string newName);
+
     }
 }

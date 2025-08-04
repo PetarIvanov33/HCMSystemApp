@@ -1,4 +1,5 @@
 ﻿using HCMSystemApp.Core.Contracts;
+using HCMSystemApp.Core.Models.Department;
 using HCMSystemApp.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -42,6 +43,53 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             var departments = await departmentService.GetAllDepartments();
             return View(departments);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditDepartment(string Id)
+        {
+            var department = await departmentService.GetDepartmentByManagerUserIdAsync(Id);
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            return View(department);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditDepartment(DepartmentViewModel model)
+        {
+
+            foreach (var state in ModelState)
+            {
+                var key = state.Key;
+                var errors = state.Value.Errors;
+
+                foreach (var error in errors)
+                {
+                    Console.WriteLine($"[ModelState] {key}: {error.ErrorMessage}");
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var success = await departmentService.UpdateDepartmentNameAsync(model.Id, model.Name);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            TempData["SuccessMessage"] = "Department name updated successfully.";
+            return RedirectToAction("AllDepartments");
+        }
+
+
+
+
 
     }
 

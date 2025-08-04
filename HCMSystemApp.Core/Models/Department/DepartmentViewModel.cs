@@ -12,13 +12,16 @@ namespace HCMSystemApp.Core.Models.Department
     {
         public int Id { get; set; }
 
+
+        [Required]
+        [StringLength(50, ErrorMessage = "The department name must be between 2 and 50 characters.", MinimumLength = 2)]
         [Display(Name = "Department Name")]
         public string Name { get; set; } = null!;
 
         [BindNever]
         public int ManagerId { get; set; }
 
-        [BindNever]
+        //[BindNever]
         public string UserIdOfManager { get; set; } = null!;
 
 
