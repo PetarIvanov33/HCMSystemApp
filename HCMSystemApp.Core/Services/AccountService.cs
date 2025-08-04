@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using HCMSystemApp.Core.Contracts;
 using HCMSystemApp.Core.Models.Users;
+using HCMSystemApp.Core.Models.Department;
 using HCMSystemApp.Infrastructure.Data.Common;
 using HCMSystemApp.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -57,7 +59,7 @@ namespace HCMSystemApp.Core.Services
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsVerified = user.IsVerified,
-                Role = "" // може да го попълниш, ако имаш информация за ролята
+                Role = "" 
             };
             if (user == null)
             {
@@ -96,10 +98,18 @@ namespace HCMSystemApp.Core.Services
                 Age = currentUser.Age,
                 Email = currentUser.Email,
                 PhoneNumber = currentUser.PhoneNumber,
-                Department = employee.Department.Name,
+                Department = employee.Department.Name ?? "N/A",
                 Position = employee?.Position ?? "N/A",
                 SalaryAmount = salary?.Amount ?? 0,
                 ManagerIdOfEmployee = employee.Department.Manager.User.Id,
+                DepartmentId = employee.Department?.Id,
+
+                Departments = await repo.All<Department>()
+                                        .Select(d => new DepartmentDTO
+                                        {
+                                        Id = d.Id,
+                                        Name = d.Name
+                                        }).ToListAsync()
             };
         }
 
@@ -118,6 +128,7 @@ namespace HCMSystemApp.Core.Services
             employee.User.PhoneNumber = model.PhoneNumber;
             employee.User.Age = model.Age;
             employee.Position = model.Position;
+            employee.DepartmentId = model.DepartmentId;
 
             var salary = await repo.All<Salary>().FirstOrDefaultAsync(s => s.UserId == model.UserId);
             if (salary != null)

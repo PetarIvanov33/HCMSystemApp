@@ -5,6 +5,7 @@ using HCMSystemApp.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
 namespace HCMSystemApp.Web.Controllers
@@ -15,6 +16,8 @@ namespace HCMSystemApp.Web.Controllers
 
         private readonly IRoleService roleService;
 
+        private readonly IDepartmentService departmentService;
+
         private readonly UserManager<User> userManager;
 
         private readonly SignInManager<User> signInManager;
@@ -23,13 +26,15 @@ namespace HCMSystemApp.Web.Controllers
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
             IAccountService _accountService,
-            IRoleService _roleService
+            IRoleService _roleService,
+            IDepartmentService _departmentService
             )
         {
             userManager = _userManager;
             signInManager = _signInManager;
             accountService = _accountService;
             roleService = _roleService;
+            departmentService = _departmentService;
         }
 
         [HttpGet]
@@ -142,6 +147,9 @@ namespace HCMSystemApp.Web.Controllers
         public async Task<IActionResult> EditEmployeeProfile(string id)
         {
             var employee = await accountService.GetCurrentEmployeeProfile(id);
+
+            ViewBag.Departments = new SelectList(employee.Departments, "Id", "Name");
+
             if (employee == null)
             {
                 return NotFound();
@@ -157,6 +165,14 @@ namespace HCMSystemApp.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                foreach (var state in ModelState)
+                {
+                    string key = state.Key;
+                    foreach (var error in state.Value.Errors)
+                    {
+                        Console.WriteLine($"Field: {key}, Error: {error.ErrorMessage}");
+                    }
+                }
                 return View(model);
             }
 
