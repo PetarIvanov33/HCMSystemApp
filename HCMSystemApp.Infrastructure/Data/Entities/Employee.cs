@@ -22,10 +22,9 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
         [ForeignKey(nameof(UserId))]
         public User User { get; set; } = null!;
 
-        [Required]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; } // removed required
 
         [ForeignKey(nameof(DepartmentId))]
-        public Department Department { get; set; } = null!;
+        public Department? Department { get; set; } = null!;
     }
 }

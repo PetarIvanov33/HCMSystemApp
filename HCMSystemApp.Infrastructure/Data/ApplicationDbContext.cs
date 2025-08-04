@@ -41,10 +41,16 @@ namespace HCMSystemApp.Infrastructure.Data
             .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Employee>()
+            .HasOne(e => e.User)
+            .WithMany()
+            .HasForeignKey(e => e.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Employee>()
             .HasOne(e => e.Department)
             .WithMany(d => d.Employees)
             .HasForeignKey(e => e.DepartmentId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.SetNull); // restrict changed to setNull
 
             //Apply Fluent API
 
