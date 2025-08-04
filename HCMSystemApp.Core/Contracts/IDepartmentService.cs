@@ -18,5 +18,7 @@ namespace HCMSystemApp.Core.Contracts
 
         Task<bool> UpdateDepartmentNameAsync(int departmentId, string newName);
 
+        Task<bool> CreateDepartmentWithManagerAsync(AddManagerAndDepartmentModel model);
+
     }
 }

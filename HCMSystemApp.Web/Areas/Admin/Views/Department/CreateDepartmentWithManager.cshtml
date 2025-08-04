@@ -1,0 +1,157 @@
+﻿@using HCMSystemApp.Core.Models.Department
+@model AddManagerAndDepartmentModel
+
+@{
+    ViewData["Title"] = "Add New Manager & Department";
+}
+
+<style>
+    body {
+        background-image: url('https://previews.123rf.com/images/funtap/funtap2002/funtap200200232/140540541-social-network-people-icons-hr-human-resources-on-blurred-office-background-universal-wallpaper.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .form-container {
+        background-color: rgba(255, 255, 255, 0.92);
+        padding: 40px 30px;
+        border-radius: 12px;
+        margin-top: 60px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .form-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #000;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+    }
+
+    .text-danger {
+        font-size: 0.9rem;
+    }
+
+    .btn-submit {
+        background-color: #2563eb;
+        color: white;
+        font-weight: 600;
+        padding: 10px 24px;
+        border-radius: 8px;
+        border: none;
+        width: 100%;
+        transition: background-color 0.2s ease;
+    }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+    .btn-cancel {
+        margin-top: 15px;
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+        color: #555;
+        text-decoration: underline;
+    }
+</style>
+
+<div class="form-container">
+    <h2 class="form-title">Add New Manager and Department</h2>
+
+    <form asp-area="Admin" asp-controller="Department" asp-action="CreateDepartmentWithManager" method="post">
+        @Html.AntiForgeryToken()
+
+        <h5 class="form-title">New Department:</h5>
+        <div class="mb-3">
+            <label asp-for="DepartmentName" class="form-label fw-bold"></label>
+            <input asp-for="DepartmentName" class="form-control" />
+            <span asp-validation-for="DepartmentName" class="text-danger"></span>
+        </div>
+
+        <h5 class="form-title">New Manager:</h5>
+        <div class="mb-3">
+            <label asp-for="FirstName" class="form-label fw-bold"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LastName" class="form-label fw-bold"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="UserName" class="form-label fw-bold"></label>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label fw-bold"></label>
+            <input asp-for="Email" type="email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PhoneNumber" class="form-label fw-bold"></label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Age" class="form-label fw-bold"></label>
+            <input asp-for="Age" type="number" class="form-control" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="SalaryAmount" class="form-label fw-bold"></label>
+            <input asp-for="SalaryAmount" type="number" class="form-control" />
+            <span asp-validation-for="SalaryAmount" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label fw-bold"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ConfirmPassword" class="form-label fw-bold"></label>
+            <input asp-for="ConfirmPassword" type="password" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn-submit">Create a Manager and his/her Department</button>
+            <a asp-area="Admin" asp-controller="Department" asp-action="AllDepartments" class="btn-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

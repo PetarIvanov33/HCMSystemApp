@@ -1,5 +1,6 @@
 ﻿using HCMSystemApp.Core.Contracts;
 using HCMSystemApp.Core.Models.Department;
+using HCMSystemApp.Core.Services;
 using HCMSystemApp.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -86,6 +87,31 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             TempData["SuccessMessage"] = "Department name updated successfully.";
             return RedirectToAction("AllDepartments");
         }
+
+        [HttpGet]
+        public IActionResult CreateDepartmentWithManager()
+        {
+            return View(new AddManagerAndDepartmentModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateDepartmentWithManager(AddManagerAndDepartmentModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var success = await departmentService.CreateDepartmentWithManagerAsync(model);
+
+            if (!success)
+            {
+                ModelState.AddModelError("", "Error creating user or assigning role.");
+                return View(model);
+            }
+
+            return RedirectToAction("AllDepartments");
+        }
+
 
 
 

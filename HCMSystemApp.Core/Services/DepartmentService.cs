@@ -8,6 +8,7 @@ using HCMSystemApp.Core.Models.Department;
 using HCMSystemApp.Core.Models.Users;
 using HCMSystemApp.Infrastructure.Data.Common;
 using HCMSystemApp.Infrastructure.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCMSystemApp.Core.Services
@@ -15,11 +16,12 @@ namespace HCMSystemApp.Core.Services
     public class DepartmentService : IDepartmentService
     {
         private readonly IRepository repo;
+        private readonly UserManager<User> userManager;
 
-        public DepartmentService(IRepository _repo)
+        public DepartmentService(IRepository _repo, UserManager<User> _userManager)
         {
             repo = _repo;
-
+            userManager = _userManager;
         }
         public async Task<IEnumerable<DepartmentViewModel>> GetAllDepartments()
         {
@@ -94,6 +96,67 @@ namespace HCMSystemApp.Core.Services
             return true;
         }
 
+        public async Task<bool> CreateDepartmentWithManagerAsync(AddManagerAndDepartmentModel model)
+        {
+            var managerUser = new User
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserName = model.UserName,
+                Age = model.Age,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                IsVerified = true,
+                EmailConfirmed = true
+            };
 
+            var result = await userManager.CreateAsync(managerUser, model.Password);
+            if (!result.Succeeded)
+                return false;
+
+            var role = await repo.All<Role>().FirstOrDefaultAsync(r => r.Name == "Manager");
+            if (role == null)
+            {
+                throw new ArgumentException("Invalid role name");
+            }
+
+            var userRole = new UserRole
+            {
+                UserId = managerUser.Id,
+                RoleId = role.Id
+            };
+            await repo.AddAsync(userRole);
+            await repo.SaveChangesAsync();
+
+            var manager = new Manager
+            {
+                UserId = managerUser.Id,
+            };
+
+            await repo.AddAsync(manager);
+            await repo.SaveChangesAsync();
+
+            var department = new Department
+            {
+                Name = model.DepartmentName,
+                ManagerId = manager.Id
+            };
+
+            await repo.AddAsync(department);
+            await repo.SaveChangesAsync();
+
+            var salary = new Salary
+            {
+                UserId = managerUser.Id,
+                Amount = model.SalaryAmount
+            };
+
+            await repo.AddAsync(salary);
+            await repo.SaveChangesAsync();
+
+            return true;
+
+
+        }
     }
 }
