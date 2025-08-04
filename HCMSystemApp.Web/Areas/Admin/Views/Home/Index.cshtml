@@ -56,27 +56,32 @@
     <div class="row dashboard-buttons">
         <div class="col-md-6">
             <a class="btn btn-primary" asp-area="Admin" asp-controller="Department" asp-action="AllDepartments">
-                <i class="bi bi-person icon"></i> All Departments
+                <i class="bi bi-diagram-3 icon"></i> All Departments
             </a>
         </div>
         <div class="col-md-6">
             <a class="btn btn-success" asp-area="Admin" asp-controller="AccountAdmin" asp-action="AllManagers">
-                <i class="bi bi-calendar-check icon"></i> All Managers
+                <i class="bi bi-person-lines-fill icon"></i> All Managers
             </a>
         </div>
         <div class="col-md-6">
             <a class="btn btn-warning text-white" asp-area="Admin" asp-controller="Leave" asp-action="PendingManagerRequests">
-                <i class="bi bi-calendar-plus icon"></i> Pending Manager Leave Requests
+                <i class="bi bi-calendar-check icon"></i> Pending Manager Leave Requests
             </a>
         </div>
         <div class="col-md-6">
             <a class="btn btn-info text-white" asp-area="Admin" asp-controller="AccountAdmin" asp-action="PendingUsers">
-                <i class="bi bi-cash-stack icon"></i> Pending User Verifications
+                <i class="bi bi-person icon"></i> Pending User Verifications
             </a>
         </div>
         <div class="col-md-6">
             <a class="btn btn-danger text-white" asp-area="Admin" asp-controller="Department" asp-action="CreateDepartmentWithManager">
-                <i class="bi bi-cash-stack icon"></i> Create Manager and Departments
+                <i class="bi bi-person-lines-fill icon"></i>/<i class="bi bi-diagram-3 icon"></i> Create Manager and Departments
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-dark text-white" asp-area="Admin" asp-controller="AccountAdmin" asp-action="AllEmployeesWithoutDepartment">
+                <i class="bi bi-people-fill icon"></i> All Employees Without Department
             </a>
         </div>
     </div>
