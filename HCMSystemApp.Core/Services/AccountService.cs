@@ -80,6 +80,8 @@ namespace HCMSystemApp.Core.Services
 
             var employee = await repo.All<Employee>()
                                      .Include(e => e.Department)
+                                     .ThenInclude(e => e.Manager)
+                                     .ThenInclude(e => e.User)
                                      .FirstOrDefaultAsync(e => e.UserId == userId);
 
             var salary = await repo.All<Salary>()
@@ -96,7 +98,8 @@ namespace HCMSystemApp.Core.Services
                 PhoneNumber = currentUser.PhoneNumber,
                 Department = employee.Department.Name,
                 Position = employee?.Position ?? "N/A",
-                SalaryAmount = salary?.Amount ?? 0
+                SalaryAmount = salary?.Amount ?? 0,
+                ManagerIdOfEmployee = employee.Department.Manager.User.Id,
             };
         }
 

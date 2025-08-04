@@ -129,8 +129,9 @@
         </div>
 
         <div class="text-center mt-4">
+            <input type="hidden" name="managerIdOfEmployee" value="@Model.ManagerIdOfEmployee" />
             <button type="submit" class="btn-submit">Save Changes</button>
-            <a asp-action="MyDepartment" class="btn-cancel">Cancel</a>
+            <a asp-controller="Department" asp-action="MyDepartment" asp-route-id="@Model.ManagerIdOfEmployee" class="btn-cancel">Cancel</a>
         </div>
     </form>
 </div>

@@ -38,6 +38,8 @@ namespace HCMSystemApp.Core.Models.Users
 
         public string? Department { get; set; }
 
+        public string? ManagerIdOfEmployee { get; set; }
+
         [Range(1033, double.MaxValue, ErrorMessage = "Salary must be at least 1033.")]
         public decimal SalaryAmount { get; set; }
     }

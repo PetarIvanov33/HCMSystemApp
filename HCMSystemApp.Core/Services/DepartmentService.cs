@@ -33,6 +33,7 @@ namespace HCMSystemApp.Core.Services
                     Name = d.Name,
                     ManagerId = d.Manager.Id,
                     ManagerName = d.Manager.User.FirstName + " " + d.Manager.User.LastName,
+                    UserIdOfManager = d.Manager.User.Id,
                     EmployeeCount = d.Employees.Count()
                 }).ToListAsync();
 
@@ -51,6 +52,7 @@ namespace HCMSystemApp.Core.Services
                     Name = d.Name,
                     ManagerId = d.Manager.Id,
                     ManagerName = d.Manager.User.FirstName + " " + d.Manager.User.LastName,
+                    UserIdOfManager = d.Manager.User.Id,
                     EmployeeCount = d.Employees.Count()
                 })
                 .FirstOrDefaultAsync();
@@ -59,6 +61,9 @@ namespace HCMSystemApp.Core.Services
         public async Task<IEnumerable<DisplayedEmployeeModel>> GetEmployeesByDepartmentIdAsync(int departmentId)
         {
             return await repo.All<Employee>()
+                .Include(e => e.Department)
+                .ThenInclude(e => e.Manager)
+                .ThenInclude(e => e.User)
                 .Where(e => e.DepartmentId == departmentId)
                 .Select(e => new DisplayedEmployeeModel
                 {
@@ -70,6 +75,7 @@ namespace HCMSystemApp.Core.Services
                     Email = e.User.Email,
                     PhoneNumber = e.User.PhoneNumber,
                     Position = e.Position,
+                    ManagerIdOfEmployee = e.Department.Manager.User.Id,
                     SalaryAmount = e.User.Salary.Amount
                 })
                 .ToListAsync();

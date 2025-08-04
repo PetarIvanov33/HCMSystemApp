@@ -1,5 +1,5 @@
 ﻿@using HCMSystemApp.Core.Models.Department
-@model List<DepartmentViewModel>
+@model IEnumerable<DepartmentViewModel>
 
 @{
     ViewData["Title"] = "All Departments";
@@ -110,11 +110,11 @@
                     <p><strong>Employees:</strong> @dept.EmployeeCount</p>
                 </div>
                 <div class="btn-wrapper">
-                    <a asp-action="ViewDepartmentDetails" asp-route-id="@dept.Id" class="view-btn">
-                        Прегледай Отдела
+                    <a asp-area="" asp-controller="Department" asp-action="MyDepartment" asp-route-id="@dept.UserIdOfManager" class="view-btn">
+                        Browse the Department
                     </a>
                     <a asp-action="EditDepartment" asp-route-id="@dept.Id" class="edit-btn">
-                        Редактирай Отдела
+                        Edit Department
                     </a>
                 </div>
             </div>

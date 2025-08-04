@@ -138,7 +138,7 @@ namespace HCMSystemApp.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, HRAdmin")]
         public async Task<IActionResult> EditEmployeeProfile(string id)
         {
             var employee = await accountService.GetCurrentEmployeeProfile(id);
@@ -151,9 +151,9 @@ namespace HCMSystemApp.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, HRAdmin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditEmployeeProfile(DisplayedEmployeeModel model)
+        public async Task<IActionResult> EditEmployeeProfile(DisplayedEmployeeModel model, string? managerIdOfEmployee)
         {
             if (!ModelState.IsValid)
             {
@@ -164,7 +164,7 @@ namespace HCMSystemApp.Web.Controllers
             {
                 await accountService.UpdateEmployeeAsync(model);
                 TempData["Success"] = "Employee profile updated successfully!";
-                return RedirectToAction("MyDepartment", "Department");
+                return RedirectToAction("MyDepartment", "Department", new {Id = managerIdOfEmployee});
             }
             catch (Exception ex)
             {
@@ -174,17 +174,27 @@ namespace HCMSystemApp.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager, HRAdmin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteEmployee(string id)
+        public async Task<IActionResult> DeleteEmployee(string id, string? managerIdOfEmployee)
         {
-            var managerId = User.FindFirstValue(ClaimTypes.NameIdentifier); // или от Claims
+            string managerId = null;
+
+            if (User.IsInRole("Manager"))
+            {
+                managerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            }
+            else if (User.IsInRole("HRAdmin"))
+            {
+                managerId = managerIdOfEmployee;
+            }
 
             bool success = await accountService.DeleteEmployeeAsync(id, managerId);
 
             if (!success)
                 return Forbid();
 
-            return RedirectToAction("MyDepartment", "Department");
+            return RedirectToAction("MyDepartment", "Department", new { Id = managerIdOfEmployee });
         }
 
 

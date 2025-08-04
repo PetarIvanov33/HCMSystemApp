@@ -18,6 +18,10 @@ namespace HCMSystemApp.Core.Models.Department
         [BindNever]
         public int ManagerId { get; set; }
 
+        [BindNever]
+        public string UserIdOfManager { get; set; } = null!;
+
+
         [Display(Name = "Manager Name")]
 
         public string ManagerName = null!;

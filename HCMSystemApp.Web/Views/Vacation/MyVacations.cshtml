@@ -14,6 +14,15 @@
         background-position: center;
     }
 
+    .vacation-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 1000px;
+        margin: 100px auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
     .vacation-card {
         background-color: rgba(255, 255, 255, 0.92);
         border-radius: 12px;
@@ -53,15 +62,22 @@
         background-color: #ffc107;
         color: black;
     }
+
+    .no-vacation {
+        text-align: center;
+        font-size: 1.3rem;
+        color: #666;
+        margin-top: 50px;
+    }
 </style>
 
-<div class="container mt-5 mb-5">
+<div class="vacation-container">
     <h2 class="text-center text-dark fw-bold mb-4">My Vacation Requests</h2>
 
     @if (!Model.Any())
     {
-        <div class="text-center">
-            <p class="text-dark fs-5">You have no vacation requests yet.</p>
+        <div class="no-vacation">
+            <p>You have no vacation requests yet.</p>
         </div>
     }
     else

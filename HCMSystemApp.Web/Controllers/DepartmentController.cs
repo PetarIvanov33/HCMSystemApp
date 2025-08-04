@@ -36,11 +36,20 @@ namespace HCMSystemApp.Web.Controllers
             departmentService = _departmentService;
         }
 
-        [Authorize(Roles = "Manager")]
-        public async Task<IActionResult> MyDepartment()
+        [Authorize(Roles = "Manager, HRAdmin")]
+        public async Task<IActionResult> MyDepartment(string Id)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string userId = null;
 
+            if (User.IsInRole("Manager"))
+            {
+                userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            }
+            else if (User.IsInRole("HRAdmin"))
+            {
+                userId = Id;
+            }
+            
             var department = await departmentService.GetDepartmentByManagerUserIdAsync(userId);
 
             if (department == null)
