@@ -41,6 +41,17 @@ namespace HCMSystemApp.Core.Services
 
         }
 
+        public async Task<IEnumerable<DepartmentDTO>> GetAllDepartmentsForSelect()
+        {
+            return await repo.AllReadonly<Department>()
+                .Select(d => new DepartmentDTO
+                {
+                    Id = d.Id,
+                    Name = d.Name
+                }).ToListAsync();
+
+        }
+
         public async Task<DepartmentViewModel?> GetDepartmentByManagerUserIdAsync(string managerUserId)
         {
             return await repo.All<Department>()
@@ -158,5 +169,56 @@ namespace HCMSystemApp.Core.Services
 
 
         }
+
+        public async Task<bool> DeleteManagerAndDepartmentAsync(string managerId)
+        {
+            var manager = await repo
+                .All<Manager>()
+                .Include(m => m.Department)
+                .FirstOrDefaultAsync(m => m.UserId == managerId);
+
+            if (manager == null)
+                return false;
+
+            var employees = await repo
+                .All<Employee>()
+                .Where(e => e.DepartmentId == manager.Department.Id)
+                .ToListAsync();
+
+            foreach (var emp in employees)
+            {
+                emp.DepartmentId = null;
+            }
+
+            if (manager.Department != null)
+            {
+                repo.Delete(manager.Department);
+            }
+
+            repo.Delete(manager);
+
+            var userRoles = await repo
+                .All<UserRole>() 
+                .Where(ur => ur.UserId == managerId)
+                .ToListAsync();
+
+            foreach (var role in userRoles)
+            {
+                repo.Delete(role);
+            }
+
+            var user = await repo
+                .All<User>()
+                .FirstOrDefaultAsync(u => u.Id == managerId);
+
+            if (user != null)
+            {
+                repo.Delete(user);
+            }
+
+            await repo.SaveChangesAsync();
+            return true;
+        }
+
     }
 }

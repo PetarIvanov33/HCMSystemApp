@@ -12,6 +12,8 @@ namespace HCMSystemApp.Core.Contracts
     {
         Task<IEnumerable<DepartmentViewModel>> GetAllDepartments();
 
+        Task<IEnumerable<DepartmentDTO>> GetAllDepartmentsForSelect();
+
         Task<DepartmentViewModel?> GetDepartmentByManagerUserIdAsync(string managerUserId);
 
         Task<IEnumerable<DisplayedEmployeeModel>> GetEmployeesByDepartmentIdAsync(int departmentId);
@@ -19,6 +21,8 @@ namespace HCMSystemApp.Core.Contracts
         Task<bool> UpdateDepartmentNameAsync(int departmentId, string newName);
 
         Task<bool> CreateDepartmentWithManagerAsync(AddManagerAndDepartmentModel model);
+
+        Task<bool> DeleteManagerAndDepartmentAsync(string managerId);
 
     }
 }

@@ -48,6 +48,5 @@ namespace HCMSystemApp.Core.Models.Users
         [Display(Name = "Department")]
         public int? DepartmentId { get; set; } // for change employee department
 
-        public IEnumerable<DepartmentDTO>? Departments { get; set; }
     }
 }

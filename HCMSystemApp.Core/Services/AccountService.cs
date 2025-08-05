@@ -88,29 +88,43 @@ namespace HCMSystemApp.Core.Services
 
             var salary = await repo.All<Salary>()
                                    .FirstOrDefaultAsync(s => s.UserId == userId);
-
-            return new DisplayedEmployeeModel
+            if (employee.DepartmentId != null)
             {
-                UserId = currentUser.UserId,
-                UserName = currentUser.UserName,
-                FirstName = currentUser.FirstName,
-                LastName = currentUser.LastName,
-                Age = currentUser.Age,
-                Email = currentUser.Email,
-                PhoneNumber = currentUser.PhoneNumber,
-                Department = employee.Department.Name ?? "N/A",
-                Position = employee?.Position ?? "N/A",
-                SalaryAmount = salary?.Amount ?? 0,
-                ManagerIdOfEmployee = employee.Department.Manager.User.Id,
-                DepartmentId = employee.Department?.Id,
 
-                Departments = await repo.All<Department>()
-                                        .Select(d => new DepartmentDTO
-                                        {
-                                        Id = d.Id,
-                                        Name = d.Name
-                                        }).ToListAsync()
-            };
+                return new DisplayedEmployeeModel
+                {
+                    UserId = currentUser.UserId,
+                    UserName = currentUser.UserName,
+                    FirstName = currentUser.FirstName,
+                    LastName = currentUser.LastName,
+                    Age = currentUser.Age,
+                    Email = currentUser.Email,
+                    PhoneNumber = currentUser.PhoneNumber,
+                    Department = employee.Department.Name ?? "N/A",
+                    Position = employee?.Position ?? "N/A",
+                    SalaryAmount = salary?.Amount ?? 0,
+                    ManagerIdOfEmployee = employee.Department.Manager.User.Id ?? "N/A",
+                    DepartmentId = employee.Department?.Id ?? 0
+                };
+            }
+            else
+            {
+                return new DisplayedEmployeeModel
+                {
+                    UserId = currentUser.UserId,
+                    UserName = currentUser.UserName,
+                    FirstName = currentUser.FirstName,
+                    LastName = currentUser.LastName,
+                    Age = currentUser.Age,
+                    Email = currentUser.Email,
+                    PhoneNumber = currentUser.PhoneNumber,
+                    Department = "N/A",
+                    Position = employee?.Position ?? "N/A",
+                    SalaryAmount = salary?.Amount ?? 0,
+                    ManagerIdOfEmployee = "N/A",
+                    DepartmentId = 0
+                };
+            }
         }
 
         public async Task UpdateEmployeeAsync(DisplayedEmployeeModel model)

@@ -112,6 +112,19 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return RedirectToAction("AllDepartments");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteManagerAndDepartment(string id)
+        {
+            var result = await departmentService.DeleteManagerAndDepartmentAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("AllManagers", "AccountAdmin");
+        }
+
+
 
 
 

@@ -116,7 +116,8 @@
                     <a asp-area="Admin" asp-controller="AccountAdmin" asp-action="EditManagerProfile" asp-route-id="@manager.UserId" class="edit-btn">
                         Edit Manager Profile
                     </a>
-                    <form asp-controller="AccountAdmin"
+                    <form asp-area="Admin"
+                          asp-controller="Department"
                           asp-action="DeleteManagerAndDepartment"
                           asp-route-id="@manager.UserId"
                           method="post"

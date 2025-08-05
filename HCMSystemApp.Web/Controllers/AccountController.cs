@@ -148,7 +148,7 @@ namespace HCMSystemApp.Web.Controllers
         {
             var employee = await accountService.GetCurrentEmployeeProfile(id);
 
-            ViewBag.Departments = new SelectList(employee.Departments, "Id", "Name");
+            ViewBag.Departments = new SelectList(await departmentService.GetAllDepartmentsForSelect(), "Id", "Name");
 
             if (employee == null)
             {
@@ -165,14 +165,15 @@ namespace HCMSystemApp.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                foreach (var state in ModelState)
-                {
-                    string key = state.Key;
-                    foreach (var error in state.Value.Errors)
-                    {
-                        Console.WriteLine($"Field: {key}, Error: {error.ErrorMessage}");
-                    }
-                }
+                //for debug
+                //foreach (var state in ModelState)
+                //{
+                //    string key = state.Key;
+                //    foreach (var error in state.Value.Errors)
+                //    {
+                //        Console.WriteLine($"Field: {key}, Error: {error.ErrorMessage}");
+                //    }
+                //}
                 return View(model);
             }
 
