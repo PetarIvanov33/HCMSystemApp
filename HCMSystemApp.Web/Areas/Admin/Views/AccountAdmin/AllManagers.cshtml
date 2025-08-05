@@ -82,6 +82,21 @@
             background-color: #b91c1c;
         }
 
+    .add-payroll-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+    }
+
+        .add-payroll-btn:hover {
+            background-color: #218838;
+        }
+
     .no-managers {
         text-align: center;
         font-size: 1.3rem;
@@ -115,6 +130,9 @@
                 <div class="btn-wrapper">
                     <a asp-area="Admin" asp-controller="AccountAdmin" asp-action="EditManagerProfile" asp-route-id="@manager.UserId" class="edit-btn">
                         Edit Manager Profile
+                    </a>
+                    <a asp-area="Admin" asp-controller="PayrollAdmin" asp-action="AddManagerPayroll" asp-route-id="@manager.UserId" class="add-payroll-btn">
+                        Add Payroll to Manager
                     </a>
                     <form asp-area="Admin"
                           asp-controller="Department"

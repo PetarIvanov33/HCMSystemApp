@@ -2,7 +2,7 @@
 @model PayrollViewModel
 
 @{
-    ViewData["Title"] = "Add Payroll";
+    ViewData["Title"] = "Add Manager Payroll";
 }
 
 <style>
@@ -80,7 +80,7 @@
 <div class="form-container">
     <h2 class="form-title">Add Payroll</h2>
 
-    <form asp-area="" asp-controller="Payroll" asp-action="AddPayroll" method="post">
+    <form asp-area="Admin" asp-controller="PayrollAdmin" asp-action="AddManagerPayroll" method="post">
         @Html.AntiForgeryToken()
 
         <input type="hidden" name="Id" value="@Model.Id" />
@@ -115,7 +115,7 @@
 
         <div class="text-center mt-4">
             <button type="submit" class="btn-submit">Create Payroll</button>
-            <a asp-area="" asp-controller="Department" asp-action="MyDepartment" class="btn-cancel">Cancel</a>
+            <a asp-area="Admin" asp-controller="AccountAdmin" asp-action="AllManagers" class="btn-cancel">Cancel</a>
         </div>
     </form>
 </div>
