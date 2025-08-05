@@ -127,6 +127,42 @@ namespace HCMSystemApp.Core.Services
             }
         }
 
+        public async Task<IEnumerable<DisplayedEmployeeModel>> GetEmployeesWithoutDepartmentAsync()
+        {
+            return await repo
+                .All<Employee>()
+                .Include(e => e.User)
+                .ThenInclude(e => e.Salary)
+                .Where(e => e.DepartmentId == null)
+                .Select(e => new DisplayedEmployeeModel
+                {
+                    UserId = e.UserId,
+                    FirstName = e.User.FirstName,
+                    LastName = e.User.LastName,
+                    UserName = e.User.UserName,
+                    Email = e.User.Email,
+                    PhoneNumber = e.User.PhoneNumber,
+                    Age = e.User.Age,
+                    Position = e.Position,
+                    SalaryAmount = e.User.Salary.Amount
+                })
+                .ToListAsync();
+        }
+
+        public async Task<bool> AssignDepartmentToEmployeeAsync(string employeeId, int departmentId)
+        {
+            var employee = await repo.All<Employee>()
+                .FirstOrDefaultAsync(e => e.UserId == employeeId);
+
+            if (employee == null) return false;
+
+            employee.DepartmentId = departmentId;
+            await repo.SaveChangesAsync();
+            return true;
+        }
+
+
+
         public async Task UpdateEmployeeAsync(DisplayedEmployeeModel model)
         {
             var employee = await repo.All<Employee>()

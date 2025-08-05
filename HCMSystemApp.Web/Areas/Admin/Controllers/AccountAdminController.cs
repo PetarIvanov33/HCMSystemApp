@@ -142,6 +142,36 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return RedirectToAction("AllManagers");
         }
 
+        [HttpGet]
+        [Area("Admin")]
+        public async Task<IActionResult> EmployeesWithoutDepartment()
+        {
+            var model = await accountService.GetEmployeesWithoutDepartmentAsync();
+
+            var select = new SelectList(await departmentService.GetAllDepartmentsForSelect(), "Id", "Name");
+
+            ViewBag.Departments = select;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignDepartment(string employeeId, int departmentId)
+        {
+            if (await accountService.AssignDepartmentToEmployeeAsync(employeeId, departmentId))
+            {
+                TempData["Success"] = "Department assigned successfully.";
+            }
+            else
+            {
+                TempData["Error"] = "Failed to assign department.";
+            }
+
+            return RedirectToAction(nameof(EmployeesWithoutDepartment));
+        }
+
+
         public IActionResult Index()
         {
             return View();
