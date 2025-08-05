@@ -25,6 +25,8 @@ namespace HCMSystemApp.Core.Contracts
 
         Task<bool> DeleteEmployeeAsync(string userIdToDelete, string managerUserId);
 
+        Task<bool> DeleteEmployeeWithoutDepartmentAsync(string employeeId);
+
         Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId);
 
         Task<IEnumerable<DisplayedManagerModel>> GetAllManagersAsync();

@@ -171,6 +171,23 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return RedirectToAction(nameof(EmployeesWithoutDepartment));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteEmployeeWithoutDepartment(string id)
+        {
+            if (await accountService.DeleteEmployeeWithoutDepartmentAsync(id))
+            {
+                TempData["Success"] = "Employee deleted successfully.";
+            }
+            else
+            {
+                TempData["Error"] = "Failed to delete employee.";
+            }
+
+            return RedirectToAction(nameof(EmployeesWithoutDepartment));
+        }
+
+
 
         public IActionResult Index()
         {

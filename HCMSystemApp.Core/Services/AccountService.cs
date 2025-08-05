@@ -162,7 +162,6 @@ namespace HCMSystemApp.Core.Services
         }
 
 
-
         public async Task UpdateEmployeeAsync(DisplayedEmployeeModel model)
         {
             var employee = await repo.All<Employee>()
@@ -203,35 +202,84 @@ namespace HCMSystemApp.Core.Services
                 .FirstOrDefaultAsync(e => e.UserId == userIdToDelete);
 
             if (employee == null || employee.DepartmentId != manager.Department.Id)
-                return false; // Няма право да трие
+                return false; 
 
-            // Изтриваме заплата
             var salary = await repo.All<Salary>()
                 .FirstOrDefaultAsync(s => s.UserId == userIdToDelete);
             if (salary != null) repo.Delete(salary);
 
-            // Изтриваме пейроли
             var payrolls = await repo.All<Payroll>()
                 .Where(p => p.UserId == userIdToDelete)
                 .ToListAsync();
             repo.DeleteRange(payrolls);
 
-            // Изтриваме ролята
             var userRoles = await repo.All<UserRole>()
                 .Where(ur => ur.UserId == userIdToDelete)
                 .ToListAsync();
             repo.DeleteRange(userRoles);
 
-            // Изтриваме employee
             repo.Delete(employee);
 
-            // Изтриваме самия потребител
             var user = await repo.GetByIdAsync<User>(userIdToDelete);
             repo.Delete(user);
 
             await repo.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> DeleteEmployeeWithoutDepartmentAsync(string employeeId)
+        {
+            var employee = await repo
+         .All<Employee>()
+         .FirstOrDefaultAsync(e => e.UserId == employeeId);
+
+            if (employee == null)
+                return false;
+
+            var payrolls = await repo
+                .All<Payroll>()
+                .Where(p => p.UserId == employee.UserId)
+                .ToListAsync();
+
+            foreach (var payroll in payrolls)
+            {
+                repo.Delete(payroll);
+            }
+
+            var salary = await repo
+                .All<Salary>()
+                .FirstOrDefaultAsync(s => s.UserId == employee.UserId);
+
+            if (salary != null)
+            {
+                repo.Delete(salary);
+            }
+
+            var userRoles = await repo
+                .All<UserRole>()
+                .Where(ur => ur.UserId == employee.UserId)
+                .ToListAsync();
+
+            foreach (var role in userRoles)
+            {
+                repo.Delete(role);
+            }
+
+            repo.Delete(employee);
+
+            var user = await repo
+                .All<User>()
+                .FirstOrDefaultAsync(u => u.Id == employee.UserId);
+
+            if (user != null)
+            {
+                repo.Delete(user);
+            }
+
+            await repo.SaveChangesAsync();
+            return true;
+        }
+
 
 
         public async Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId)
