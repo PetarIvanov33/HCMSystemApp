@@ -11,6 +11,10 @@ namespace HCMSystemApp.Core.Contracts
     {
         Task<IEnumerable<PayrollViewModel>> GetAllPayrollsAsync();
         Task<IEnumerable<PayrollViewModel>> GetCurrentUserPayrollsAsync(string userId);
+
+        Task<bool> AddPayrollAsync(string userId, PayrollViewModel model);
+
+        Task<SalaryViewModel> GetUserSalary(string userId);
     }
         
 }

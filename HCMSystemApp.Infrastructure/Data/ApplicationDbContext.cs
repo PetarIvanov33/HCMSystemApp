@@ -34,11 +34,11 @@ namespace HCMSystemApp.Infrastructure.Data
 
             builder.ApplyConfiguration(new UserRoleConfiguration());
 
-            builder.Entity<Payroll>()
-            .HasOne(p => p.Salary)
-            .WithMany()
-            .HasForeignKey(p => p.SalaryId)
-            .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<Payroll>()
+            //.HasOne(p => p.Salary)
+            //.WithMany()
+            //.HasForeignKey(p => p.SalaryId)
+            //.OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Employee>()
             .HasOne(e => e.User)

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HCMSystemApp.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250805143818_InitialCreate")]
+    [Migration("20250805163654_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -138,6 +138,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                     b.Property<decimal>("Bonus")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("GrossAmount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("IssuedOn")
                         .HasColumnType("datetime2");
 
@@ -149,9 +152,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("SalaryId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TaxAmount")
                         .HasColumnType("decimal(18,2)");
 
@@ -160,8 +160,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SalaryId");
 
                     b.HasIndex("UserId");
 
@@ -172,10 +170,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         {
                             Id = 1,
                             Bonus = 500.00m,
+                            GrossAmount = 5500.00m,
                             IssuedOn = new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NetAmount = 4750.00m,
                             Period = "01-2025",
-                            SalaryId = 1,
                             TaxAmount = 750.00m,
                             UserId = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6"
                         },
@@ -183,10 +181,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         {
                             Id = 2,
                             Bonus = 200.00m,
+                            GrossAmount = 3200.00m,
                             IssuedOn = new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NetAmount = 2920.00m,
                             Period = "01-2025",
-                            SalaryId = 2,
                             TaxAmount = 480.00m,
                             UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9"
                         },
@@ -194,10 +192,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         {
                             Id = 3,
                             Bonus = 250.00m,
+                            GrossAmount = 3400.00m,
                             IssuedOn = new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NetAmount = 3140.00m,
                             Period = "01-2025",
-                            SalaryId = 3,
                             TaxAmount = 510.00m,
                             UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1"
                         },
@@ -205,10 +203,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         {
                             Id = 4,
                             Bonus = 300.00m,
+                            GrossAmount = 5500.00m,
                             IssuedOn = new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NetAmount = 4720.00m,
                             Period = "02-2025",
-                            SalaryId = 1,
                             TaxAmount = 780.00m,
                             UserId = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6"
                         },
@@ -216,10 +214,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         {
                             Id = 5,
                             Bonus = 150.00m,
+                            GrossAmount = 3200.00m,
                             IssuedOn = new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NetAmount = 2890.00m,
                             Period = "02-2025",
-                            SalaryId = 2,
                             TaxAmount = 460.00m,
                             UserId = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9"
                         },
@@ -227,10 +225,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                         {
                             Id = 6,
                             Bonus = 300.00m,
+                            GrossAmount = 3400.00m,
                             IssuedOn = new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NetAmount = 3170.00m,
                             Period = "02-2025",
-                            SalaryId = 3,
                             TaxAmount = 530.00m,
                             UserId = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1"
                         });
@@ -420,7 +418,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "8d04dce2-969a-435d-bba4-df3f325983dc",
                             AccessFailedCount = 0,
                             Age = 40,
-                            ConcurrencyStamp = "94306064-2c1f-47eb-9916-35efe473eef7",
+                            ConcurrencyStamp = "8bfa785f-802f-4c8a-9d15-b4add59466f6",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -429,10 +427,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFVeYx8Pv8v5/SR+pXzYCYDM0DKWvOE5aQx3tx4Uv2XMPmkSmuXOABm/dP7/n7/fAA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEP1o46jk81Rbf5QITY/zaFWA+fQUEzGuTqCuDLIa0JMaxo1HjncJc9CH5J3EybVj/A==",
                             PhoneNumber = "0123456789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7d744ece-1785-43ba-a1e0-95eb1b848903",
+                            SecurityStamp = "9ed724eb-fb62-4616-b336-9f38c8bc2f93",
                             TwoFactorEnabled = false,
                             UserName = "admin@example.com"
                         },
@@ -441,7 +439,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6",
                             AccessFailedCount = 0,
                             Age = 35,
-                            ConcurrencyStamp = "6634373a-a10d-431a-9728-3fcab5f34847",
+                            ConcurrencyStamp = "6508a87b-d247-4f09-b852-01dd5eb64783",
                             Email = "manager@example.com",
                             EmailConfirmed = true,
                             FirstName = "Manager",
@@ -450,10 +448,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@EXAMPLE.COM",
                             NormalizedUserName = "MANAGER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJQJLcXu77w6RYAt2ihqfOdKb9bQ03XpcJkJ+ROVU7zTsrn19r6RhuprFr2V0WrS3g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHatdau9SXWPlFYrawDEfOfefz5J+0ZAGV3o76LYF0coeqHrt9V6VE4/h3O6t+5VzA==",
                             PhoneNumber = "0881234567",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "236ad873-a6ef-4760-9ead-49b7ccc25246",
+                            SecurityStamp = "b650de64-0720-489e-9b7d-94caadc5f1e9",
                             TwoFactorEnabled = false,
                             UserName = "manager@example.com"
                         },
@@ -462,7 +460,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9",
                             AccessFailedCount = 0,
                             Age = 28,
-                            ConcurrencyStamp = "1648f149-1703-47e7-904f-df98cd8c1345",
+                            ConcurrencyStamp = "ea567d3e-b796-4840-8870-2f5df625677c",
                             Email = "employee1@example.com",
                             EmailConfirmed = true,
                             FirstName = "Ivan",
@@ -471,10 +469,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE1@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENzB31ZJfBxFScmynE1du1+5UBccDXblfJg+zm3+olLaSxcn7242LKRvmI1BV3vAZA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKcS5uMvQnMKoEed+yYFy6SzJho4yINn2pjtoxeWTQfHlDw/mKAt8Wm+SqHqiAyhYg==",
                             PhoneNumber = "0881111111",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d6a4c412-b660-4745-8e7d-3ebdde68cfca",
+                            SecurityStamp = "29deb52f-bfb9-4e2a-9da3-9f6dd256327b",
                             TwoFactorEnabled = false,
                             UserName = "employee1@example.com"
                         },
@@ -483,7 +481,7 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             Id = "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1",
                             AccessFailedCount = 0,
                             Age = 30,
-                            ConcurrencyStamp = "00d584e9-aa7b-4f46-886c-6ec5a1fc92fe",
+                            ConcurrencyStamp = "85eae67d-cb46-4af2-8408-5a6335cc18db",
                             Email = "employee2@example.com",
                             EmailConfirmed = true,
                             FirstName = "Georgi",
@@ -492,10 +490,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE2@EXAMPLE.COM",
                             NormalizedUserName = "EMPLOYEE2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN1nQ3Z4qSKOG6sFuxulbTTKdDNtUkea8Y8wLTMxRDSY1Ook9RaOXSG1EmAB7JKqdQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBph17CHdgsNKSAPmsd1ouy3CngCF+IxAmJyESeIUDBfScF1CnGkAm0sOqdscDfr4Q==",
                             PhoneNumber = "0882222222",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5d6ebebe-22b8-4f25-aa54-873551738af1",
+                            SecurityStamp = "d83e4d15-4c6a-455e-afae-c0b59552007f",
                             TwoFactorEnabled = false,
                             UserName = "employee2@example.com"
                         });
@@ -768,19 +766,11 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("HCMSystemApp.Infrastructure.Data.Entities.Payroll", b =>
                 {
-                    b.HasOne("HCMSystemApp.Infrastructure.Data.Entities.Salary", "Salary")
-                        .WithMany()
-                        .HasForeignKey("SalaryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("HCMSystemApp.Infrastructure.Data.Entities.User", "User")
                         .WithMany("Payrolls")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Salary");
 
                     b.Navigation("User");
                 });

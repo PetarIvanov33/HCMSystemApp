@@ -183,6 +183,31 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Payrolls",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Period = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    IssuedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Bonus = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    NetAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    GrossAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payrolls", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payrolls_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Salary",
                 columns: table => new
                 {
@@ -247,37 +272,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payrolls",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Period = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    IssuedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Bonus = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    NetAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    SalaryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payrolls", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Payrolls_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Payrolls_Salary_SalaryId",
-                        column: x => x.SalaryId,
-                        principalTable: "Salary",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -319,10 +313,10 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "IsVerified", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9", 0, 28, "1648f149-1703-47e7-904f-df98cd8c1345", "employee1@example.com", true, "Ivan", true, "Ivanov", false, null, "EMPLOYEE1@EXAMPLE.COM", "EMPLOYEE1@EXAMPLE.COM", "AQAAAAIAAYagAAAAENzB31ZJfBxFScmynE1du1+5UBccDXblfJg+zm3+olLaSxcn7242LKRvmI1BV3vAZA==", "0881111111", false, "d6a4c412-b660-4745-8e7d-3ebdde68cfca", false, "employee1@example.com" },
-                    { "8d04dce2-969a-435d-bba4-df3f325983dc", 0, 40, "94306064-2c1f-47eb-9916-35efe473eef7", "admin@example.com", true, "Admin", true, "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEFVeYx8Pv8v5/SR+pXzYCYDM0DKWvOE5aQx3tx4Uv2XMPmkSmuXOABm/dP7/n7/fAA==", "0123456789", false, "7d744ece-1785-43ba-a1e0-95eb1b848903", false, "admin@example.com" },
-                    { "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", 0, 30, "00d584e9-aa7b-4f46-886c-6ec5a1fc92fe", "employee2@example.com", true, "Georgi", true, "Georgiev", false, null, "EMPLOYEE2@EXAMPLE.COM", "EMPLOYEE2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEN1nQ3Z4qSKOG6sFuxulbTTKdDNtUkea8Y8wLTMxRDSY1Ook9RaOXSG1EmAB7JKqdQ==", "0882222222", false, "5d6ebebe-22b8-4f25-aa54-873551738af1", false, "employee2@example.com" },
-                    { "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6", 0, 35, "6634373a-a10d-431a-9728-3fcab5f34847", "manager@example.com", true, "Manager", true, "User", false, null, "MANAGER@EXAMPLE.COM", "MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEJQJLcXu77w6RYAt2ihqfOdKb9bQ03XpcJkJ+ROVU7zTsrn19r6RhuprFr2V0WrS3g==", "0881234567", false, "236ad873-a6ef-4760-9ead-49b7ccc25246", false, "manager@example.com" }
+                    { "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9", 0, 28, "ea567d3e-b796-4840-8870-2f5df625677c", "employee1@example.com", true, "Ivan", true, "Ivanov", false, null, "EMPLOYEE1@EXAMPLE.COM", "EMPLOYEE1@EXAMPLE.COM", "AQAAAAIAAYagAAAAEKcS5uMvQnMKoEed+yYFy6SzJho4yINn2pjtoxeWTQfHlDw/mKAt8Wm+SqHqiAyhYg==", "0881111111", false, "29deb52f-bfb9-4e2a-9da3-9f6dd256327b", false, "employee1@example.com" },
+                    { "8d04dce2-969a-435d-bba4-df3f325983dc", 0, 40, "8bfa785f-802f-4c8a-9d15-b4add59466f6", "admin@example.com", true, "Admin", true, "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEP1o46jk81Rbf5QITY/zaFWA+fQUEzGuTqCuDLIa0JMaxo1HjncJc9CH5J3EybVj/A==", "0123456789", false, "9ed724eb-fb62-4616-b336-9f38c8bc2f93", false, "admin@example.com" },
+                    { "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1", 0, 30, "85eae67d-cb46-4af2-8408-5a6335cc18db", "employee2@example.com", true, "Georgi", true, "Georgiev", false, null, "EMPLOYEE2@EXAMPLE.COM", "EMPLOYEE2@EXAMPLE.COM", "AQAAAAIAAYagAAAAEBph17CHdgsNKSAPmsd1ouy3CngCF+IxAmJyESeIUDBfScF1CnGkAm0sOqdscDfr4Q==", "0882222222", false, "d83e4d15-4c6a-455e-afae-c0b59552007f", false, "employee2@example.com" },
+                    { "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6", 0, 35, "6508a87b-d247-4f09-b852-01dd5eb64783", "manager@example.com", true, "Manager", true, "User", false, null, "MANAGER@EXAMPLE.COM", "MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEHatdau9SXWPlFYrawDEfOfefz5J+0ZAGV3o76LYF0coeqHrt9V6VE4/h3O6t+5VzA==", "0881234567", false, "b650de64-0720-489e-9b7d-94caadc5f1e9", false, "manager@example.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -340,6 +334,19 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 table: "Managers",
                 columns: new[] { "Id", "UserId" },
                 values: new object[] { 1, "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" });
+
+            migrationBuilder.InsertData(
+                table: "Payrolls",
+                columns: new[] { "Id", "Bonus", "GrossAmount", "IssuedOn", "NetAmount", "Period", "TaxAmount", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 500.00m, 5500.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 4750.00m, "01-2025", 750.00m, "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" },
+                    { 2, 200.00m, 3200.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 2920.00m, "01-2025", 480.00m, "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9" },
+                    { 3, 250.00m, 3400.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 3140.00m, "01-2025", 510.00m, "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" },
+                    { 4, 300.00m, 5500.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 4720.00m, "02-2025", 780.00m, "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" },
+                    { 5, 150.00m, 3200.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 2890.00m, "02-2025", 460.00m, "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9" },
+                    { 6, 300.00m, 3400.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 3170.00m, "02-2025", 530.00m, "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Salary",
@@ -368,19 +375,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 table: "Departments",
                 columns: new[] { "Id", "ManagerId", "Name" },
                 values: new object[] { 1, 1, "Software Development" });
-
-            migrationBuilder.InsertData(
-                table: "Payrolls",
-                columns: new[] { "Id", "Bonus", "IssuedOn", "NetAmount", "Period", "SalaryId", "TaxAmount", "UserId" },
-                values: new object[,]
-                {
-                    { 1, 500.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 4750.00m, "01-2025", 1, 750.00m, "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" },
-                    { 2, 200.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 2920.00m, "01-2025", 2, 480.00m, "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9" },
-                    { 3, 250.00m, new DateTime(2025, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 3140.00m, "01-2025", 3, 510.00m, "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" },
-                    { 4, 300.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 4720.00m, "02-2025", 1, 780.00m, "f36fc003-dbd1-47b4-9dfd-45ec0f16f5d6" },
-                    { 5, 150.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 2890.00m, "02-2025", 2, 460.00m, "79e1d63d-bbd0-4724-91f6-2ab694ebf4a9" },
-                    { 6, 300.00m, new DateTime(2025, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 3170.00m, "02-2025", 3, 530.00m, "d0bd2a23-6c8d-40b5-a476-b7992e7b50e1" }
-                });
 
             migrationBuilder.InsertData(
                 table: "Employees",
@@ -452,11 +446,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payrolls_SalaryId",
-                table: "Payrolls",
-                column: "SalaryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Payrolls_UserId",
                 table: "Payrolls",
                 column: "UserId");
@@ -498,6 +487,9 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
                 name: "Payrolls");
 
             migrationBuilder.DropTable(
+                name: "Salary");
+
+            migrationBuilder.DropTable(
                 name: "Vacations");
 
             migrationBuilder.DropTable(
@@ -505,9 +497,6 @@ namespace HCMSystemApp.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Departments");
-
-            migrationBuilder.DropTable(
-                name: "Salary");
 
             migrationBuilder.DropTable(
                 name: "Managers");

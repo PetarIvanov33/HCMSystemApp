@@ -29,6 +29,9 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal NetAmount { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal  GrossAmount { get; set; }
+
        
         [Required]
         public string UserId { get; set; } = null!;
@@ -37,10 +40,10 @@ namespace HCMSystemApp.Infrastructure.Data.Entities
         public User User { get; set; } = null!;
 
        
-        [Required]
-        public int SalaryId { get; set; }
+        //[Required]
+        //public int SalaryId { get; set; }
 
-        [ForeignKey(nameof(SalaryId))]
-        public Salary Salary { get; set; } = null!;
+        //[ForeignKey(nameof(SalaryId))]
+        //public Salary Salary { get; set; } = null!;
     }
 }

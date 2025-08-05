@@ -280,8 +280,6 @@ namespace HCMSystemApp.Core.Services
             return true;
         }
 
-
-
         public async Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId)
         {
             var allUsers = await GetAllUsersAsync();

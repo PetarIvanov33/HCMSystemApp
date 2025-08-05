@@ -195,6 +195,25 @@ namespace HCMSystemApp.Core.Services
                 repo.Delete(manager.Department);
             }
 
+            var payrolls = await repo
+                .All<Payroll>()
+                .Where(p => p.UserId == managerId)
+                .ToListAsync();
+
+            foreach (var payroll in payrolls)
+            {
+                repo.Delete(payroll);
+            }
+
+            var salary = await repo
+                .All<Salary>()
+                .FirstOrDefaultAsync(s => s.UserId == managerId);
+
+            if (salary != null)
+            {
+                repo.Delete(salary);
+            }
+
             repo.Delete(manager);
 
             var userRoles = await repo

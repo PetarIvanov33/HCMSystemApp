@@ -73,6 +73,21 @@
             background-color: #1d4ed8;
         }
 
+    .add-payroll-btn {
+        background-color: #28a745; /* Зелен бутон */
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+    }
+
+        .add-payroll-btn:hover {
+            background-color: #218838; /* По-тъмен зелен */
+        }
+
     .delete-btn {
         background-color: #dc2626;
         color: white;
@@ -137,6 +152,9 @@
                 <div class="action-buttons">
                     <a asp-controller="Account" asp-action="EditEmployeeProfile" asp-route-id="@employee.UserId" class="view-profile-btn">
                         Edit employee profile
+                    </a>
+                    <a asp-controller="Payroll" asp-action="AddPayroll" asp-route-id="@employee.UserId" class="add-payroll-btn">
+                        Add Payroll to Employee
                     </a>
                     <form asp-area="" asp-controller="Account" asp-action="DeleteEmployee"
                           method="post"
