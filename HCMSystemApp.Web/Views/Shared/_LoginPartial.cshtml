@@ -3,25 +3,44 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
+<style>
+    .btn-purple {
+        background-color: #6f42c1;
+        color: #fff !important;
+        border-radius: 6px;
+        padding: 6px 12px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-purple:hover {
+            background-color: #5a33a1;
+            color: #fff !important;
+        }
+</style>
+
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark fw-bold" asp-controller="Home" asp-action="Index" title="Greating">Hello, @User.Identity?.Name!</a>
+            <a class="nav-link btn btn-purple fw-bold me-2" asp-controller="Home" asp-action="Index" title="Greeting">
+                Hello, @User.Identity?.Name!
+            </a>
         </li>
         <li class="nav-item">
-            <form class="form-inline" onclick="return confirm('Are you sure you want to leave the site?')" asp-area="default" asp-controller="Account" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)">
-                <button type="submit" class="nav-link btn btn-link text-dark fw-bold">Log out</button>
+            <form class="form-inline" onclick="return confirm('Are you sure you want to leave the site?')"
+                  asp-area="default" asp-controller="Account" asp-action="Logout"
+                  asp-route-id="@UserManager.GetUserId(User)">
+                <button type="submit" class="btn btn-danger fw-bold ms-2">Log out</button>
             </form>
         </li>
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark fw-bold" asp-controller="Account" asp-action="Register">Register</a>
+        <li class="nav-item me-2">
+            <a class="btn btn-success fw-bold" asp-controller="Account" asp-action="Register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark fw-bold" asp-controller="Account" asp-action="Login">Log in</a>
+            <a class="btn btn-primary fw-bold" asp-controller="Account" asp-action="Login">Log in</a>
         </li>
     }
 </ul>
