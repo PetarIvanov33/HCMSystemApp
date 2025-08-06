@@ -39,6 +39,11 @@ namespace HCMSystemApp.Web
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/Home/AccessDenied"; 
+            });
+
             // MVC + Razor
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages(); //!!!
