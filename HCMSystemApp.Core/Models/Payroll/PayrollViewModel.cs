@@ -20,6 +20,8 @@ namespace HCMSystemApp.Core.Models.Payroll
         public decimal TaxAmount { get; set; }
         public decimal NetAmount { get; set; }
         public decimal BaseSalary { get; set; }
+
+        public string? ManagerIdOfEmployee { get; set; }
         public string UserId { get; set; }
     }
 }

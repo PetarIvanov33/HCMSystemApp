@@ -239,5 +239,18 @@ namespace HCMSystemApp.Core.Services
             return true;
         }
 
+        public async Task<string?> GetEmployeeManager (string employeeUserId)
+        {
+            var manager = await repo.AllReadonly<Employee>()
+                .Include(e => e.Department)
+                .ThenInclude(e => e.Manager)
+                .FirstOrDefaultAsync(e => e.UserId == employeeUserId);
+            if (manager != null)
+                return manager?.Department?.Manager.UserId;
+            else
+                return null;
+        }
+            
+
     }
 }

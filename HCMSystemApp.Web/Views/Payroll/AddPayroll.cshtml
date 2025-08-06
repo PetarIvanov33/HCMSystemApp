@@ -114,8 +114,9 @@
         <input type="hidden" asp-for="NetAmount" />
 
         <div class="text-center mt-4">
+            <input type="hidden" name="manager" value="@Model.ManagerIdOfEmployee" />
             <button type="submit" class="btn-submit">Create Payroll</button>
-            <a asp-area="" asp-controller="Department" asp-action="MyDepartment" class="btn-cancel">Cancel</a>
+            <a asp-area="" asp-controller="Department" asp-action="MyDepartment" asp-route-id="@Model.ManagerIdOfEmployee" class="btn-cancel">Cancel</a>
         </div>
     </form>
 </div>

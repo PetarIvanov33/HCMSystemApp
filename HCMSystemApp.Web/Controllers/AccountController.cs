@@ -165,7 +165,7 @@ namespace HCMSystemApp.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //for debug
+                //For debug
                 //foreach (var state in ModelState)
                 //{
                 //    string key = state.Key;

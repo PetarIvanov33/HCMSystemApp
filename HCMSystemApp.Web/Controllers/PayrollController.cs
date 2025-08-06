@@ -10,10 +10,12 @@ namespace HCMSystemApp.Web.Controllers
     public class PayrollController : Controller
     {
         private readonly IPayrollService payrollService;
+        private readonly IDepartmentService departmentService;
 
-        public PayrollController(IPayrollService _payrollService)
+        public PayrollController(IPayrollService _payrollService, IDepartmentService _departmentService)
         {
             payrollService = _payrollService;
+            departmentService = _departmentService;
         }
 
         [HttpGet]
@@ -33,10 +35,12 @@ namespace HCMSystemApp.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Manager, HRAdmin")]
         public async Task<IActionResult> AddPayroll(string Id)
         {
             var salary = await payrollService.GetUserSalary(Id);
+
+            var managerIdOfEmployee = await departmentService.GetEmployeeManager(Id);
 
             if (salary == null)
                 return NotFound();
@@ -45,7 +49,8 @@ namespace HCMSystemApp.Web.Controllers
             {
                 UserId = Id,
                 BaseSalary = salary.GrossSalary,
-                IssuedOn = DateTime.UtcNow 
+                IssuedOn = DateTime.UtcNow,
+                ManagerIdOfEmployee = managerIdOfEmployee,
             };
 
             return View(model);
@@ -53,18 +58,19 @@ namespace HCMSystemApp.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Manager")]
-        public async Task<IActionResult> AddPayroll(string userId, PayrollViewModel model)
+        [Authorize(Roles = "Manager, HRAdmin")]
+        public async Task<IActionResult> AddPayroll(string userId, PayrollViewModel model, string? manager)
         {
             if (!ModelState.IsValid)
             {
-                foreach (var modelState in ModelState.Values)
-                {
-                    foreach (var error in modelState.Errors)
-                    {
-                        Console.WriteLine(error.ErrorMessage);
-                    }
-                }
+                //For Debug
+                //foreach (var modelState in ModelState.Values)
+                //{
+                //    foreach (var error in modelState.Errors)
+                //    {
+                //        Console.WriteLine(error.ErrorMessage);
+                //    }
+                //}
                 var salary = await payrollService.GetUserSalary(userId);
 
                 if (salary != null)
@@ -83,7 +89,7 @@ namespace HCMSystemApp.Web.Controllers
             }
 
             TempData["Success"] = "Payroll added successfully.";
-            return RedirectToAction("MyDepartment", "Department");
+            return RedirectToAction("MyDepartment", "Department", new {Id = manager });
         }
 
 

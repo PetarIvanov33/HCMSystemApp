@@ -24,5 +24,7 @@ namespace HCMSystemApp.Core.Contracts
 
         Task<bool> DeleteManagerAndDepartmentAsync(string managerId);
 
+        Task<string?> GetEmployeeManager(string employeeUserId);
+
     }
 }
