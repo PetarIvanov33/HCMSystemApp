@@ -87,6 +87,20 @@ dotnet run
 
 ---
 
+## 🧪 Test Seed Users
+
+The application comes with pre-seeded test users for each role.  
+You can use the following credentials to log in and test the system:
+
+| Role         | Username                | Password  |
+|--------------|-------------------------|-----------|
+| 👑 **HR Admin** | `admin@example.com`     | `123456!` |
+| 📂 **Manager**  | `manager@example.com`   | `123456!` |
+| 👤 **Employee** | `employee1@example.com` | `123456!` |
+| 👤 **Employee** | `employee2@example.com` | `123456!` |
+
+---
+
 ## 🔐 Roles & Permissions
 
 | Role       | Permissions                                                                 |
