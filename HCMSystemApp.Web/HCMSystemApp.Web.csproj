@@ -5,6 +5,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-HCMSystemApp.Web-d2e0f3da-ca77-43f6-b0b7-62d4a94ba5f4</UserSecretsId>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>bin\Debug\net8.0\HCMSystemApp.Web.xml</DocumentationFile>
+
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <DocumentationFile>bin\Debug\net8.0\HCMSystemApp.Web.xml</DocumentationFile>
+	  <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

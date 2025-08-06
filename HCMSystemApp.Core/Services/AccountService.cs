@@ -15,15 +15,27 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace HCMSystemApp.Core.Services
 {
+    /// <summary>
+    /// Service class for managing accounts, employees, managers and related operations.
+    /// Handles user profiles, department assignments, salaries, and approval of new users.
+    /// </summary>
     public class AccountService : IAccountService
     {
         private readonly IRepository repo;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountService"/> class.
+        /// </summary>
+        /// <param name="_repo">Repository interface for data access.</param>
         public AccountService(IRepository _repo)
         {
             repo = _repo;
         }
 
+        /// <summary>
+        /// Retrieves all users except HR Admins.
+        /// </summary>
+        /// <returns>A collection of displayed user models.</returns>
         public async Task<IEnumerable<DisplayedUserModel>> GetAllUsersAsync()
         {
             var users = await (
@@ -46,9 +58,20 @@ namespace HCMSystemApp.Core.Services
             return users;
         }
 
+        /// <summary>
+        /// Retrieves the profile of the current user by user ID.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>The displayed user model.</returns>
+        /// <exception cref="ArgumentException">Thrown if the user is not found.</exception>
         public async Task<DisplayedUserModel> GetCurrentUserProfile(string userId)
         {
             var user = await repo.GetByIdAsync<User>(userId);
+            if (user == null)
+            {
+                throw new ArgumentException("User not found.");
+            }
+
             var model = new DisplayedUserModel
             {
                 UserId = user.Id,
@@ -59,19 +82,18 @@ namespace HCMSystemApp.Core.Services
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsVerified = user.IsVerified,
-                Role = "" 
+                Role = ""
             };
-            if (user == null)
-            {
-                throw new ArgumentException("User not found.");
-            }
             return model;
         }
 
-
+        /// <summary>
+        /// Retrieves the profile of the current employee.
+        /// </summary>
+        /// <param name="userId">The ID of the employee's user account.</param>
+        /// <returns>The displayed employee model or null if not found.</returns>
         public async Task<DisplayedEmployeeModel?> GetCurrentEmployeeProfile(string userId)
         {
-            
             var allUsers = await GetAllUsersAsync();
             var currentUser = allUsers.FirstOrDefault(u => u.UserId == userId);
 
@@ -88,9 +110,9 @@ namespace HCMSystemApp.Core.Services
 
             var salary = await repo.All<Salary>()
                                    .FirstOrDefaultAsync(s => s.UserId == userId);
+
             if (employee.DepartmentId != null)
             {
-
                 return new DisplayedEmployeeModel
                 {
                     UserId = currentUser.UserId,
@@ -127,6 +149,10 @@ namespace HCMSystemApp.Core.Services
             }
         }
 
+        /// <summary>
+        /// Retrieves all employees who are not assigned to any department.
+        /// </summary>
+        /// <returns>A collection of employees without a department.</returns>
         public async Task<IEnumerable<DisplayedEmployeeModel>> GetEmployeesWithoutDepartmentAsync()
         {
             return await repo
@@ -149,6 +175,12 @@ namespace HCMSystemApp.Core.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Assigns a department to an employee.
+        /// </summary>
+        /// <param name="employeeId">The ID of the employee.</param>
+        /// <param name="departmentId">The ID of the department.</param>
+        /// <returns>True if assignment was successful, otherwise false.</returns>
         public async Task<bool> AssignDepartmentToEmployeeAsync(string employeeId, int departmentId)
         {
             var employee = await repo.All<Employee>()
@@ -161,7 +193,11 @@ namespace HCMSystemApp.Core.Services
             return true;
         }
 
-
+        /// <summary>
+        /// Updates the profile and salary of an employee.
+        /// </summary>
+        /// <param name="model">The employee model with updated information.</param>
+        /// <exception cref="ArgumentException">Thrown if the employee is not found.</exception>
         public async Task UpdateEmployeeAsync(DisplayedEmployeeModel model)
         {
             var employee = await repo.All<Employee>()
@@ -188,6 +224,13 @@ namespace HCMSystemApp.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Deletes an employee if they belong to the manager's department.
+        /// </summary>
+        /// <param name="userIdToDelete">The ID of the employee to delete.</param>
+        /// <param name="managerUserId">The ID of the manager performing the deletion.</param>
+        /// <returns>True if deletion was successful, otherwise false.</returns>
+        /// <exception cref="ArgumentException">Thrown if the manager is not found.</exception>
         public async Task<bool> DeleteEmployeeAsync(string userIdToDelete, string managerUserId)
         {
             var manager = await repo.All<Manager>()
@@ -202,7 +245,7 @@ namespace HCMSystemApp.Core.Services
                 .FirstOrDefaultAsync(e => e.UserId == userIdToDelete);
 
             if (employee == null || employee.DepartmentId != manager.Department.Id)
-                return false; 
+                return false;
 
             var salary = await repo.All<Salary>()
                 .FirstOrDefaultAsync(s => s.UserId == userIdToDelete);
@@ -227,11 +270,16 @@ namespace HCMSystemApp.Core.Services
             return true;
         }
 
+        /// <summary>
+        /// Deletes an employee who does not belong to any department.
+        /// </summary>
+        /// <param name="employeeId">The ID of the employee.</param>
+        /// <returns>True if deletion was successful, otherwise false.</returns>
         public async Task<bool> DeleteEmployeeWithoutDepartmentAsync(string employeeId)
         {
             var employee = await repo
-         .All<Employee>()
-         .FirstOrDefaultAsync(e => e.UserId == employeeId);
+                .All<Employee>()
+                .FirstOrDefaultAsync(e => e.UserId == employeeId);
 
             if (employee == null)
                 return false;
@@ -241,10 +289,7 @@ namespace HCMSystemApp.Core.Services
                 .Where(p => p.UserId == employee.UserId)
                 .ToListAsync();
 
-            foreach (var payroll in payrolls)
-            {
-                repo.Delete(payroll);
-            }
+            repo.DeleteRange(payrolls);
 
             var salary = await repo
                 .All<Salary>()
@@ -260,10 +305,7 @@ namespace HCMSystemApp.Core.Services
                 .Where(ur => ur.UserId == employee.UserId)
                 .ToListAsync();
 
-            foreach (var role in userRoles)
-            {
-                repo.Delete(role);
-            }
+            repo.DeleteRange(userRoles);
 
             repo.Delete(employee);
 
@@ -280,6 +322,11 @@ namespace HCMSystemApp.Core.Services
             return true;
         }
 
+        /// <summary>
+        /// Retrieves the profile of the current manager.
+        /// </summary>
+        /// <param name="userId">The ID of the manager's user account.</param>
+        /// <returns>The displayed manager model or null if not found.</returns>
         public async Task<DisplayedManagerModel> GetCurrentManagerProfile(string userId)
         {
             var allUsers = await GetAllUsersAsync();
@@ -315,6 +362,10 @@ namespace HCMSystemApp.Core.Services
             };
         }
 
+        /// <summary>
+        /// Retrieves all managers with their details.
+        /// </summary>
+        /// <returns>A collection of displayed manager models.</returns>
         public async Task<IEnumerable<DisplayedManagerModel>> GetAllManagersAsync()
         {
             var managers = await repo.All<Manager>()
@@ -340,6 +391,11 @@ namespace HCMSystemApp.Core.Services
             }).ToList();
         }
 
+        /// <summary>
+        /// Updates a manager's profile and salary.
+        /// </summary>
+        /// <param name="model">The manager model with updated information.</param>
+        /// <exception cref="ArgumentException">Thrown if the manager is invalid.</exception>
         public async Task EditManagerAsync(DisplayedManagerModel model)
         {
             var user = await repo.GetByIdAsync<User>(model.UserId);
@@ -362,7 +418,10 @@ namespace HCMSystemApp.Core.Services
             await repo.SaveChangesAsync();
         }
 
-
+        /// <summary>
+        /// Retrieves all users that are not yet verified.
+        /// </summary>
+        /// <returns>A collection of displayed user models.</returns>
         public async Task<IEnumerable<DisplayedUserModel>> GetAllNotVerifiedUsersAsync()
         {
             var users = repo.All<User>();
@@ -385,6 +444,11 @@ namespace HCMSystemApp.Core.Services
             return result;
         }
 
+        /// <summary>
+        /// Approves a new user by verifying their account, assigning a role, department, and salary.
+        /// </summary>
+        /// <param name="model">The input model containing approval details.</param>
+        /// <exception cref="ArgumentException">Thrown if the user, role, or department is invalid.</exception>
         public async Task ApproveUserAsync(ApproveUserInputModel model)
         {
             var user = await repo.GetByIdAsync<User>(model.UserId);
@@ -395,7 +459,6 @@ namespace HCMSystemApp.Core.Services
 
             user.IsVerified = true;
 
-            // Add to role
             var role = await repo.All<Role>().FirstOrDefaultAsync(r => r.Name == model.Role);
             if (role == null)
             {
@@ -409,7 +472,6 @@ namespace HCMSystemApp.Core.Services
             };
             await repo.AddAsync(userRole);
 
-            // Add to department and create Employee/Manager
             var department = await repo.GetByIdAsync<Department>(model.DepartmentId);
             if (department == null)
             {
@@ -422,12 +484,11 @@ namespace HCMSystemApp.Core.Services
                 {
                     UserId = user.Id,
                     DepartmentId = department.Id,
-                     Position = model.Position
+                    Position = model.Position
                 };
                 await repo.AddAsync(employee);
             }
 
-            // Add salary
             var salary = new Salary
             {
                 UserId = user.Id,
@@ -437,8 +498,5 @@ namespace HCMSystemApp.Core.Services
 
             await repo.SaveChangesAsync();
         }
-
-
-
     }
 }

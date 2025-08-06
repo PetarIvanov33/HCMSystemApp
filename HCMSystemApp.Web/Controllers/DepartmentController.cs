@@ -8,19 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HCMSystemApp.Web.Controllers
 {
+    /// <summary>
+    /// Controller for managing department-related operations for managers and HR admins.
+    /// </summary>
     public class DepartmentController : Controller
     {
         private readonly IAccountService accountService;
-
         private readonly IRoleService roleService;
-
         private readonly IDepartmentService departmentService;
-
         private readonly UserManager<User> userManager;
-
         private readonly SignInManager<User> signInManager;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DepartmentController"/> class.
+        /// </summary>
         public DepartmentController(
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
@@ -36,6 +37,13 @@ namespace HCMSystemApp.Web.Controllers
             departmentService = _departmentService;
         }
 
+        /// <summary>
+        /// Displays all employees in the current manager's or specified department.
+        /// </summary>
+        /// <param name="Id">
+        /// For HRAdmin: the manager's user ID to view their department.  
+        /// For Manager: ignored, department is retrieved from the logged-in manager's account.
+        /// </param>
         [Authorize(Roles = "Manager, HRAdmin")]
         public async Task<IActionResult> MyDepartment(string Id)
         {
@@ -49,7 +57,7 @@ namespace HCMSystemApp.Web.Controllers
             {
                 userId = Id;
             }
-            
+
             var department = await departmentService.GetDepartmentByManagerUserIdAsync(userId);
 
             if (department == null)
@@ -61,7 +69,5 @@ namespace HCMSystemApp.Web.Controllers
 
             return View("EmployeesOfDepartment", employees);
         }
-
-
     }
 }

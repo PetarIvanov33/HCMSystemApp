@@ -11,21 +11,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HCMSystemApp.Web.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Controller for HR Admin operations related to accounts, managers, and department assignments.
+    /// </summary>
     [Area("Admin")]
     [Authorize(Roles = "HRAdmin")]
     public class AccountAdminController : Controller
     {
         private readonly IAccountService accountService;
-
         private readonly IRoleService roleService;
-
         private readonly IDepartmentService departmentService;
-
         private readonly UserManager<User> userManager;
-
         private readonly SignInManager<User> signInManager;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountAdminController"/> class.
+        /// </summary>
         public AccountAdminController(
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
@@ -41,15 +42,20 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             departmentService = _departmentService;
         }
 
+        /// <summary>
+        /// Displays a list of all pending (not verified) users.
+        /// </summary>
         [Area("Admin")]
         public async Task<IActionResult> PendingUsers()
         {
             var users = await accountService.GetAllNotVerifiedUsersAsync();
-
             ViewBag.Departments = await departmentService.GetAllDepartments();
             return View("PendingUsers", users);
         }
 
+        /// <summary>
+        /// Displays the approval form for a specific user.
+        /// </summary>
         [HttpGet]
         [Area("Admin")]
         public async Task<IActionResult> ApproveUser(string id)
@@ -83,6 +89,9 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Processes the approval of a user.
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Area("Admin")]
@@ -91,7 +100,6 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-
                 ViewBag.Departments = new SelectList(await departmentService.GetAllDepartments(), "Id", "Name");
                 ViewBag.UserDetails = await accountService.GetCurrentUserProfile(model.UserId);
                 return View(model);
@@ -101,7 +109,7 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             {
                 await accountService.ApproveUserAsync(model);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while approving the user..");
                 ViewBag.Departments = new SelectList(await departmentService.GetAllDepartments(), "Id", "Name");
@@ -112,6 +120,9 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return RedirectToAction("PendingUsers");
         }
 
+        /// <summary>
+        /// Displays a list of all managers.
+        /// </summary>
         [HttpGet]
         [Area("Admin")]
         public async Task<IActionResult> AllManagers()
@@ -120,6 +131,9 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return View("AllManagers", model);
         }
 
+        /// <summary>
+        /// Displays the form for editing a manager's profile.
+        /// </summary>
         [HttpGet]
         [Area("Admin")]
         public async Task<IActionResult> EditManagerProfile(string id)
@@ -128,6 +142,9 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return View("EditManagerProfile", model);
         }
 
+        /// <summary>
+        /// Processes the editing of a manager's profile.
+        /// </summary>
         [HttpPost]
         [Area("Admin")]
         public async Task<IActionResult> EditManagerProfile(DisplayedManagerModel model)
@@ -142,19 +159,22 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return RedirectToAction("AllManagers");
         }
 
+        /// <summary>
+        /// Displays employees who are not assigned to any department.
+        /// </summary>
         [HttpGet]
         [Area("Admin")]
         public async Task<IActionResult> EmployeesWithoutDepartment()
         {
             var model = await accountService.GetEmployeesWithoutDepartmentAsync();
-
             var select = new SelectList(await departmentService.GetAllDepartmentsForSelect(), "Id", "Name");
-
             ViewBag.Departments = select;
-
             return View(model);
         }
 
+        /// <summary>
+        /// Assigns a department to an employee without one.
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AssignDepartment(string employeeId, int departmentId)
@@ -171,6 +191,9 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return RedirectToAction(nameof(EmployeesWithoutDepartment));
         }
 
+        /// <summary>
+        /// Deletes an employee who is not assigned to any department.
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteEmployeeWithoutDepartment(string id)
@@ -187,8 +210,9 @@ namespace HCMSystemApp.Web.Areas.Admin.Controllers
             return RedirectToAction(nameof(EmployeesWithoutDepartment));
         }
 
-
-
+        /// <summary>
+        /// Default action for the admin account area.
+        /// </summary>
         public IActionResult Index()
         {
             return View();

@@ -13,16 +13,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HCMSystemApp.Core.Services
 {
+    /// <summary>
+    /// Service for managing departments, managers, and related operations.
+    /// </summary>
     public class DepartmentService : IDepartmentService
     {
         private readonly IRepository repo;
         private readonly UserManager<User> userManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DepartmentService"/> class.
+        /// </summary>
+        /// <param name="_repo">Repository instance for data operations.</param>
+        /// <param name="_userManager">User manager for handling identity operations.</param>
         public DepartmentService(IRepository _repo, UserManager<User> _userManager)
         {
             repo = _repo;
             userManager = _userManager;
         }
+
+        /// <summary>
+        /// Gets all departments including their manager and employee count.
+        /// </summary>
+        /// <returns>A collection of <see cref="DepartmentViewModel"/>.</returns>
         public async Task<IEnumerable<DepartmentViewModel>> GetAllDepartments()
         {
             return await repo.AllReadonly<Department>()
@@ -38,9 +51,12 @@ namespace HCMSystemApp.Core.Services
                     UserIdOfManager = d.Manager.User.Id,
                     EmployeeCount = d.Employees.Count()
                 }).ToListAsync();
-
         }
 
+        /// <summary>
+        /// Gets all departments for dropdown/select purposes.
+        /// </summary>
+        /// <returns>A collection of <see cref="DepartmentDTO"/>.</returns>
         public async Task<IEnumerable<DepartmentDTO>> GetAllDepartmentsForSelect()
         {
             return await repo.AllReadonly<Department>()
@@ -49,9 +65,13 @@ namespace HCMSystemApp.Core.Services
                     Id = d.Id,
                     Name = d.Name
                 }).ToListAsync();
-
         }
 
+        /// <summary>
+        /// Gets a department by the manager's user ID.
+        /// </summary>
+        /// <param name="managerUserId">The manager's user ID.</param>
+        /// <returns>A <see cref="DepartmentViewModel"/> or null if not found.</returns>
         public async Task<DepartmentViewModel?> GetDepartmentByManagerUserIdAsync(string managerUserId)
         {
             return await repo.All<Department>()
@@ -71,6 +91,11 @@ namespace HCMSystemApp.Core.Services
                 .FirstOrDefaultAsync();
         }
 
+        /// <summary>
+        /// Gets employees by department ID.
+        /// </summary>
+        /// <param name="departmentId">The department ID.</param>
+        /// <returns>A collection of <see cref="DisplayedEmployeeModel"/>.</returns>
         public async Task<IEnumerable<DisplayedEmployeeModel>> GetEmployeesByDepartmentIdAsync(int departmentId)
         {
             return await repo.All<Employee>()
@@ -94,6 +119,12 @@ namespace HCMSystemApp.Core.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Updates the name of a department.
+        /// </summary>
+        /// <param name="departmentId">The department ID.</param>
+        /// <param name="newName">The new name of the department.</param>
+        /// <returns>True if update was successful, otherwise false.</returns>
         public async Task<bool> UpdateDepartmentNameAsync(int departmentId, string newName)
         {
             var department = await repo.GetByIdAsync<Department>(departmentId);
@@ -107,6 +138,12 @@ namespace HCMSystemApp.Core.Services
             return true;
         }
 
+        /// <summary>
+        /// Creates a new department and assigns a new manager to it.
+        /// </summary>
+        /// <param name="model">Model containing manager and department data.</param>
+        /// <returns>True if creation was successful, otherwise false.</returns>
+        /// <exception cref="ArgumentException">Thrown when role is invalid.</exception>
         public async Task<bool> CreateDepartmentWithManagerAsync(AddManagerAndDepartmentModel model)
         {
             var managerUser = new User
@@ -166,10 +203,14 @@ namespace HCMSystemApp.Core.Services
             await repo.SaveChangesAsync();
 
             return true;
-
-
         }
 
+        /// <summary>
+        /// Deletes a manager and their department.
+        /// Also unassigns employees from the department and deletes related data.
+        /// </summary>
+        /// <param name="managerId">The user ID of the manager.</param>
+        /// <returns>True if deletion was successful, otherwise false.</returns>
         public async Task<bool> DeleteManagerAndDepartmentAsync(string managerId)
         {
             var manager = await repo
@@ -217,7 +258,7 @@ namespace HCMSystemApp.Core.Services
             repo.Delete(manager);
 
             var userRoles = await repo
-                .All<UserRole>() 
+                .All<UserRole>()
                 .Where(ur => ur.UserId == managerId)
                 .ToListAsync();
 
@@ -239,7 +280,12 @@ namespace HCMSystemApp.Core.Services
             return true;
         }
 
-        public async Task<string?> GetEmployeeManager (string employeeUserId)
+        /// <summary>
+        /// Gets the manager user ID for a given employee.
+        /// </summary>
+        /// <param name="employeeUserId">The user ID of the employee.</param>
+        /// <returns>The manager's user ID, or null if not found.</returns>
+        public async Task<string?> GetEmployeeManager(string employeeUserId)
         {
             var manager = await repo.AllReadonly<Employee>()
                 .Include(e => e.Department)
@@ -250,7 +296,5 @@ namespace HCMSystemApp.Core.Services
             else
                 return null;
         }
-            
-
     }
 }

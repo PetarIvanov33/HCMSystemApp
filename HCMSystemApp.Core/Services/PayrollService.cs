@@ -12,16 +12,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HCMSystemApp.Core.Services
 {
+    /// <summary>
+    /// Service for managing payroll operations including salary retrieval,
+    /// payroll listing, and adding new payroll entries.
+    /// </summary>
     public class PayrollService : IPayrollService
     {
         private readonly IRepository repo;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PayrollService"/> class.
+        /// </summary>
+        /// <param name="_repo">Repository instance for database access.</param>
         public PayrollService(IRepository _repo)
         {
             repo = _repo;
-
         }
 
+        /// <summary>
+        /// Retrieves the salary information for a specific user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>A <see cref="SalaryViewModel"/> containing the gross salary.</returns>
         public async Task<SalaryViewModel> GetUserSalary(string userId)
         {
             var salary = await repo.AllReadonly<Salary>()
@@ -30,6 +42,10 @@ namespace HCMSystemApp.Core.Services
             return new SalaryViewModel { GrossSalary = salary.Amount };
         }
 
+        /// <summary>
+        /// Retrieves all payroll entries.
+        /// </summary>
+        /// <returns>A collection of <see cref="PayrollViewModel"/>.</returns>
         public async Task<IEnumerable<PayrollViewModel>> GetAllPayrollsAsync()
         {
             return await repo.AllReadonly<Payroll>()
@@ -47,12 +63,23 @@ namespace HCMSystemApp.Core.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Retrieves all payroll entries for a specific user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>A collection of <see cref="PayrollViewModel"/> belonging to the user.</returns>
         public async Task<IEnumerable<PayrollViewModel>> GetCurrentUserPayrollsAsync(string userId)
         {
             var allPayrolls = await GetAllPayrollsAsync();
-            return allPayrolls.Where(p => p.UserId == userId); 
+            return allPayrolls.Where(p => p.UserId == userId);
         }
 
+        /// <summary>
+        /// Adds a new payroll entry for a specific user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <param name="model">The payroll data to add.</param>
+        /// <returns>True if the payroll was successfully added, otherwise false.</returns>
         public async Task<bool> AddPayrollAsync(string userId, PayrollViewModel model)
         {
             var salary = await repo
@@ -63,7 +90,6 @@ namespace HCMSystemApp.Core.Services
                 return false;
 
             model.BaseSalary = salary.Amount;
-
             model.TaxAmount = (model.Bonus + model.BaseSalary) * 0.1m;
             model.NetAmount = (model.Bonus + model.BaseSalary) * 0.9m;
 
@@ -88,9 +114,5 @@ namespace HCMSystemApp.Core.Services
 
             return true;
         }
-
-
-
-
     }
 }

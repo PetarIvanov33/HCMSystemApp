@@ -1,4 +1,5 @@
-﻿using HCMSystemApp.Core.Contracts;
+﻿using System.Security.Claims;
+using HCMSystemApp.Core.Contracts;
 using HCMSystemApp.Core.Models.Users;
 using HCMSystemApp.Infrastructure.Data.Entities;
 using HCMSystemApp.Web.Models;
@@ -6,22 +7,23 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Security.Claims;
 
 namespace HCMSystemApp.Web.Controllers
 {
+    /// <summary>
+    /// Controller for managing account-related actions such as registration, login, logout, and profile management.
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly IAccountService accountService;
-
         private readonly IRoleService roleService;
-
         private readonly IDepartmentService departmentService;
-
         private readonly UserManager<User> userManager;
-
         private readonly SignInManager<User> signInManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
         public AccountController(
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
@@ -37,6 +39,9 @@ namespace HCMSystemApp.Web.Controllers
             departmentService = _departmentService;
         }
 
+        /// <summary>
+        /// Displays the registration form.
+        /// </summary>
         [HttpGet]
         public IActionResult Register()
         {
@@ -46,10 +51,12 @@ namespace HCMSystemApp.Web.Controllers
             }
 
             var model = new RegisterViewModel();
-
             return View(model);
         }
 
+        /// <summary>
+        /// Processes user registration.
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -81,6 +88,9 @@ namespace HCMSystemApp.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Displays the login form.
+        /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -91,10 +101,12 @@ namespace HCMSystemApp.Web.Controllers
             }
 
             var model = new LoginViewModel();
-
             return View(model);
         }
 
+        /// <summary>
+        /// Processes user login.
+        /// </summary>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -120,13 +132,18 @@ namespace HCMSystemApp.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Logs out the currently signed-in user.
+        /// </summary>
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
-
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Displays the profile of the currently logged-in employee.
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Employee")]
         public async Task<IActionResult> DisplayedProfileForEmployee()
@@ -142,12 +159,14 @@ namespace HCMSystemApp.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Displays the edit form for an employee profile.
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Manager, HRAdmin")]
         public async Task<IActionResult> EditEmployeeProfile(string id)
         {
             var employee = await accountService.GetCurrentEmployeeProfile(id);
-
             ViewBag.Departments = new SelectList(await departmentService.GetAllDepartmentsForSelect(), "Id", "Name");
 
             if (employee == null)
@@ -158,6 +177,9 @@ namespace HCMSystemApp.Web.Controllers
             return View(employee);
         }
 
+        /// <summary>
+        /// Processes the editing of an employee profile.
+        /// </summary>
         [HttpPost]
         [Authorize(Roles = "Manager, HRAdmin")]
         [ValidateAntiForgeryToken]
@@ -165,15 +187,6 @@ namespace HCMSystemApp.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //For debug
-                //foreach (var state in ModelState)
-                //{
-                //    string key = state.Key;
-                //    foreach (var error in state.Value.Errors)
-                //    {
-                //        Console.WriteLine($"Field: {key}, Error: {error.ErrorMessage}");
-                //    }
-                //}
                 return View(model);
             }
 
@@ -181,7 +194,7 @@ namespace HCMSystemApp.Web.Controllers
             {
                 await accountService.UpdateEmployeeAsync(model);
                 TempData["Success"] = "Employee profile updated successfully!";
-                return RedirectToAction("MyDepartment", "Department", new {Id = managerIdOfEmployee});
+                return RedirectToAction("MyDepartment", "Department", new { Id = managerIdOfEmployee });
             }
             catch (Exception ex)
             {
@@ -190,6 +203,9 @@ namespace HCMSystemApp.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes an employee from the system.
+        /// </summary>
         [HttpPost]
         [Authorize(Roles = "Manager, HRAdmin")]
         [ValidateAntiForgeryToken]
@@ -214,8 +230,9 @@ namespace HCMSystemApp.Web.Controllers
             return RedirectToAction("MyDepartment", "Department", new { Id = managerIdOfEmployee });
         }
 
-
-
+        /// <summary>
+        /// Displays the profile of the currently logged-in manager.
+        /// </summary>
         [HttpGet]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> DisplayedProfileForManager()
@@ -229,8 +246,5 @@ namespace HCMSystemApp.Web.Controllers
                 return NotFound();
             }
         }
-
-
-
     }
 }
