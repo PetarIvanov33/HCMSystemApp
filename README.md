@@ -1,8 +1,12 @@
-# HCMSystemApp
+# HCMSystemApp – Human Capital Management System
 
 ## Overview
 
-**HCMSystemApp** (Human Capital Management System App) is an ASP.NET Core MVC web application designed to manage human resources in an organization. It provides a centralized platform for administrating employees, managers, departments, salaries, vacations, and payrolls. The system supports role-based access and features for HR admins, managers, and employees.
+**HCMSystemApp** is a full-featured Human Capital Management (HCM) web application built with ASP.NET Core MVC.
+
+The system is designed to manage employees, departments, salaries, payrolls, and vacations within an organization, providing role-based access for HR administrators, managers, and employees.
+
+It focuses on clean architecture, real-world business logic, and scalable backend design.
 
 ---
 
@@ -33,7 +37,8 @@
 
 ### 🏖️ Vacations
 - Employees and managers can request vacations
-- Vacation requests are approved/declined by the responsible party (Manager or HR Admin)
+- Vacation requests are approved or declined by the responsible party (Manager or HR Admin)
+- Vacation records are managed within the system as part of the overall employee workflow
 
 ---
 
@@ -42,19 +47,31 @@
 - **Backend:** ASP.NET Core 8, C#
 - **Frontend:** ASP.NET Core MVC, Razor Pages, Bootstrap
 - **Database:** MS SQL Server + Entity Framework Core
-- **Authentication:** ASP.NET Identity
+- **Authentication:** ASP.NET Core Identity
 - **Architecture:** Layered architecture + Repository Pattern
-- **Seeding:** Configuration files for roles, users, departments, etc.
+- **Seeding:** Configuration files for roles, users, departments, and related entities
+
+---
+
+## 🧠 Architecture Highlights
+
+- Layered architecture with clear separation between presentation, business logic, and data access
+- Clear separation of concerns between services, repositories, and UI
+- Repository pattern for data abstraction
+- Service layer for business logic
+- ASP.NET Core Identity integration for authentication and authorization
+- Entity Framework Core for ORM and database management
+- Seed data configuration for fast local setup and testing
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 HCMSystemApp/
-├── HCMSystemApp.Web           # ASP.NET Core MVC (UI layer)
-├── HCMSystemApp.Core          # Interfaces, DTOs, Services, Models, Identity models
-├── HCMSystemApp.Infrastructure# Repositories, DbContext, Entity models, Seed data
+├── HCMSystemApp.Web            # ASP.NET Core MVC (UI layer)
+├── HCMSystemApp.Core           # Interfaces, DTOs, Services, Models, Identity models
+├── HCMSystemApp.Infrastructure # Repositories, DbContext, Entity models, Seed data
 ```
 
 ---
@@ -64,7 +81,7 @@ HCMSystemApp/
 1. **Clone the repository:**
 
 ```bash
-git clone [https://github.com/your-username/HCMSystemApp.git](https://github.com/PetarIvanov33/HCMSystemApp)
+git clone https://github.com/PetarIvanov33/HCMSystemApp.git
 ```
 
 2. **Apply migrations and initialize the database:**
@@ -81,9 +98,9 @@ dotnet run
 ```
 
 4. **Seed Data:**
-   - `HR Admin` user is seeded automatically
-   - Test roles: Employee, Manager, HR Admin
-   - Sample departments, employees, and managers included
+- `HR Admin` user is seeded automatically
+- Test roles: `Employee`, `Manager`, `HR Admin`
+- Sample departments, employees, payrolls, salaries, and managers are included
 
 ---
 
@@ -92,10 +109,10 @@ dotnet run
 The application comes with pre-seeded test users for each role.  
 You can use the following credentials to log in and test the system:
 
-| Role         | Username                | Password  |
-|--------------|-------------------------|-----------|
-| 👑 **HR Admin** | `admin@example.com`     | `123456!` |
-| 📂 **Manager**  | `manager@example.com`   | `123456!` |
+| Role | Username | Password |
+|------|----------|----------|
+| 👑 **HR Admin** | `admin@example.com` | `123456!` |
+| 📂 **Manager** | `manager@example.com` | `123456!` |
 | 👤 **Employee** | `employee1@example.com` | `123456!` |
 | 👤 **Employee** | `employee2@example.com` | `123456!` |
 
@@ -103,11 +120,11 @@ You can use the following credentials to log in and test the system:
 
 ## 🔐 Roles & Permissions
 
-| Role       | Permissions                                                                 |
-|------------|------------------------------------------------------------------------------|
-| HR Admin   | Approves users, assigns roles, departments, salaries, edits managers         |
-| Manager    | Manages employees in own department, issues payrolls, approves vacations     |
-| Employee   | Views profile, requests vacations, views payslips                            |
+| Role | Permissions |
+|------|-------------|
+| **HR Admin** | Approves users, assigns roles, departments, salaries, and edits managers |
+| **Manager** | Manages employees in their own department, issues payrolls, and handles vacation-related actions |
+| **Employee** | Views profile, accesses payslips, and interacts with personal system features |
 
 ---
 
@@ -117,7 +134,8 @@ You can use the following credentials to log in and test the system:
 - `Role` (Identity)
 - `UserRole` (Identity)
 - `Department`
-- `Employee`, `Manager` (extensions of User)
+- `Employee`
+- `Manager`
 - `Salary`
 - `Payroll`
 - `Vacation`
@@ -140,19 +158,27 @@ modelBuilder.ApplyConfiguration(new VacationConfiguration());
 
 ## 🔄 User Approval Workflow
 
-1. User registers
-2. HR Admin reviews pending account
+1. User registers in the system
+2. HR Admin reviews the pending account
 3. HR Admin assigns:
-   - Role (Employee or Manager)
-   - Department (if Employee → assigned to existing Manager)
+   - Role (`Employee` or `Manager`)
+   - Department
    - Starting salary
-4. User receives access based on assigned role
+4. The user receives access based on the assigned role and permissions
+
+---
+
+## 🚀 Purpose of the Project
+
+The purpose of this project is to demonstrate the implementation of a complete Human Capital Management system using modern .NET technologies and structured application architecture.
+
+It is focused on solving real-world HR and employee management scenarios through role-based access, business logic separation, and scalable backend design.
 
 ---
 
 ## 🤝 Contributors
 
-- Petar Ivanov – Architecture, Backend, Identity, UI
+- **Petar Ivanov** – Full system design, backend development, database architecture, authentication, business logic, and UI implementation
 
 ---
 
