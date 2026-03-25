@@ -158,4 +158,10 @@ modelBuilder.ApplyConfiguration(new VacationConfiguration());
 
 ## 📄 License
 
-This project is part of an internal assignment under UKG Human Capital Management and is not intended for public distribution.
+This is a personal project, fully designed and developed by me as part of my initiative to build a complete Human Capital Management (HCM) system.
+
+The goal of the project is to demonstrate practical skills in designing scalable web applications, working with real-world business logic, and implementing clean architecture using ASP.NET Core, Entity Framework Core, and SQL Server.
+
+It includes features such as employee management, department organization, payroll processing, vacation management with request and approval workflows, and role-based access control.
+
+This project reflects my own ideas, implementation decisions, and understanding of backend development concepts.
