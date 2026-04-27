@@ -4,6 +4,7 @@ using HCMSystemApp.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using HCMSystemApp.Core.Models.Vacation;
 
 namespace HCMSystemApp.Web.Controllers
 {
@@ -39,6 +40,76 @@ namespace HCMSystemApp.Web.Controllers
 
             var model = await vacationService.GetCurrentUserVacationAsync(userId);
             return View("MyVacations", model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Employee, Manager")]
+        public IActionResult RequestVacation()
+        {
+            var model = new VacationFormModel
+            {
+                StartDate = DateTime.Today.AddDays(1),
+                EndDate = DateTime.Today.AddDays(4)
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Employee, Manager")]
+        public async Task<IActionResult> RequestVacation(VacationFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            await vacationService.CreateVacationAsync(userId, model);
+
+            return RedirectToAction(nameof(MyVacations));
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Manager, HRAdmin")]
+        public async Task<IActionResult> PendingVacations()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            var isHrAdmin = User.IsInRole("HRAdmin");
+
+            var model = await vacationService.GetPendingVacationsForApprovalAsync(userId, isHrAdmin);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Manager, HRAdmin")]
+        public async Task<IActionResult> ApproveVacation(int id)
+        {
+            await vacationService.ApproveVacationAsync(id);
+
+            return RedirectToAction(nameof(PendingVacations));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Manager, HRAdmin")]
+        public async Task<IActionResult> RejectVacation(int id)
+        {
+            await vacationService.RejectVacationAsync(id);
+
+            return RedirectToAction(nameof(PendingVacations));
         }
     }
 }

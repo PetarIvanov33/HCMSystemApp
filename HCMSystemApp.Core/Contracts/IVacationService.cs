@@ -24,5 +24,13 @@ namespace HCMSystemApp.Core.Contracts
         /// <param name="userId">The ID of the user whose vacations to retrieve.</param>
         /// <returns>A collection of <see cref="VacationViewModel"/> representing the user's vacations.</returns>
         Task<IEnumerable<VacationViewModel>> GetCurrentUserVacationAsync(string userId);
+
+        Task CreateVacationAsync(string userId, VacationFormModel model);
+
+        Task<IEnumerable<VacationViewModel>> GetPendingVacationsForApprovalAsync(string userId, bool isHrAdmin);
+
+        Task ApproveVacationAsync(int vacationId);
+
+        Task RejectVacationAsync(int vacationId);
     }
 }

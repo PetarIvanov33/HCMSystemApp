@@ -1,0 +1,113 @@
+﻿@using HCMSystemApp.Core.Models.Vacation
+@model IEnumerable<VacationViewModel>
+
+@{
+    ViewData["Title"] = "Pending Vacations";
+}
+
+<style>
+    body {
+        background-image: url('https://static.wixstatic.com/media/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.jpg/v1/fill/w_1440,h_886,al_c,q_85,usm_0.66_1.00_0.01/0d7556_23c47900d20e43c391937ee6a8293f17~mv2.webp');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+
+    .vacation-container {
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 1000px;
+        margin: 100px auto;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .vacation-card {
+        background-color: rgba(255, 255, 255, 0.92);
+        border-radius: 12px;
+        padding: 20px 30px;
+        margin-bottom: 25px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .vacation-label {
+        font-weight: bold;
+        color: #555;
+    }
+
+    .no-vacation {
+        text-align: center;
+        font-size: 1.3rem;
+        color: #666;
+        margin-top: 50px;
+    }
+
+    .btn-approve {
+        background-color: #198754;
+        color: white;
+        font-weight: 600;
+        padding: 8px 18px;
+        border-radius: 8px;
+        border: none;
+        margin-right: 10px;
+    }
+
+    .btn-reject {
+        background-color: #dc3545;
+        color: white;
+        font-weight: 600;
+        padding: 8px 18px;
+        border-radius: 8px;
+        border: none;
+    }
+
+    .btn-approve:hover {
+        background-color: #157347;
+    }
+
+    .btn-reject:hover {
+        background-color: #bb2d3b;
+    }
+</style>
+
+<div class="vacation-container">
+    <h2 class="text-center text-dark fw-bold mb-4">Pending Vacation Requests</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="no-vacation">
+            <p>There are no pending vacation requests.</p>
+        </div>
+    }
+    else
+    {
+        foreach (var vacation in Model)
+        {
+            <div class="vacation-card">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p><span class="vacation-label">Requested by:</span> @vacation.UserFullName</p>
+                        <p><span class="vacation-label">Email:</span> @vacation.UserEmail</p>
+                        <p><span class="vacation-label">Period:</span> @vacation.StartDate – @vacation.EndDate</p>
+                        <p><span class="vacation-label">Reason:</span> @vacation.Reason</p>
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        <form asp-area="" asp-controller="Vacation" asp-action="ApproveVacation" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@vacation.Id" />
+                            <button type="submit" class="btn-approve">Approve</button>
+                        </form>
+
+                        <form asp-area="" asp-controller="Vacation" asp-action="RejectVacation" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@vacation.Id" />
+                            <button type="submit" class="btn-reject">Reject</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
