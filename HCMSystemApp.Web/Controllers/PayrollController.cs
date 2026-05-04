@@ -22,7 +22,7 @@ namespace HCMSystemApp.Web.Controllers
         /// <param name="_departmentService">Service for handling department-related operations.</param>
         public PayrollController(IPayrollService _payrollService, IDepartmentService _departmentService)
         {
-            payrollService = _payrollService;
+            payrollService = _payrollService; 
             departmentService = _departmentService;
         }
 
